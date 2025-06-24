@@ -238,14 +238,18 @@
 
 .portfolio-item {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  margin: 2px;
 }
 
 .portfolio-item:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-2px) scale(1.005);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 @media (min-width: 768px) {
   .portfolio-item:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(239, 68, 68, 0.5);
   }
 }

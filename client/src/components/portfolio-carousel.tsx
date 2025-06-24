@@ -141,13 +141,13 @@ export function PortfolioCarousel() {
         <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-6 scroll-smooth px-4 md:px-0"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-2 scroll-smooth px-4 md:px-0"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             {portfolioItems.map((item) => (
-              <div key={item.id} className="portfolio-item flex-none w-72 md:w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
+              <div key={item.id} className="portfolio-item flex-none w-72 md:w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500">
                 <div className="relative overflow-hidden h-40 md:h-48 flex items-center justify-center bg-gradient-to-br from-red-600/20 to-red-700/20">
                   <i className={`${item.icon} text-5xl md:text-6xl text-red-500 transition-transform duration-500 hover:scale-110`}></i>
                 </div>
