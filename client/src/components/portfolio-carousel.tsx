@@ -138,22 +138,22 @@ export function PortfolioCarousel() {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-6 scroll-smooth"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-6 scroll-smooth px-4 md:px-0"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             {portfolioItems.map((item) => (
-              <div key={item.id} className="portfolio-item flex-none w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
-                <div className="relative overflow-hidden h-48 flex items-center justify-center bg-gradient-to-br from-red-600/20 to-red-700/20">
-                  <i className={`${item.icon} text-6xl text-red-500 transition-transform duration-500 hover:scale-110`}></i>
+              <div key={item.id} className="portfolio-item flex-none w-72 md:w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
+                <div className="relative overflow-hidden h-40 md:h-48 flex items-center justify-center bg-gradient-to-br from-red-600/20 to-red-700/20">
+                  <i className={`${item.icon} text-5xl md:text-6xl text-red-500 transition-transform duration-500 hover:scale-110`}></i>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{item.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{item.description}</p>
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{item.title}</h3>
+                  <p className="text-sm md:text-base text-gray-400 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}

@@ -241,5 +241,11 @@
 }
 
 .portfolio-item:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-4px) scale(1.01);
+}
+
+@media (min-width: 768px) {
+  .portfolio-item:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
 }
