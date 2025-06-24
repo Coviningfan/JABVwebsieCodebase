@@ -1,0 +1,40 @@
+import { useSmoothScroll } from '@/hooks/use-smooth-scroll';
+
+export function HeroSection() {
+  const { scrollToSection } = useSmoothScroll();
+
+  return (
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Build Your Future with
+            <span className="gradient-text block mt-2">JABV Labs</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            Expert App & Web Development from Reno, Nevada
+          </p>
+          <div className="space-x-4">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+            >
+              Get a Quote
+            </button>
+            <button 
+              onClick={() => scrollToSection('portfolio')}
+              className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300"
+            >
+              View Portfolio
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-red-600/20 rounded-full animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-white/10 rounded-full animate-float" style={{animationDelay: '-2s'}}></div>
+    </section>
+  );
+}
