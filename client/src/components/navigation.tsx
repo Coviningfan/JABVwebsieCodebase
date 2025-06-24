@@ -27,10 +27,12 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold">
-              <span className="text-white">JABV</span>
-              <span className="gradient-text">Labs</span>
-            </h1>
+            <a href="/" className="block">
+              <h1 className="text-2xl font-bold cursor-pointer">
+                <span className="text-white">JABV</span>
+                <span className="gradient-text">Labs</span>
+              </h1>
+            </a>
           </div>
           
           {/* Desktop Menu */}
@@ -101,12 +103,12 @@ export function Navigation() {
             >
               About
             </button>
-            <button 
-              onClick={() => handleNavClick('contact')}
+            <a 
+              href="/contact"
               className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
             >
               Contact
-            </button>
+            </a>
           </div>
         </div>
       )}

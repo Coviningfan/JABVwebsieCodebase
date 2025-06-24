@@ -22,6 +22,22 @@ const frameworks = [
   { icon: "fas fa-fire", name: "Express.js", color: "text-yellow-500" }
 ];
 
+const cloudPlatforms = [
+  { icon: "fab fa-aws", name: "AWS", color: "text-orange-400" },
+  { icon: "fab fa-google", name: "Google Cloud", color: "text-blue-400" },
+  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-600" },
+  { icon: "fas fa-server", name: "Vercel", color: "text-gray-300" },
+  { icon: "fas fa-cloud", name: "Netlify", color: "text-green-400" },
+  { icon: "fab fa-digital-ocean", name: "DigitalOcean", color: "text-blue-500" }
+];
+
+const techStack = [
+  { category: "Languages", items: programmingLanguages },
+  { category: "Frameworks", items: frameworks },
+  { category: "Cloud & DevOps", items: cloudPlatforms },
+  { category: "AI & Machine Learning", items: mlTech }
+];
+
 const cloudTech = [
   { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" },
   { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
