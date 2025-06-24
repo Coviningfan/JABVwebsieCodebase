@@ -5,61 +5,61 @@ const portfolioItems = [
     id: 1,
     title: "FinTech Mobile App",
     description: "iOS & Android banking solution with biometric security",
-    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-university"
   },
   {
     id: 2,
     title: "E-Commerce Platform",
     description: "Cross-platform shopping app with AR integration",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-shopping-cart"
   },
   {
     id: 3,
     title: "HealthTech Solution",
     description: "Patient management system with telemedicine features",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-heartbeat"
   },
   {
     id: 4,
     title: "Fitness Tracker",
     description: "Wearable-connected app with custom workout plans",
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-dumbbell"
   },
   {
     id: 5,
     title: "Social Platform",
     description: "Community-driven app with real-time messaging",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-users"
   },
   {
     id: 6,
     title: "Food Delivery App",
     description: "Multi-restaurant platform with live tracking",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-utensils"
   },
   {
     id: 7,
     title: "Corporate Website",
     description: "Enterprise-grade website with modern design",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-building"
   },
   {
     id: 8,
     title: "Real Estate Platform",
     description: "Property management system with virtual tours",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-home"
   },
   {
     id: 9,
     title: "Education Portal",
     description: "Learning management system with interactive content",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-graduation-cap"
   },
   {
     id: 10,
     title: "Travel Booking App",
     description: "Complete travel solution with booking and itinerary management",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    icon: "fas fa-plane"
   }
 ];
 
@@ -148,13 +148,8 @@ export function PortfolioCarousel() {
           >
             {portfolioItems.map((item) => (
               <div key={item.id} className="portfolio-item flex-none w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative overflow-hidden h-48 flex items-center justify-center bg-gradient-to-br from-red-600/20 to-red-700/20">
+                  <i className={`${item.icon} text-6xl text-red-500 transition-transform duration-500 hover:scale-110`}></i>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{item.title}</h3>

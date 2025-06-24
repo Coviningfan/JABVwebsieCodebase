@@ -37,12 +37,6 @@ export function HeroSection() {
             >
               Get a Quote
             </a>
-            <button 
-              onClick={() => scrollToSection('portfolio')}
-              className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300"
-            >
-              View Portfolio
-            </button>
           </div>
         </div>
       </div>
