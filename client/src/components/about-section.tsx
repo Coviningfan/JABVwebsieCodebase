@@ -120,9 +120,9 @@ export function AboutSection() {
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-right space-x-6">
-                {[...programmingLanguages, ...programmingLanguages].map((tech, index) => (
+                {[...programmingLanguages, ...programmingLanguages, ...programmingLanguages].map((tech, index) => (
                   <div 
-                    key={index}
+                    key={`lang-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
                     <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
@@ -138,9 +138,9 @@ export function AboutSection() {
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Frameworks & Libraries</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-left space-x-6">
-                {[...frameworks, ...frameworks].map((tech, index) => (
+                {[...frameworks, ...frameworks, ...frameworks].map((tech, index) => (
                   <div 
-                    key={index}
+                    key={`framework-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
                     <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
@@ -156,9 +156,9 @@ export function AboutSection() {
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Cloud & Database Technologies</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-right space-x-6">
-                {[...cloudTech, ...cloudTech].map((tech, index) => (
+                {[...cloudTech, ...cloudTech, ...cloudTech].map((tech, index) => (
                   <div 
-                    key={index}
+                    key={`cloud-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
                     <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
@@ -174,9 +174,9 @@ export function AboutSection() {
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-left space-x-6">
-                {[...mlTech, ...mlTech].map((tech, index) => (
+                {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
                   <div 
-                    key={index}
+                    key={`ml-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
                     <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>

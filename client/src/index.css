@@ -23,7 +23,7 @@
   --destructive-foreground: hsl(0, 0%, 100%);
   --ring: hsl(0, 72.2%, 50.6%);
   --radius: 0.75rem;
-  
+
   /* JABV Labs Custom Colors */
   --jabv-red: hsl(0, 72.2%, 50.6%);
   --jabv-dark: hsl(0, 0%, 0%);
@@ -62,7 +62,7 @@
     @apply font-sans antialiased bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
@@ -75,17 +75,17 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .glass-effect {
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.8);
   }
-  
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -132,10 +132,12 @@
 
   .animate-scroll-right {
     animation: scroll-right 30s linear infinite;
+    will-change: transform;
   }
 
   .animate-scroll-left {
     animation: scroll-left 30s linear infinite;
+    will-change: transform;
   }
 
   /* Background animation */
