@@ -17,12 +17,12 @@ const portfolioItems = [
     id: 3,
     title: "HealthTech Solution",
     description: "Patient management system with telemedicine features",
-    image: "https://pixabay.com/get/ge2641a42fd24a2e091a86e9d773f798d1aebfd9944296c02b57cfee5fda17681a4ed01915f4330de96c20bdd1ec709e11d2ea148da4e3df9feabb41050759a49_1280.jpg"
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   },
   {
     id: 4,
     title: "Fitness Tracker",
-    description: "Wearable-connected app with AI workout recommendations",
+    description: "Wearable-connected app with custom workout plans",
     image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   },
   {
@@ -35,19 +35,31 @@ const portfolioItems = [
     id: 6,
     title: "Food Delivery App",
     description: "Multi-restaurant platform with live tracking",
-    image: "https://pixabay.com/get/g2f8e403e2d5a7611bca7a705431b9ccfafdb45ee6b1d98cc4feda639610b4c68668a8123e4482b12e6d836146c0ec25408447617bf77ff03f5a3e75a00fd1873_1280.jpg"
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   },
   {
     id: 7,
     title: "Corporate Website",
-    description: "Enterprise-grade website with dark theme design",
+    description: "Enterprise-grade website with modern design",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   },
   {
     id: 8,
-    title: "AI Analytics Dashboard",
-    description: "Machine learning insights platform",
-    image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+    title: "Real Estate Platform",
+    description: "Property management system with virtual tours",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+  },
+  {
+    id: 9,
+    title: "Education Portal",
+    description: "Learning management system with interactive content",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+  },
+  {
+    id: 10,
+    title: "Travel Booking App",
+    description: "Complete travel solution with booking and itinerary management",
+    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
   }
 ];
 
@@ -62,10 +74,11 @@ export function PortfolioCarousel() {
         if (carouselRef.current) {
           const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
           setScrollAmount(prev => {
+            // Create infinite loop by resetting to 0 when reaching the end
             const newAmount = prev >= maxScroll ? 0 : prev + scrollStep;
             carouselRef.current?.scrollTo({
               left: newAmount,
-              behavior: 'smooth'
+              behavior: newAmount === 0 ? 'auto' : 'smooth' // Instant reset, smooth scroll otherwise
             });
             return newAmount;
           });
@@ -116,11 +129,11 @@ export function PortfolioCarousel() {
   const handleNext = () => {
     if (carouselRef.current) {
       const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-      const newAmount = Math.min(scrollAmount + scrollStep, maxScroll);
+      const newAmount = scrollAmount >= maxScroll ? 0 : scrollAmount + scrollStep;
       setScrollAmount(newAmount);
       carouselRef.current.scrollTo({
         left: newAmount,
-        behavior: 'smooth'
+        behavior: newAmount === 0 ? 'auto' : 'smooth'
       });
     }
   };

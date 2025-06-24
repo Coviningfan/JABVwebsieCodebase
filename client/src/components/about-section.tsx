@@ -65,10 +65,10 @@ export function AboutSection() {
               Founded in the innovative tech ecosystem of Reno, Nevada, JABV Labs emerged from a passion for creating digital solutions that make a real impact. We believe that great technology should be both powerful and intuitive, solving complex problems with elegant simplicity.
             </p>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. From startups to enterprise solutions, we've helped businesses across industries transform their digital presence.
+              Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. We specialize in custom-built solutions from the ground up - no templates, no shortcuts, just pure innovation tailored to your business needs.
             </p>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results.
+              Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results. We believe in crafting premium digital experiences that stand apart from cookie-cutter solutions.
             </p>
             
             {/* Location Highlight */}
@@ -87,7 +87,7 @@ export function AboutSection() {
           <div className="bg-gradient-to-r from-red-600/20 to-transparent p-12 rounded-2xl max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold mb-6">Our Mission</h3>
             <p className="text-xl text-gray-300 leading-relaxed">
-              "Delivering innovative digital solutions that empower businesses to thrive in the digital age. We combine cutting-edge technology with human-centered design to create applications and websites that don't just function—they inspire."
+              "Delivering innovative digital solutions that empower businesses to thrive in the digital age. We combine cutting-edge technology with human-centered design to create applications and websites that don't just function—they inspire. Every solution is custom-built, never templated."
             </p>
           </div>
         </div>
@@ -99,67 +99,75 @@ export function AboutSection() {
             <p className="text-gray-400">Comprehensive expertise across the full technology spectrum</p>
           </div>
           
-          {/* Programming Languages */}
+          {/* Programming Languages Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {programmingLanguages.map((tech, index) => (
-                <div 
-                  key={index}
-                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                >
-                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-right space-x-6">
+                {[...programmingLanguages, ...programmingLanguages].map((tech, index) => (
+                  <div 
+                    key={index}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Frameworks & Libraries */}
+          {/* Frameworks & Libraries Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Frameworks & Libraries</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {frameworks.map((tech, index) => (
-                <div 
-                  key={index}
-                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                >
-                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-left space-x-6">
+                {[...frameworks, ...frameworks].map((tech, index) => (
+                  <div 
+                    key={index}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Cloud & Database Technologies */}
+          {/* Cloud & Database Technologies Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Cloud & Database Technologies</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {cloudTech.map((tech, index) => (
-                <div 
-                  key={index}
-                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                >
-                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-right space-x-6">
+                {[...cloudTech, ...cloudTech].map((tech, index) => (
+                  <div 
+                    key={index}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Machine Learning & AI */}
+          {/* Machine Learning & AI Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {mlTech.map((tech, index) => (
-                <div 
-                  key={index}
-                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                >
-                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-left space-x-6">
+                {[...mlTech, ...mlTech].map((tech, index) => (
+                  <div 
+                    key={index}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

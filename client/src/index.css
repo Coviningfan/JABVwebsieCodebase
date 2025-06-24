@@ -110,6 +110,85 @@
     color: #ef4444;
     text-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
   }
+
+  /* Carousel animations */
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-scroll-right {
+    animation: scroll-right 30s linear infinite;
+  }
+
+  .animate-scroll-left {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  /* Background animation */
+  .animated-bg {
+    background: linear-gradient(-45deg, #000000, #1a1a1a, #0f0f0f, #262626);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Floating particles */
+  .floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(220, 38, 38, 0.1);
+    border-radius: 50%;
+    animation: float-particle 20s infinite linear;
+  }
+
+  @keyframes float-particle {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 }
 
 @keyframes fadeIn {

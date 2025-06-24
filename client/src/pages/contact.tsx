@@ -214,8 +214,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm mb-1">Phone</p>
-                      <a href="tel:+1-775-555-0123" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
-                        +1 (775) 555-0123
+                      <a href="tel:+1-775-800-5850" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
+                        +1 (775) 800-5850
                       </a>
                     </div>
                   </div>
@@ -226,8 +226,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm mb-1">Email</p>
-                      <a href="mailto:hello@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
-                        hello@jabvlabs.com
+                      <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
+                        contact@jabvlabs.com
                       </a>
                     </div>
                   </div>

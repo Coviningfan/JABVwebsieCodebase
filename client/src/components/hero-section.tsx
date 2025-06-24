@@ -4,8 +4,23 @@ export function HeroSection() {
   const { scrollToSection } = useSmoothScroll();
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black"></div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden animated-bg">
+      <div className="floating-particles">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 6 + 2}px`,
+              height: `${Math.random() * 6 + 2}px`,
+              animationDelay: `${Math.random() * 20}s`,
+              animationDuration: `${Math.random() * 10 + 15}s`,
+            }}
+          />
+        ))}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-neutral-900/60 to-black/80"></div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">

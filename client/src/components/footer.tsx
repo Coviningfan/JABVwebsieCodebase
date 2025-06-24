@@ -44,13 +44,13 @@ export function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="tel:+1-775-555-0123" className="hover:text-red-600 transition-colors duration-200">
-                  +1 (775) 555-0123
+                <a href="tel:+1-775-800-5850" className="hover:text-red-600 transition-colors duration-200">
+                  +1 (775) 800-5850
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@jabvlabs.com" className="hover:text-red-600 transition-colors duration-200">
-                  hello@jabvlabs.com
+                <a href="mailto:contact@jabvlabs.com" className="hover:text-red-600 transition-colors duration-200">
+                  contact@jabvlabs.com
                 </a>
               </li>
               <li>Reno, Nevada, USA</li>
@@ -59,7 +59,7 @@ export function Footer() {
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 JABV Labs. All rights reserved. Built with passion in Reno, Nevada.</p>
+          <p>&copy; 2025 JABV Holdings LLC. All rights reserved. Built with passion in Reno, Nevada.</p>
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@ const services = [
     id: 1,
     icon: "fas fa-mobile-alt",
     title: "Mobile App Development",
-    description: "Create powerful iOS and Android applications with native performance and stunning user experiences.",
+    description: "Create powerful iOS and Android applications with native performance and stunning user experiences. Custom-built from scratch, no templates.",
     features: [
       "Native iOS & Android",
       "Cross-platform solutions",
@@ -15,7 +15,7 @@ const services = [
     id: 2,
     icon: "fas fa-globe",
     title: "Interactive Websites",
-    description: "Build modern, responsive websites that engage users and drive conversions with cutting-edge technologies.",
+    description: "Build modern, responsive websites that engage users and drive conversions. Professionally coded, not drag-and-drop builders.",
     features: [
       "Responsive design",
       "Modern frameworks",
@@ -27,7 +27,7 @@ const services = [
     id: 3,
     icon: "fas fa-palette",
     title: "Website Redesigns",
-    description: "Transform your existing website into a modern, high-performing digital experience that converts visitors.",
+    description: "Transform your existing website into a modern, high-performing digital experience. Complete overhaul, not patch fixes.",
     features: [
       "UX/UI improvements",
       "Performance optimization",

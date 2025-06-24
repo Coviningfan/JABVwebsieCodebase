@@ -110,10 +110,23 @@ This is a full-stack web application for JABV Labs, a web and mobile app develop
 ```
 Changelog:
 - June 24, 2025. Initial setup
+- June 24, 2025. Enhanced website with Apple-inspired design:
+  - Added carousel-style technology showcases with scrolling animations
+  - Implemented background animations with floating particles
+  - Updated contact information (775-800-5850, contact@jabvlabs.com)
+  - Added anti-template messaging emphasizing custom development
+  - Created separate Contact page with premium glass effects
+  - Enhanced portfolio carousel with infinite scroll functionality
+  - Updated copyright to 2025 JABV Holdings LLC
+  - Added comprehensive technology categories (40+ languages, frameworks, cloud, ML/AI)
 ```
 
 ## User Preferences
 
 ```
 Preferred communication style: Simple, everyday language.
+Marketing focus: Emphasize custom development, avoid AI/template references.
+Contact: Phone (775) 800-5850, Email contact@jabvlabs.com
+Company: JABV Holdings LLC (2025)
+Design preference: Apple-inspired, red/black theme, professional animations
 ```
