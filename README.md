@@ -1,77 +1,180 @@
-JABV Labs Website Project
+JABV Labs - Portfolio Website
+
+Description
+
+This is a full-stack web application for JABV Labs, a web and mobile app development company based in Reno, Nevada. The application features a modern, dark-themed portfolio website with a contact form and showcases the company's services and projects. Designed with an Apple-inspired aesthetic, the site uses a red and black color palette with professional animations, offering a clean, responsive interface for businesses and individuals seeking custom mobile app development (iOS/Android), interactive websites, and website redesigns. Hosted securely with a wildcard SSL certificate, the site is live at https://jabvlabs.com, with full subdomain (www.jabvlabs.com) functionality pending DNS propagation (expected by June 24-25, 2025). This project emphasizes bespoke development solutions, steering clear of AI-generated or template-based services, and is poised to attract US clients with optimized content and local SEO strategies.
+
 Overview
-Welcome to the JABV Labs website project! This repository contains the source code for a professional, interactive website for JABV Labs, a US-based full-stack development company headquartered in Reno, Nevada. The site targets businesses and individuals seeking mobile app development (iOS/Android), modern interactive websites, and website redesigns. The design is inspired by Apple’s sleek, modern aesthetic, featuring a red and black dark theme with engaging, self-guiding layouts.
-Project Goals
 
-Create a clean, responsive website using Tailwind CSS and vanilla JavaScript.
-Showcase services: Mobile App Development, Interactive Websites, and Website Redesigns.
-Ensure a premium user experience with psychological color and layout design.
-Secure the site with HTTPS and optimize for search engine visibility, targeting Reno and broader US markets.
+JABV Labs is committed to delivering innovative digital solutions through custom web and mobile app development. This portfolio website serves as a showcase of our expertise, featuring a sleek dark theme with red accents, infinite-scrolling project carousels, and detailed service pages. The site is built to engage visitors with a self-guiding layout, leveraging psychological design principles for a premium user experience.
 
-Tech Stack
+System Architecture
 
-Frontend: HTML, CSS (Tailwind CSS), vanilla JavaScript.
-Design Inspiration: Apple.com (e.g., Store section) for elegance and intuitiveness.
-Hosting: Render (custom domain jabvlabs.com).
-Domain: Managed via IONOS with A record (216.24.57.1) and CNAME (www to jabvwebsiecodebase.onrender.com).
-SSL: IONOS-managed wildcard SSL (*.jabvlabs.com) with Render-issued certificates.
+Frontend Architecture
 
-Setup Instructions
+Framework: React 18 with TypeScript for type safety and scalability.
 
-Clone the Repository: git clone <repository-url> (replace with your repo URL).
-Install Dependencies: No external packages required—uses vanilla JS and Tailwind CSS (included in HTML via CDN).
-Run Locally: Open index.html in a modern browser (e.g., Chrome, Firefox) for a static preview.
-Deploy: Push changes to Render via the configured Git integration (contact support if needed).
+Styling: Tailwind CSS with shadcn/ui components for a utility-first, customizable design.
 
-Development Process
-Initial Design and Features
+Routing: Wouter for lightweight client-side navigation.
 
-Homepage: Features a hero section with "Build Your Future with JABV Labs" headline, "Expert App & Web Development" subtitle, and a "Get a Quote" CTA button. Includes an infinite-scrolling portfolio carousel with 10 mockup examples.
-Services Page: Three sections for app development, interactive websites, and redesigns, each with icons, descriptions, and "Learn More" buttons with hover animations.
-About Page: Showcases a brief company story (placeholder text), a tech stack carousel (40+ languages, frameworks, cloud platforms, ML tools), and mission statement ("Delivering innovative digital solutions").
-Contact Page: Separate page with an interactive form (name, email, message) featuring validation and a success message on submit, plus clickable phone (775) 800-5850 and email contact@jabvlabs.com.
-Navigation: Sticky header with "JABV Labs" logo, menu (Home, Services, About, Contact), and mobile-friendly hamburger menu. Buttons highlight red with white underlines on hover.
-Footer: Links to services, contact info, and social media icons (Twitter, LinkedIn), with copyright © 2025 JABV Holdings LLC.
+State Management: TanStack Query (React Query) for efficient server state handling.
 
-Enhancements
+Form Handling: React Hook Form with Zod validation for robust form management.
 
-Design Refinement: Shifted to a red and black dark theme with subtle gradients, backdrop blur, and floating particle animations for a modern, Apple-inspired look.
-Service Pages: Added dedicated pages for Mobile App Development, Interactive Websites, and Website Redesigns, each with headlines, intros, "Why Choose Us" sections, processes, key features (e.g., Native iOS/Android, Responsive Design), tech stacks (JavaScript, React Native, Next.js, PostgreSQL), and "Get a Quote" CTAs.
-Interactivity: Implemented smooth scrolling, infinite carousel loops, and hover effects using vanilla JS.
-Marketing Focus: Emphasized custom development, avoiding mention of AI-built or template services (e.g., WordPress, WIX).
+Build Tool: Vite for fast development and production builds.
 
-Challenges and Solutions
+Backend Architecture
 
-DNS Configuration: Initial conflicts with IONOS’s "Default Site" records were resolved by updating A and CNAME records. Domain Guard was managed to allow changes.
-SSL Setup: Manual CSR generation was unnecessary due to IONOS’s managed wildcard SSL, confirmed active.
-Development Bugs: Fixed JavaScript errors (e.g., mlTech variable) and optimized UX with Replit agent assistance.
+Runtime: Node.js with Express.js for a lightweight server.
+Language: TypeScript with ES modules for type-safe code.
+Database: PostgreSQL with Drizzle ORM for structured, type-safe queries.
+Database Provider: Neon Database (serverless PostgreSQL) for scalability.
+Validation: Zod schemas for data integrity.
+Development: Hot module replacement with Vite integration.
+UI Component System
+Design System: shadcn/ui with Radix UI primitives for accessible, reusable components.
+Theme: Dark theme with red accent colors, inspired by Apple’s modern design.
+Typography: Inter font family for clean, professional text.
+Icons: Font Awesome and Lucide React for elegant, precise visuals.
+Responsive Design: Mobile-first approach using Tailwind breakpoints.
 
-Current Status
+Key Components
+Database Schema:
+Users Table: Basic authentication (id, username, password).
+Contacts Table: Stores form submissions (id, name, email, projectType, message, createdAt).
+Location: Defined in shared/schema.ts with Drizzle ORM.
+Storage Layer:
+Interface: IStorage for CRUD operations.
+Implementation: MemStorage class for in-memory storage (development).
+Location: server/storage.ts.
 
-Live: https://jabvlabs.com is accessible via the propagated A record.
-Pending: https://www.jabvlabs.com awaits full CNAME propagation (expected by 09:25 PM PDT, Tuesday, June 24, or Wednesday, June 25, 2025).
-Features: All pages are functional with recent updates (e.g., navigation routing, service links) deployed on Render.
+Frontend Pages:
 
-SEO Strategy
+Home Page: Features navigation, hero section, portfolio carousel, services, about, and contact sections.
+404 Page: Custom not found page for user guidance.
+API Structure:
+Routes: Defined in server/routes.ts (currently empty, ready for expansion).
+Prefix: All routes use /api prefix.
+Error Handling: Global middleware for robust error management.
+Data Flow:
+Client Requests: React components use TanStack Query for API calls.
+API Layer: Express.js handles requests with route handlers.
+Storage Layer: Abstracts database operations via the storage interface.
+Database: PostgreSQL with Drizzle ORM.
+Response: JSON sent back to the client.
+State Management: TanStack Query handles caching and synchronization.
+External Dependencies
 
-Keywords: Targeting “Reno app development,” “Reno web design,” “Reno website redesign,” and “affordable app development Reno.”
-On-Page: Plan to update titles, meta descriptions, and headings with keywords post-propagation.
-Technical: Will optimize load speed, ensure mobile-friendliness, and submit to Google Search Console.
-Local: Intends to claim a Google Business Profile and add NAP (Name, Address, Phone) to the footer.
-Content: Plans for blog posts like “5 Reasons to Redesign Your Reno Website in 2025” to boost organic traffic.
+Core Dependencies:
+@neondatabase/serverless: Serverless PostgreSQL driver.
+drizzle-orm: Type-safe SQL query builder.
+@tanstack/react-query: Server state management.
+react-hook-form: Form handling.
+@hookform/resolvers: Form validation resolvers.
+zod: Schema validation.
+wouter: Lightweight routing.
+UI Dependencies:
+@radix-ui/*: Accessible UI primitives.
+tailwindcss: Utility-first CSS framework.
+class-variance-authority: CSS class variants.
+clsx: Conditional class names.
+lucide-react: Icon library.
+Development Dependencies:
+vite: Build tool and dev server.
+typescript: Type checking.
+tsx: TypeScript execution.
+esbuild: Fast bundling for production.
+
+Deployment Strategy
+Development
+Command: npm run dev.
+Port: 5000 (configured for local testing).
+Hot Reload: Vite HMR for frontend, tsx for backend.
+Production Build
+Frontend: vite build outputs to dist/public.
+Backend: esbuild bundles server to dist/index.js.
+
+
+
+Start: npm run start runs the production build.
+
+Database Management
+
+Migrations: Drizzle Kit for schema migrations.
+
+Push: npm run db:push applies schema changes.
+
+Environment: DATABASE_URL required for database connection.
+
+Platform Configuration
+
+Deployment Target: Autoscale-capable hosting platform.
+
+Modules: nodejs-20, web, postgresql-16.
+
+Port Mapping: 5000 (internal) → 80 (external).
+
+Changelog
+
+
+June 24, 2025 - Initial Setup: Established core architecture with React, Node.js, and PostgreSQL.
+June 24, 2025 - Enhanced Design:
+
+Added carousel-style technology showcases with scrolling animations.
+
+Implemented background animations with floating particles.
+
+Updated contact info to (775) 800-5850 and contact@jabvlabs.com.
+
+Emphasized custom development, avoiding AI/template references.
+
+Created a separate Contact page with premium glass effects.
+
+Enhanced portfolio carousel with infinite scroll and 10 project examples.
+
+Updated copyright to © 2025 JABV Holdings LLC.
+
+Added comprehensive technology categories (40+ languages, frameworks, cloud, ML/AI).
+
+User Preferences
+
+
+Communication Style: Simple, everyday language for clear guidance.
+
+
+Marketing Focus: Highlight custom development, avoid AI or template service mentions.
+
+Contact: Phone (775) 800-5850, Email contact@jabvlabs.com.
+
+Company: JABV Holdings LLC (© 2025).
+
+Design Preference: Apple-inspired, red/black theme, professional animations.
 
 Next Steps
 
-Monitor Propagation: Check www.whatsmydns.net after 24-48 hours to confirm CNAME.
-Test Fully: Verify https://jabvlabs.com and https://www.jabvlabs.com load with padlocks.
-Implement SEO: Start keyword research, optimize pages, and set up analytics post-propagation.
-Maintenance: Regularly update content and monitor performance with Google tools.
+Monitor DNS Propagation: Confirm www.jabvlabs.com CNAME resolves (expected by June 24-25, 2025) using www.whatsmydns.net.
+
+Test Fully: Verify https://jabvlabs.com and https://www.jabvlabs.com load with padlock icons.
+
+SEO Implementation:
+
+Research keywords (e.g., “Reno app development,” “Reno web design”).
+
+Optimize titles, meta descriptions, and content.
+
+Set up Google Search Console and Business Profile.
+
+Maintenance: Regularly update content and monitor performance with analytics tools.
 
 Contributing
 
-Guidelines: Suggest improvements via issues or pull requests (if using Git).
+Guidelines: Suggest enhancements via issues or pull requests (if using version control).
+
 Contact: Reach out at contact@jabvlabs.com or (775) 800-5850 for collaboration.
-Note: Avoid mentioning Replit in public-facing content to maintain a professional image.
+
+Note: Maintain a professional image by focusing on custom solutions in all communications.
 
 License
+
 © 2025 JABV Holdings LLC. All rights reserved.
