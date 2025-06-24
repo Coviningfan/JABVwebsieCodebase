@@ -41,9 +41,6 @@ const services = [
 ];
 
 export function ServicesSection() {
-  const handleLearnMore = () => {
-    alert('Service details coming soon! Contact us for more information.');
-  };
 
   return (
     <section id="services" className="py-20 bg-black">
@@ -78,12 +75,12 @@ export function ServicesSection() {
                   </li>
                 ))}
               </ul>
-              <button 
-                onClick={handleLearnMore}
-                className="bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25"
+              <a 
+                href={service.link}
+                className="inline-block bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25"
               >
                 Learn More
-              </button>
+              </a>
             </div>
           ))}
         </div>
