@@ -9,7 +9,8 @@ const services = [
       "Cross-platform solutions",
       "App Store optimization",
       "Ongoing maintenance"
-    ]
+    ],
+    link: "/services/mobile-app-development"
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const services = [
       "Modern frameworks",
       "SEO optimization",
       "Performance focused"
-    ]
+    ],
+    link: "/services/interactive-websites"
   },
   {
     id: 3,
@@ -33,7 +35,8 @@ const services = [
       "Performance optimization",
       "Mobile optimization",
       "Brand alignment"
-    ]
+    ],
+    link: "/services/website-redesigns"
   }
 ];
 
