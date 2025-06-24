@@ -141,7 +141,7 @@ export function PortfolioCarousel() {
         <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-2 scroll-smooth px-4 md:px-0"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-6 scroll-smooth px-6 md:px-4"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

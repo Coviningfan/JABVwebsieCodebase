@@ -117,13 +117,13 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-33.333%);
     }
   }
 
   @keyframes scroll-left {
     0% {
-      transform: translateX(-50%);
+      transform: translateX(-33.333%);
     }
     100% {
       transform: translateX(0);
@@ -131,12 +131,12 @@
   }
 
   .animate-scroll-right {
-    animation: scroll-right 30s linear infinite;
+    animation: scroll-right 40s linear infinite;
     will-change: transform;
   }
 
   .animate-scroll-left {
-    animation: scroll-left 30s linear infinite;
+    animation: scroll-left 40s linear infinite;
     will-change: transform;
   }
 
@@ -239,17 +239,17 @@
 .portfolio-item {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
-  margin: 2px;
+  margin: 4px;
 }
 
 .portfolio-item:hover {
-  transform: translateY(-2px) scale(1.005);
+  transform: translateY(-1px) scale(1.002);
   border-color: rgba(239, 68, 68, 0.3);
 }
 
 @media (min-width: 768px) {
   .portfolio-item:hover {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-2px) scale(1.005);
     border-color: rgba(239, 68, 68, 0.5);
   }
 }
