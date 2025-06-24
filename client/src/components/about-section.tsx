@@ -22,6 +22,15 @@ const frameworks = [
   { icon: "fas fa-fire", name: "Express.js", color: "text-yellow-500" }
 ];
 
+const cloudPlatforms = [
+  { icon: "fab fa-aws", name: "AWS", color: "text-orange-400" },
+  { icon: "fab fa-google", name: "Google Cloud", color: "text-blue-400" },
+  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-600" },
+  { icon: "fas fa-server", name: "Vercel", color: "text-gray-300" },
+  { icon: "fas fa-cloud", name: "Netlify", color: "text-green-400" },
+  { icon: "fab fa-digital-ocean", name: "DigitalOcean", color: "text-blue-500" }
+];
+
 const cloudTech = [
   { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" },
   { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
@@ -40,6 +49,13 @@ const mlTech = [
   { icon: "fas fa-microchip", name: "SageMaker", color: "text-orange-500" }
 ];
 
+const techStack = [
+  { category: "Languages", items: programmingLanguages },
+  { category: "Frameworks", items: frameworks },
+  { category: "Cloud & DevOps", items: cloudPlatforms },
+  { category: "AI & Machine Learning", items: mlTech }
+];
+
 export function AboutSection() {
   return (
     <section id="about" className="py-20 bg-neutral-900">
@@ -50,7 +66,7 @@ export function AboutSection() {
             Innovation-driven development from the heart of Nevada
           </p>
         </div>
-        
+
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <img 
@@ -70,7 +86,7 @@ export function AboutSection() {
             <p className="text-gray-300 mb-8 leading-relaxed">
               Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results. We believe in crafting premium digital experiences that stand apart from cookie-cutter solutions.
             </p>
-            
+
             {/* Location Highlight */}
             <div className="bg-black/50 p-6 rounded-xl mb-8">
               <div className="flex items-center mb-3">
@@ -81,7 +97,7 @@ export function AboutSection() {
             </div>
           </div>
         </div>
-        
+
         {/* Mission Statement */}
         <div className="mt-20 text-center">
           <div className="bg-gradient-to-r from-red-600/20 to-transparent p-12 rounded-2xl max-w-4xl mx-auto">
@@ -91,14 +107,14 @@ export function AboutSection() {
             </p>
           </div>
         </div>
-        
+
         {/* Comprehensive Tech Stack */}
         <div className="mt-20">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
             <p className="text-gray-400">Comprehensive expertise across the full technology spectrum</p>
           </div>
-          
+
           {/* Programming Languages Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
