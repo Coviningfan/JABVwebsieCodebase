@@ -38,28 +38,32 @@ export function Navigation() {
             <div className="ml-10 flex items-baseline space-x-8">
               <button 
                 onClick={() => handleNavClick('home')}
-                className="text-white hover:text-red-600 transition-colors duration-200 px-3 py-2 text-sm font-medium"
+                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 Home
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
               <button 
                 onClick={() => handleNavClick('services')}
-                className="text-white hover:text-red-600 transition-colors duration-200 px-3 py-2 text-sm font-medium"
+                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 Services
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
               <button 
                 onClick={() => handleNavClick('about')}
-                className="text-white hover:text-red-600 transition-colors duration-200 px-3 py-2 text-sm font-medium"
+                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 About
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
-              <button 
-                onClick={() => handleNavClick('contact')}
-                className="text-white hover:text-red-600 transition-colors duration-200 px-3 py-2 text-sm font-medium"
+              <a 
+                href="/contact"
+                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 Contact
-              </button>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
             </div>
           </div>
           

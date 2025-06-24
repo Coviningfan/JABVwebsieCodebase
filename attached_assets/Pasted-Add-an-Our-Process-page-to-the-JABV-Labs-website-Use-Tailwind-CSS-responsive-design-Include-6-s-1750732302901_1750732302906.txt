@@ -1,0 +1,55 @@
+Add an “Our Process” page to the JABV Labs website. Use Tailwind CSS, responsive design. Include 6 sections (Discovery, Design, Development, Testing, Launch, Support) with icons, descriptions, and a “Contact Us” CTA. Add a “Tech Stack” section listing JavaScript, React Native, Next.js, PostgreSQL, and “specialized tools” (no AI specifics). Use vanilla JS for scroll animations. No backend code. Keep UI professional for US clients.
+
+Sample Code for Process Page (pages/process.js):
+
+jsx
+
+Collapse
+
+Wrap
+
+Copy
+export default function Process() {
+  const steps = [
+    { title: "Discovery", desc: "We define your goals and create a roadmap.", icon: "📝" },
+    { title: "Design", desc: "Modern UI/UX designs, refined with your input.", icon: "🎨" },
+    { title: "Development", desc: "Coding in sprints with optimized tools.", icon: "💻" },
+    { title: "Testing", desc: "Rigorous checks for performance and security.", icon: "✅" },
+    { title: "Launch", desc: "Deploy with analytics and training.", icon: "🚀" },
+    { title: "Support", desc: "Ongoing updates to keep you competitive.", icon: "🛠️" },
+  ];
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold text-center mb-8">How We Build Your Success</h1>
+      <div className="grid md:grid-cols-2 gap-8 mb-12">
+        {steps.map((step, i) => (
+          <div key={i} className="p-6 border rounded-lg hover:shadow-lg transition">
+            <span className="text-3xl">{step.icon}</span>
+            <h2 className="text-2xl font-semibold mb-2">{step.title}</h2>
+            <p>{step.desc}</p>
+          </div>
+        ))}
+      </div>
+      <h2 className="text-3xl font-bold text-center mb-6">Our Tech Stack</h2>
+      <ul className="list-disc pl-6 mb-8">
+        <li>JavaScript (React Native, Next.js) for apps and websites</li>
+        <li>Swift/Kotlin for native mobile features</li>
+        <li>PostgreSQL for robust data storage</li>
+        <li>Specialized tools to enhance efficiency</li>
+      </ul>
+      <div className="text-center">
+        <a href="/contact" className="bg-blue-500 text-white px-6 py-3 rounded">Contact Us</a>
+      </div>
+    </div>
+  );
+}
+4. Handling Probing Clients
+If a client pushes for more details (e.g., “What are your specialized tools?” or “Can you share your infrastructure setup?”), use these strategies to maintain confidentiality while keeping them satisfied:
+
+Pivot to Outcomes: “Our tools are part of our optimized workflow, designed to deliver your project faster and better. For example, they help us create prototypes in half the time, so you can test your app sooner.”
+Highlight Standards: “We use industry-standard technologies like React Native and PostgreSQL, combined with our internal processes to ensure quality. The specifics of our tools are less important than the results we achieve for you.”
+Offer Customization: “If you have specific infrastructure needs (e.g., AWS or Firebase), we can integrate those. Tell me about your requirements, and we’ll tailor our approach.”
+Set Boundaries Politely: “Some aspects of our workflow are internal to maintain our competitive edge, but I’m happy to share how we’ll meet your project’s needs. What features are most important to you?”
+Use Examples: Reference past projects or mockups (e.g., “We built a booking app with real-time updates for a US client”) to shift focus to results.
+NDA for Deep Dives: If they insist, suggest: “For detailed technical discussions, we can sign an NDA to protect both parties, then dive into specifics relevant to your project.”

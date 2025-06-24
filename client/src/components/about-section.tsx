@@ -1,10 +1,43 @@
-const techStack = [
-  { icon: "fab fa-react", name: "React", color: "text-blue-400" },
-  { icon: "fab fa-node-js", name: "Node.js", color: "text-green-400" },
+const programmingLanguages = [
+  { icon: "fab fa-js-square", name: "JavaScript", color: "text-yellow-400" },
+  { icon: "fab fa-python", name: "Python", color: "text-blue-400" },
+  { icon: "fab fa-java", name: "Java", color: "text-orange-500" },
   { icon: "fab fa-swift", name: "Swift", color: "text-orange-400" },
-  { icon: "fab fa-android", name: "Android", color: "text-green-500" },
-  { icon: "fab fa-python", name: "Python", color: "text-yellow-400" },
-  { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" }
+  { icon: "fab fa-android", name: "Kotlin", color: "text-purple-400" },
+  { icon: "fab fa-react", name: "TypeScript", color: "text-blue-500" },
+  { icon: "fas fa-code", name: "C++", color: "text-indigo-400" },
+  { icon: "fab fa-rust", name: "Rust", color: "text-orange-600" },
+  { icon: "fab fa-golang", name: "Go", color: "text-cyan-400" },
+  { icon: "fas fa-hashtag", name: "C#", color: "text-purple-500" },
+  { icon: "fab fa-php", name: "PHP", color: "text-indigo-500" },
+  { icon: "fab fa-r-project", name: "R", color: "text-blue-600" }
+];
+
+const frameworks = [
+  { icon: "fab fa-react", name: "React", color: "text-cyan-400" },
+  { icon: "fab fa-node-js", name: "Node.js", color: "text-green-400" },
+  { icon: "fab fa-vuejs", name: "Vue.js", color: "text-green-500" },
+  { icon: "fas fa-mobile-alt", name: "React Native", color: "text-blue-400" },
+  { icon: "fas fa-layer-group", name: "Next.js", color: "text-gray-300" },
+  { icon: "fas fa-fire", name: "Express.js", color: "text-yellow-500" }
+];
+
+const cloudTech = [
+  { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" },
+  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
+  { icon: "fab fa-google", name: "Firebase", color: "text-yellow-500" },
+  { icon: "fas fa-database", name: "Supabase", color: "text-green-400" },
+  { icon: "fas fa-server", name: "PostgreSQL", color: "text-blue-600" },
+  { icon: "fas fa-cloud", name: "DynamoDB", color: "text-orange-400" }
+];
+
+const mlTech = [
+  { icon: "fas fa-brain", name: "TensorFlow", color: "text-orange-400" },
+  { icon: "fas fa-robot", name: "PyTorch", color: "text-red-500" },
+  { icon: "fas fa-chart-line", name: "Scikit-learn", color: "text-blue-400" },
+  { icon: "fas fa-cogs", name: "Keras", color: "text-red-400" },
+  { icon: "fas fa-network-wired", name: "TensorFlow.js", color: "text-yellow-400" },
+  { icon: "fas fa-microchip", name: "SageMaker", color: "text-orange-500" }
 ];
 
 export function AboutSection() {
@@ -59,23 +92,75 @@ export function AboutSection() {
           </div>
         </div>
         
-        {/* Tech Stack Showcase */}
+        {/* Comprehensive Tech Stack */}
         <div className="mt-20">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
-            <p className="text-gray-400">Leveraging the latest technologies to build tomorrow's solutions</p>
+            <p className="text-gray-400">Comprehensive expertise across the full technology spectrum</p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {techStack.map((tech, index) => (
-              <div 
-                key={index}
-                className="bg-neutral-800 p-4 rounded-xl text-center hover:bg-red-600/20 transition-colors duration-300"
-              >
-                <i className={`${tech.icon} text-3xl ${tech.color} mb-2`}></i>
-                <p className="text-sm font-medium">{tech.name}</p>
-              </div>
-            ))}
+          {/* Programming Languages */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {programmingLanguages.map((tech, index) => (
+                <div 
+                  key={index}
+                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                >
+                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Frameworks & Libraries */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Frameworks & Libraries</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {frameworks.map((tech, index) => (
+                <div 
+                  key={index}
+                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                >
+                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Cloud & Database Technologies */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Cloud & Database Technologies</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {cloudTech.map((tech, index) => (
+                <div 
+                  key={index}
+                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                >
+                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Machine Learning & AI */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {mlTech.map((tech, index) => (
+                <div 
+                  key={index}
+                  className="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                >
+                  <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                  <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

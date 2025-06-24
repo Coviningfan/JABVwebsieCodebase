@@ -142,15 +142,18 @@ export function PortfolioCarousel() {
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
           >
             {portfolioItems.map((item) => (
-              <div key={item.id} className="portfolio-item flex-none w-80 bg-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                />
+              <div key={item.id} className="portfolio-item flex-none w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-gray-400">{item.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{item.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}

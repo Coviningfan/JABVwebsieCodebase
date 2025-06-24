@@ -16,12 +16,12 @@ export function HeroSection() {
             Expert App & Web Development from Reno, Nevada
           </p>
           <div className="space-x-4">
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+            <a 
+              href="/contact"
+              className="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25"
             >
               Get a Quote
-            </button>
+            </a>
             <button 
               onClick={() => scrollToSection('portfolio')}
               className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300"
