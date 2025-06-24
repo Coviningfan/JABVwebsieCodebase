@@ -89,7 +89,7 @@ export function PortfolioCarousel() {
     };
 
     const interval = startAutoScroll();
-    
+
     const carousel = carouselRef.current;
     let pauseTimeout: NodeJS.Timeout;
 
@@ -147,7 +147,7 @@ export function PortfolioCarousel() {
             Showcasing premium apps and websites we've crafted for our clients
           </p>
         </div>
-        
+
         <div className="relative">
           <div 
             ref={carouselRef}
@@ -171,7 +171,7 @@ export function PortfolioCarousel() {
               </div>
             ))}
           </div>
-          
+
           {/* Carousel Controls */}
           <button 
             onClick={handlePrevious}
