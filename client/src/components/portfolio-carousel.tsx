@@ -66,74 +66,64 @@ const portfolioItems = [
 export function PortfolioCarousel() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const scrollStep = 320;
 
   useEffect(() => {
-    const startAutoScroll = () => {
-      const interval = setInterval(() => {
-        if (carouselRef.current) {
-          const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-          setScrollAmount(prev => {
-            // Create infinite loop by resetting to 0 when reaching the end
-            const newAmount = prev >= maxScroll ? 0 : prev + scrollStep;
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
+        setScrollAmount(prev => {
+          const newAmount = prev >= maxScroll ? 0 : prev + scrollStep;
+          
+          if (newAmount === 0) {
+            // Smooth transition to beginning
+            carouselRef.current?.scrollTo({
+              left: maxScroll,
+              behavior: 'auto'
+            });
+            setTimeout(() => {
+              carouselRef.current?.scrollTo({
+                left: 0,
+                behavior: 'smooth'
+              });
+            }, 50);
+          } else {
             carouselRef.current?.scrollTo({
               left: newAmount,
-              behavior: newAmount === 0 ? 'auto' : 'smooth' // Instant reset, smooth scroll otherwise
+              behavior: 'smooth'
             });
-            return newAmount;
-          });
-        }
-      }, 4000);
+          }
+          
+          return newAmount;
+        });
+      }
+    }, 3000);
 
-      return interval;
-    };
-
-    const interval = startAutoScroll();
-
-    const carousel = carouselRef.current;
-    let pauseTimeout: NodeJS.Timeout;
-
-    const pauseAutoScroll = () => {
-      clearInterval(interval);
-      clearTimeout(pauseTimeout);
-      pauseTimeout = setTimeout(() => {
-        const newInterval = startAutoScroll();
-        return () => clearInterval(newInterval);
-      }, 8000);
-    };
-
-    carousel?.addEventListener('mouseenter', () => clearInterval(interval));
-    carousel?.addEventListener('mouseleave', () => {
-      clearTimeout(pauseTimeout);
-      pauseTimeout = setTimeout(() => {
-        const newInterval = startAutoScroll();
-        return () => clearInterval(newInterval);
-      }, 1000);
-    });
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(pauseTimeout);
-    };
-  }, []);
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   const handlePrevious = () => {
-    const newAmount = Math.max(scrollAmount - scrollStep, 0);
-    setScrollAmount(newAmount);
-    carouselRef.current?.scrollTo({
-      left: newAmount,
-      behavior: 'smooth'
-    });
+    if (carouselRef.current) {
+      const newAmount = Math.max(scrollAmount - scrollStep, 0);
+      setScrollAmount(newAmount);
+      carouselRef.current.scrollTo({
+        left: newAmount,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const handleNext = () => {
     if (carouselRef.current) {
       const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-      const newAmount = scrollAmount >= maxScroll ? 0 : scrollAmount + scrollStep;
+      const newAmount = Math.min(scrollAmount + scrollStep, maxScroll);
       setScrollAmount(newAmount);
       carouselRef.current.scrollTo({
         left: newAmount,
-        behavior: newAmount === 0 ? 'auto' : 'smooth'
+        behavior: 'smooth'
       });
     }
   };
@@ -151,8 +141,10 @@ export function PortfolioCarousel() {
         <div className="relative">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-6"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-6 scroll-smooth"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             {portfolioItems.map((item) => (
               <div key={item.id} className="portfolio-item flex-none w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-neutral-700/50 hover:border-red-500/30 transition-all duration-500">
