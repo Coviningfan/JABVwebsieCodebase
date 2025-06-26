@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { LoadingScreen } from "@/components/loading-screen";
 import Home from "@/pages/home";
 import Contact from "@/pages/contact";
 import MobileAppDevelopment from "@/pages/services/mobile-app-development";
@@ -11,10 +12,10 @@ import InteractiveWebsites from "@/pages/services/interactive-websites";
 import WebsiteRedesigns from "@/pages/services/website-redesigns";
 import NotFound from "@/pages/not-found";
 
-function Router() {
+function Router({ loadingComplete }: { loadingComplete: boolean }) {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={() => <Home loadingComplete={loadingComplete} />} />
       <Route path="/contact" component={Contact} />
       <Route path="/services/mobile-app-development" component={MobileAppDevelopment} />
       <Route path="/services/interactive-websites" component={InteractiveWebsites} />
@@ -25,6 +26,9 @@ function Router() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
@@ -38,13 +42,21 @@ function App() {
     };
   }, []);
 
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    setTimeout(() => {
+      setLoadingComplete(true);
+    }, 300);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
-        {/* ElevenLabs Agent Widget */}
-        <elevenlabs-convai agent-id="agent_01jynfyb8neqkby2q4esd71ybw"></elevenlabs-convai>
+        <LoadingScreen isLoading={isLoading} onComplete={handleLoadingComplete} />
+        <div className={`transition-opacity duration-500 ${loadingComplete ? 'opacity-100' : 'opacity-0'}`}>
+          <Toaster />
+          <Router loadingComplete={loadingComplete} />
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );
