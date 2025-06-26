@@ -119,6 +119,8 @@ The JABV Labs Client Portal is a modern React-based web application that provide
 ## Changelog
 
 - June 26, 2025. Initial setup
+- June 26, 2025. Migrated from Replit Agent to standard Replit environment with port configuration fix (4028 → 5000)
+- June 26, 2025. Transformed from portfolio website to client portal application with login, dashboard, projects, and settings pages
 
 ## User Preferences
 
