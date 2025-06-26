@@ -20,78 +20,88 @@ export function TasksPage({ projectId }) {
   const [projectContext, setProjectContext] = useState(null);
 
   const teamMembers = [
-    { id: 'unassigned', name: 'Unassigned', role: 'none' },
-    { id: 'sarah-chen', name: 'Sarah Chen', role: 'Project Manager' },
-    { id: 'mike-rodriguez', name: 'Mike Rodriguez', role: 'Lead Developer' },
-    { id: 'alex-kim', name: 'Alex Kim', role: 'UI/UX Designer' },
-    { id: 'emma-davis', name: 'Emma Davis', role: 'QA Engineer' },
-    { id: 'client', name: 'You (Client)', role: 'Client' }
-  ];
-
-  const categories = [
-    'general', 'design', 'development', 'content', 'testing', 'deployment', 'documentation'
+    { id: 'unassigned', name: 'Unassigned', role: '' },
+    { id: 'sarah-johnson', name: 'Sarah Johnson', role: 'Project Manager' },
+    { id: 'michael-chen', name: 'Michael Chen', role: 'Lead Developer' },
+    { id: 'lisa-rodriguez', name: 'Lisa Rodriguez', role: 'UI/UX Designer' },
+    { id: 'david-kim', name: 'David Kim', role: 'Backend Developer' },
+    { id: 'emily-watson', name: 'Emily Watson', role: 'QA Engineer' }
   ];
 
   useEffect(() => {
+    // Load tasks data
     setTasks([
       {
         id: 'TASK-001',
-        title: 'Complete user authentication system',
-        description: 'Implement secure login/logout functionality with session management.',
+        title: 'Review homepage design mockups',
+        description: 'Please review the new homepage design mockups and provide feedback on layout, colors, and messaging.',
         priority: 'high',
-        status: 'in-progress',
-        assignedTo: 'mike-rodriguez',
-        assignedBy: 'sarah-chen',
-        createdDate: '2024-01-15',
-        dueDate: '2024-01-25',
-        category: 'development',
-        estimatedHours: 16,
+        status: 'pending',
+        assignedTo: 'lisa-rodriguez',
+        assignedBy: 'client',
+        createdDate: '2024-02-01',
+        dueDate: '2024-02-05',
+        category: 'design',
         comments: [
-          { id: 1, author: 'Mike Rodriguez', content: 'Working on JWT implementation', timestamp: '2024-01-20 10:30' },
-          { id: 2, author: 'Sarah Chen', content: 'Great progress! Keep it up.', timestamp: '2024-01-20 14:15' }
+          {
+            id: 1,
+            author: 'John Doe',
+            authorType: 'client',
+            content: 'The hero section looks great, but can we make the call-to-action button more prominent?',
+            timestamp: '2024-02-02 10:30 AM'
+          }
         ]
       },
       {
         id: 'TASK-002',
-        title: 'Design dashboard wireframes',
-        description: 'Create wireframes for the main dashboard showing key metrics and navigation.',
+        title: 'API integration testing',
+        description: 'Test the payment gateway integration and ensure all endpoints are working correctly.',
         priority: 'high',
-        status: 'completed',
-        assignedTo: 'alex-kim',
-        assignedBy: 'sarah-chen',
-        createdDate: '2024-01-10',
-        dueDate: '2024-01-20',
-        category: 'design',
-        estimatedHours: 12,
+        status: 'in-progress',
+        assignedTo: 'david-kim',
+        assignedBy: 'sarah-johnson',
+        createdDate: '2024-01-28',
+        dueDate: '2024-02-03',
+        category: 'development',
         comments: []
       },
       {
         id: 'TASK-003',
-        title: 'Update project documentation',
-        description: 'Review and update all technical documentation for the latest features.',
+        title: 'Content review for about page',
+        description: 'Review and approve the content for the about page, including team bios and company history.',
+        priority: 'medium',
+        status: 'completed',
+        assignedTo: 'unassigned',
+        assignedBy: 'client',
+        createdDate: '2024-01-25',
+        dueDate: '2024-01-30',
+        category: 'content',
+        completedDate: '2024-01-29',
+        comments: [
+          {
+            id: 1,
+            author: 'John Doe',
+            authorType: 'client',
+            content: 'Content looks good, approved for publication.',
+            timestamp: '2024-01-29 02:15 PM'
+          }
+        ]
+      },
+      {
+        id: 'TASK-004',
+        title: 'Mobile responsiveness testing',
+        description: 'Test the website on various mobile devices and ensure optimal user experience.',
         priority: 'medium',
         status: 'pending',
-        assignedTo: 'emma-davis',
-        assignedBy: 'client',
-        createdDate: '2024-01-18',
-        dueDate: '2024-01-30',
-        category: 'documentation',
-        estimatedHours: 8,
-        comments: [
-          { id: 1, author: 'Client', content: 'Please focus on API documentation first', timestamp: '2024-01-18 09:00' }
-        ]
+        assignedTo: 'emily-watson',
+        assignedBy: 'michael-chen',
+        createdDate: '2024-02-01',
+        dueDate: '2024-02-08',
+        category: 'testing',
+        comments: []
       }
     ]);
   }, []);
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'high': return '#dc2626';
-      case 'medium': return '#f59e0b';
-      case 'low': return '#10b981';
-      default: return '#6b7280';
-    }
-  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -103,34 +113,65 @@ export function TasksPage({ projectId }) {
     }
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'pending':
-        return <circle cx="12" cy="12" r="4" fill="currentColor" />;
-      case 'in-progress':
-        return <path d="M12 2v6l4 2" stroke="currentColor" strokeWidth="2" fill="none" />;
-      case 'completed':
-        return <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" fill="none" />;
-      default:
-        return <circle cx="12" cy="12" r="4" fill="currentColor" />;
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'high': return '#dc2626';
+      case 'medium': return '#f59e0b';
+      case 'low': return '#22c55e';
+      default: return '#6b7280';
     }
   };
 
-  const addTask = (e) => {
-    e.preventDefault();
-    if (!newTask.title.trim()) return;
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'design':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+          </svg>
+        );
+      case 'development':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="16,18 22,12 16,6"/>
+            <polyline points="8,6 2,12 8,18"/>
+          </svg>
+        );
+      case 'content':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+          </svg>
+        );
+      case 'testing':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 11H1l6-6v6c3.31 0 6 2.69 6 6s-2.69 6-6 6v-2c2.21 0 4-1.79 4-4s-1.79-4-4-4z"/>
+          </svg>
+        );
+      default:
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+        );
+    }
+  };
 
-    const task = {
+  const handleCreateTask = (e) => {
+    e.preventDefault();
+    const newTaskData = {
       id: `TASK-${String(tasks.length + 1).padStart(3, '0')}`,
       ...newTask,
       status: 'pending',
       assignedBy: 'client',
       createdDate: new Date().toISOString().split('T')[0],
-      estimatedHours: 4,
       comments: []
     };
-
-    setTasks([task, ...tasks]);
+    
+    setTasks([newTaskData, ...tasks]);
     setNewTask({
       title: '',
       description: '',
@@ -140,38 +181,17 @@ export function TasksPage({ projectId }) {
       category: 'general'
     });
     setShowNewTaskForm(false);
-
-    dataService.logActivity(projectId, 'task_created', `New task created: ${task.title}`);
   };
 
   const updateTaskStatus = (taskId, newStatus) => {
     setTasks(tasks.map(task => 
-      task.id === taskId ? { ...task, status: newStatus } : task
-    ));
-  };
-
-  const addComment = (taskId, comment) => {
-    if (!comment.trim()) return;
-
-    setTasks(tasks.map(task => 
       task.id === taskId 
-        ? {
-            ...task,
-            comments: [
-              ...task.comments,
-              {
-                id: task.comments.length + 1,
-                author: 'Client',
-                content: comment,
-                timestamp: new Date().toLocaleString()
-              }
-            ]
-          }
+        ? { ...task, status: newStatus, completedDate: newStatus === 'completed' ? new Date().toISOString().split('T')[0] : undefined }
         : task
     ));
   };
 
-  const getMemberName = (memberId) => {
+  const getTeamMemberName = (memberId) => {
     const member = teamMembers.find(m => m.id === memberId);
     return member ? member.name : 'Unassigned';
   };
@@ -187,6 +207,7 @@ export function TasksPage({ projectId }) {
     setLoadingRecommendations(true);
     
     try {
+      // Prepare project data for AI analysis
       const projectData = {
         name: 'E-commerce Platform',
         type: 'web-application',
@@ -229,6 +250,7 @@ export function TasksPage({ projectId }) {
       setProjectContext(await taskRecommendationEngine.analyzeProjectContext(projectData, tasks, contextData.recentActivity));
     } catch (error) {
       console.error('Error generating AI recommendations:', error);
+      // Use fallback recommendations if AI fails
       const fallbackRecommendations = taskRecommendationEngine.getFallbackRecommendations({
         phase: 'development',
         progress: 65
@@ -273,8 +295,6 @@ export function TasksPage({ projectId }) {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-      
-      {/* Header */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -343,13 +363,14 @@ export function TasksPage({ projectId }) {
               alignItems: 'center',
               gap: '8px'
             }}
-          >
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            Add New Task
-          </button>
-        </div>
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          New Task
+        </button>
       </div>
 
       {/* Filter Tabs */}
@@ -633,35 +654,55 @@ export function TasksPage({ projectId }) {
         </div>
       )}
 
-      {/* Task Form */}
+      {/* New Task Form */}
       {showNewTaskForm && (
         <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.7)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000
+          background: 'rgba(24, 24, 27, 0.8)',
+          border: '1px solid rgba(63, 63, 70, 0.4)',
+          borderRadius: '12px',
+          padding: '24px',
+          marginBottom: '32px'
         }}>
           <div style={{
-            background: '#18181b',
-            borderRadius: '12px',
-            padding: '32px',
-            width: '90%',
-            maxWidth: '600px',
-            border: '1px solid #3f3f46'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '24px'
           }}>
-            <form onSubmit={addTask}>
-              <h2 style={{ color: 'white', marginBottom: '24px' }}>Create New Task</h2>
-              
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', color: '#a1a1aa', fontSize: '14px', marginBottom: '6px' }}>
-                  Title
-                </label>
+            <h2 style={{
+              fontSize: '20px',
+              fontWeight: '600',
+              color: 'white',
+              margin: 0
+            }}>Create New Task</h2>
+            <button
+              onClick={() => setShowNewTaskForm(false)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#a1a1aa',
+                cursor: 'pointer',
+                fontSize: '18px'
+              }}
+            >
+              ✕
+            </button>
+          </div>
+
+          <form onSubmit={handleCreateTask}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '2fr 1fr 1fr',
+              gap: '16px',
+              marginBottom: '16px'
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  marginBottom: '6px'
+                }}>Task Title</label>
                 <input
                   type="text"
                   value={newTask.title}
@@ -669,301 +710,366 @@ export function TasksPage({ projectId }) {
                   required
                   style={{
                     width: '100%',
-                    padding: '12px',
-                    background: '#27272a',
-                    border: '1px solid #3f3f46',
-                    borderRadius: '8px',
+                    padding: '10px',
+                    background: 'rgba(63, 63, 70, 0.2)',
+                    border: '1px solid rgba(63, 63, 70, 0.4)',
+                    borderRadius: '6px',
                     color: 'white',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    outline: 'none'
                   }}
                 />
               </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', color: '#a1a1aa', fontSize: '14px', marginBottom: '6px' }}>
-                  Description
-                </label>
-                <textarea
-                  value={newTask.description}
-                  onChange={(e) => setNewTask({...newTask, description: e.target.value})}
-                  rows={3}
+              <div>
+                <label style={{
+                  display: 'block',
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  marginBottom: '6px'
+                }}>Priority</label>
+                <select
+                  value={newTask.priority}
+                  onChange={(e) => setNewTask({...newTask, priority: e.target.value})}
                   style={{
                     width: '100%',
-                    padding: '12px',
-                    background: '#27272a',
-                    border: '1px solid #3f3f46',
-                    borderRadius: '8px',
+                    padding: '10px',
+                    background: 'rgba(63, 63, 70, 0.2)',
+                    border: '1px solid rgba(63, 63, 70, 0.4)',
+                    borderRadius: '6px',
                     color: 'white',
                     fontSize: '14px',
-                    resize: 'vertical'
+                    outline: 'none'
+                  }}
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+              <div>
+                <label style={{
+                  display: 'block',
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  marginBottom: '6px'
+                }}>Due Date</label>
+                <input
+                  type="date"
+                  value={newTask.dueDate}
+                  onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    background: 'rgba(63, 63, 70, 0.2)',
+                    border: '1px solid rgba(63, 63, 70, 0.4)',
+                    borderRadius: '6px',
+                    color: 'white',
+                    fontSize: '14px',
+                    outline: 'none'
                   }}
                 />
               </div>
+            </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-                <div>
-                  <label style={{ display: 'block', color: '#a1a1aa', fontSize: '14px', marginBottom: '6px' }}>
-                    Priority
-                  </label>
-                  <select
-                    value={newTask.priority}
-                    onChange={(e) => setNewTask({...newTask, priority: e.target.value})}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      background: '#27272a',
-                      border: '1px solid #3f3f46',
-                      borderRadius: '8px',
-                      color: 'white',
-                      fontSize: '14px'
-                    }}
-                  >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', color: '#a1a1aa', fontSize: '14px', marginBottom: '6px' }}>
-                    Category
-                  </label>
-                  <select
-                    value={newTask.category}
-                    onChange={(e) => setNewTask({...newTask, category: e.target.value})}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      background: '#27272a',
-                      border: '1px solid #3f3f46',
-                      borderRadius: '8px',
-                      color: 'white',
-                      fontSize: '14px'
-                    }}
-                  >
-                    {categories.map(cat => (
-                      <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                <button
-                  type="button"
-                  onClick={() => setShowNewTaskForm(false)}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '16px',
+              marginBottom: '16px'
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  marginBottom: '6px'
+                }}>Assign To</label>
+                <select
+                  value={newTask.assignedTo}
+                  onChange={(e) => setNewTask({...newTask, assignedTo: e.target.value})}
                   style={{
-                    padding: '12px 24px',
-                    background: 'transparent',
-                    border: '1px solid #3f3f46',
-                    borderRadius: '8px',
-                    color: '#a1a1aa',
-                    fontSize: '14px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  style={{
-                    padding: '12px 24px',
-                    background: '#dc2626',
-                    border: 'none',
-                    borderRadius: '8px',
+                    width: '100%',
+                    padding: '10px',
+                    background: 'rgba(63, 63, 70, 0.2)',
+                    border: '1px solid rgba(63, 63, 70, 0.4)',
+                    borderRadius: '6px',
                     color: 'white',
                     fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer'
+                    outline: 'none'
                   }}
                 >
-                  Create Task
-                </button>
+                  {teamMembers.map(member => (
+                    <option key={member.id} value={member.id}>
+                      {member.name} {member.role ? `(${member.role})` : ''}
+                    </option>
+                  ))}
+                </select>
               </div>
-            </form>
-          </div>
+              <div>
+                <label style={{
+                  display: 'block',
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  marginBottom: '6px'
+                }}>Category</label>
+                <select
+                  value={newTask.category}
+                  onChange={(e) => setNewTask({...newTask, category: e.target.value})}
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    background: 'rgba(63, 63, 70, 0.2)',
+                    border: '1px solid rgba(63, 63, 70, 0.4)',
+                    borderRadius: '6px',
+                    color: 'white',
+                    fontSize: '14px',
+                    outline: 'none'
+                  }}
+                >
+                  <option value="general">General</option>
+                  <option value="design">Design</option>
+                  <option value="development">Development</option>
+                  <option value="content">Content</option>
+                  <option value="testing">Testing</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{
+                display: 'block',
+                color: '#a1a1aa',
+                fontSize: '14px',
+                marginBottom: '6px'
+              }}>Description</label>
+              <textarea
+                value={newTask.description}
+                onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                required
+                placeholder="Describe the task or request in detail..."
+                style={{
+                  width: '100%',
+                  minHeight: '100px',
+                  padding: '12px',
+                  background: 'rgba(63, 63, 70, 0.2)',
+                  border: '1px solid rgba(63, 63, 70, 0.4)',
+                  borderRadius: '6px',
+                  color: 'white',
+                  fontSize: '14px',
+                  resize: 'vertical',
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button
+                type="submit"
+                style={{
+                  background: '#dc2626',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '12px 24px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+              >
+                Create Task
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowNewTaskForm(false)}
+                style={{
+                  background: 'rgba(63, 63, 70, 0.2)',
+                  color: 'white',
+                  border: '1px solid rgba(63, 63, 70, 0.4)',
+                  borderRadius: '6px',
+                  padding: '12px 24px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       )}
 
       {/* Tasks List */}
-      <div style={{ display: 'grid', gap: '16px' }}>
-        {filteredTasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onStatusUpdate={updateTaskStatus}
-            onAddComment={addComment}
-            getMemberName={getMemberName}
-            getPriorityColor={getPriorityColor}
-            getStatusColor={getStatusColor}
-            getStatusIcon={getStatusIcon}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TaskCard({ task, onStatusUpdate, onAddComment, getMemberName, getPriorityColor, getStatusColor, getStatusIcon }) {
-  const [showComments, setShowComments] = useState(false);
-  const [newComment, setNewComment] = useState('');
-
-  const handleAddComment = (e) => {
-    e.preventDefault();
-    if (newComment.trim()) {
-      onAddComment(task.id, newComment);
-      setNewComment('');
-    }
-  };
-
-  return (
-    <div style={{
-      background: 'rgba(24, 24, 27, 0.8)',
-      border: '1px solid rgba(63, 63, 70, 0.4)',
-      borderRadius: '12px',
-      padding: '24px'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <h3 style={{ color: 'white', fontSize: '18px', fontWeight: '600', margin: 0 }}>
-              {task.title}
-            </h3>
-            <span style={{
-              background: getPriorityColor(task.priority),
-              color: 'white',
-              fontSize: '12px',
-              padding: '4px 8px',
-              borderRadius: '4px',
-              fontWeight: '500'
-            }}>
-              {task.priority.toUpperCase()}
-            </span>
-          </div>
-          <p style={{ color: '#d4d4d8', fontSize: '14px', margin: '0 0 12px 0' }}>
-            {task.description}
-          </p>
-          <div style={{ display: 'flex', gap: '16px', fontSize: '13px', color: '#a1a1aa' }}>
-            <span>Assigned to: <strong style={{ color: '#d4d4d8' }}>{getMemberName(task.assignedTo)}</strong></span>
-            <span>Due: <strong style={{ color: '#d4d4d8' }}>{task.dueDate}</strong></span>
-            <span>Category: <strong style={{ color: '#d4d4d8' }}>{task.category}</strong></span>
-          </div>
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <select
-            value={task.status}
-            onChange={(e) => onStatusUpdate(task.id, e.target.value)}
-            style={{
-              padding: '8px 12px',
-              background: getStatusColor(task.status),
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '13px',
-              fontWeight: '500',
-              cursor: 'pointer'
-            }}
-          >
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select>
-          
-          <button
-            onClick={() => setShowComments(!showComments)}
-            style={{
-              padding: '8px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: 'none',
-              borderRadius: '6px',
-              color: '#a1a1aa',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px'
-            }}
-          >
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            {task.comments.length}
-          </button>
-        </div>
-      </div>
-
-      {showComments && (
-        <div style={{
-          borderTop: '1px solid rgba(63, 63, 70, 0.4)',
-          paddingTop: '16px'
-        }}>
-          <h4 style={{ color: 'white', fontSize: '14px', marginBottom: '12px' }}>Comments</h4>
-          
-          <form onSubmit={handleAddComment} style={{ marginBottom: '16px' }}>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input
-                type="text"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a comment..."
-                style={{
-                  flex: 1,
-                  padding: '8px 12px',
-                  background: '#27272a',
-                  border: '1px solid #3f3f46',
-                  borderRadius: '6px',
-                  color: 'white',
-                  fontSize: '13px'
-                }}
-              />
-              <button
-                type="submit"
-                style={{
-                  padding: '8px 16px',
-                  background: '#dc2626',
-                  border: 'none',
-                  borderRadius: '6px',
-                  color: 'white',
-                  fontSize: '13px',
-                  cursor: 'pointer'
-                }}
-              >
-                Add
-              </button>
-            </div>
-          </form>
-
-          <div style={{ display: 'grid', gap: '8px' }}>
-            {task.comments.map((comment) => (
-              <div
-                key={comment.id}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  padding: '12px',
-                  borderRadius: '8px'
-                }}
-              >
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '4px'
-                }}>
-                  <span style={{ color: '#d4d4d8', fontSize: '13px', fontWeight: '500' }}>
-                    {comment.author}
-                  </span>
-                  <span style={{ color: '#a1a1aa', fontSize: '12px' }}>
-                    {comment.timestamp}
-                  </span>
+      <div style={{
+        background: 'rgba(24, 24, 27, 0.8)',
+        border: '1px solid rgba(63, 63, 70, 0.4)',
+        borderRadius: '12px',
+        padding: '24px'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {filteredTasks.map((task) => (
+            <div
+              key={task.id}
+              style={{
+                background: 'rgba(63, 63, 70, 0.2)',
+                border: '1px solid rgba(63, 63, 70, 0.4)',
+                borderRadius: '8px',
+                padding: '20px'
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                marginBottom: '12px'
+              }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    marginBottom: '8px'
+                  }}>
+                    <h3 style={{
+                      color: 'white',
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      margin: 0
+                    }}>{task.title}</h3>
+                    
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      background: 'rgba(63, 63, 70, 0.4)',
+                      color: '#a1a1aa',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      padding: '4px 8px',
+                      borderRadius: '12px'
+                    }}>
+                      {getCategoryIcon(task.category)}
+                      {task.category}
+                    </div>
+                    
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      background: getStatusColor(task.status),
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      padding: '4px 8px',
+                      borderRadius: '12px',
+                      textTransform: 'capitalize'
+                    }}>
+                      {task.status.replace('-', ' ')}
+                    </div>
+                    
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      background: getPriorityColor(task.priority),
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      padding: '4px 8px',
+                      borderRadius: '12px',
+                      textTransform: 'capitalize'
+                    }}>
+                      {task.priority}
+                    </div>
+                  </div>
+                  
+                  <p style={{
+                    color: '#d1d5db',
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    margin: '0 0 12px 0'
+                  }}>{task.description}</p>
+                  
+                  <div style={{
+                    display: 'flex',
+                    gap: '16px',
+                    color: '#a1a1aa',
+                    fontSize: '12px'
+                  }}>
+                    <span>#{task.id}</span>
+                    <span>Assigned to: {getTeamMemberName(task.assignedTo)}</span>
+                    <span>Created: {task.createdDate}</span>
+                    {task.dueDate && <span>Due: {task.dueDate}</span>}
+                    {task.completedDate && <span>Completed: {task.completedDate}</span>}
+                  </div>
                 </div>
-                <p style={{ color: '#d1d5db', fontSize: '14px', margin: 0 }}>
-                  {comment.content}
-                </p>
+                
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {task.status !== 'completed' && (
+                    <select
+                      value={task.status}
+                      onChange={(e) => updateTaskStatus(task.id, e.target.value)}
+                      style={{
+                        background: 'rgba(63, 63, 70, 0.4)',
+                        border: '1px solid rgba(63, 63, 70, 0.6)',
+                        borderRadius: '6px',
+                        padding: '6px 8px',
+                        color: 'white',
+                        fontSize: '12px',
+                        outline: 'none'
+                      }}
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="in-progress">In Progress</option>
+                      <option value="completed">Complete</option>
+                    </select>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
+              
+              {task.comments.length > 0 && (
+                <div style={{
+                  marginTop: '16px',
+                  paddingTop: '16px',
+                  borderTop: '1px solid rgba(63, 63, 70, 0.4)'
+                }}>
+                  <h4 style={{
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    margin: '0 0 12px 0'
+                  }}>Comments</h4>
+                  {task.comments.map(comment => (
+                    <div key={comment.id} style={{
+                      background: 'rgba(63, 63, 70, 0.3)',
+                      borderRadius: '6px',
+                      padding: '12px',
+                      marginBottom: '8px'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '8px'
+                      }}>
+                        <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>
+                          {comment.author}
+                        </span>
+                        <span style={{ color: '#a1a1aa', fontSize: '12px' }}>
+                          {comment.timestamp}
+                        </span>
+                      </div>
+                      <p style={{
+                        color: '#d1d5db',
+                        fontSize: '14px',
+                        margin: 0
+                      }}>{comment.content}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
