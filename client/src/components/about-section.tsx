@@ -69,11 +69,61 @@ export function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <img 
-              src="https://pixabay.com/get/g3539f2f1b6566700ac5a7cc39352494cb612be34726c968b62c0ab9d5aca144c65132d3def95444419bdd5dda97a94cb28cff6cb8de6dec61f76ae8d66fc4585_1280.jpg" 
-              alt="Modern tech workspace with minimalist design elements" 
-              className="rounded-2xl shadow-2xl w-full"
-            />
+            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-black p-8">
+              <svg viewBox="0 0 400 300" className="w-full h-auto">
+                {/* Background */}
+                <rect width="400" height="300" fill="url(#techGradient)" />
+                
+                {/* Geometric tech elements */}
+                <defs>
+                  <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#1f2937', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#000000', stopOpacity: 1 }} />
+                  </linearGradient>
+                  <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#dc2626', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#b91c1c', stopOpacity: 1 }} />
+                  </linearGradient>
+                </defs>
+                
+                {/* Code symbols */}
+                <text x="50" y="80" fill="url(#redGradient)" fontSize="24" fontFamily="monospace">&lt;/&gt;</text>
+                <text x="320" y="60" fill="#6b7280" fontSize="16" fontFamily="monospace">{ }</text>
+                <text x="300" y="220" fill="url(#redGradient)" fontSize="20" fontFamily="monospace">&lt;/&gt;</text>
+                
+                {/* Circuit-like connections */}
+                <line x1="80" y1="80" x2="150" y2="80" stroke="#dc2626" strokeWidth="2" />
+                <line x1="150" y1="80" x2="150" y2="150" stroke="#dc2626" strokeWidth="2" />
+                <line x1="150" y1="150" x2="250" y2="150" stroke="#dc2626" strokeWidth="2" />
+                
+                {/* Tech nodes */}
+                <circle cx="80" cy="80" r="4" fill="#dc2626" />
+                <circle cx="150" cy="80" r="4" fill="#dc2626" />
+                <circle cx="150" cy="150" r="4" fill="#dc2626" />
+                <circle cx="250" cy="150" r="4" fill="#dc2626" />
+                
+                {/* Device screens */}
+                <rect x="80" y="180" width="60" height="40" rx="4" fill="#374151" stroke="#6b7280" strokeWidth="1" />
+                <rect x="85" y="185" width="50" height="25" fill="#111827" />
+                <line x1="87" y1="188" x2="130" y2="188" stroke="#dc2626" strokeWidth="1" />
+                <line x1="87" y1="192" x2="125" y2="192" stroke="#6b7280" strokeWidth="1" />
+                
+                <rect x="260" y="180" width="60" height="40" rx="4" fill="#374151" stroke="#6b7280" strokeWidth="1" />
+                <rect x="265" y="185" width="50" height="25" fill="#111827" />
+                <line x1="267" y1="188" x2="310" y2="188" stroke="#dc2626" strokeWidth="1" />
+                <line x1="267" y1="192" x2="305" y2="192" stroke="#6b7280" strokeWidth="1" />
+                
+                {/* Mountain silhouette for Nevada */}
+                <polygon points="20,260 40,230 60,240 80,220 100,235 120,225 140,240 160,225 180,235 200,220 220,230 240,215 260,225 280,210 300,220 320,205 340,215 360,200 380,210 400,190 400,300 20,300" 
+                         fill="#1f2937" stroke="#374151" strokeWidth="1" />
+                
+                {/* Stars */}
+                <circle cx="100" cy="40" r="1" fill="#ffffff" opacity="0.8" />
+                <circle cx="200" cy="30" r="1" fill="#ffffff" opacity="0.6" />
+                <circle cx="300" cy="50" r="1" fill="#ffffff" opacity="0.7" />
+                <circle cx="350" cy="35" r="1" fill="#ffffff" opacity="0.9" />
+              </svg>
+            </div>
           </div>
           <div>
             <h3 className="text-3xl font-bold mb-6">Our Story</h3>
@@ -112,26 +162,41 @@ export function AboutSection() {
         <div className="mt-20">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
-            <p className="text-gray-400">Comprehensive expertise across the full technology spectrum</p>
+            <p className="text-gray-400 mb-8">Comprehensive expertise across the full technology spectrum</p>
+            <button 
+              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
+              onClick={() => {
+                const techSection = document.getElementById('tech-carousels');
+                if (techSection) {
+                  techSection.style.display = techSection.style.display === 'none' ? 'block' : 'none';
+                }
+              }}
+            >
+              <span className="flex items-center gap-2">
+                View Our Tech Stack
+                <i className="fas fa-chevron-down"></i>
+              </span>
+            </button>
           </div>
 
-          {/* Programming Languages Carousel */}
-          <div className="mb-16">
-            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
-            <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-right space-x-6">
-                {[...programmingLanguages, ...programmingLanguages, ...programmingLanguages].map((tech, index) => (
-                  <div 
-                    key={`lang-${index}`}
-                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                  >
-                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                  </div>
-                ))}
+          <div id="tech-carousels" style={{ display: 'none' }}>
+            {/* Programming Languages Carousel */}
+            <div className="mb-16">
+              <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
+              <div className="relative overflow-hidden">
+                <div className="flex animate-scroll-right space-x-6">
+                  {[...programmingLanguages, ...programmingLanguages, ...programmingLanguages].map((tech, index) => (
+                    <div 
+                      key={`lang-${index}`}
+                      className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                    >
+                      <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                      <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Frameworks & Libraries Carousel */}
           <div className="mb-16">
@@ -169,20 +234,21 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Machine Learning & AI Carousel */}
-          <div className="mb-16">
-            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
-            <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-left space-x-6">
-                {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
-                  <div 
-                    key={`ml-${index}`}
-                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                  >
-                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                  </div>
-                ))}
+            {/* Machine Learning & AI Carousel */}
+            <div className="mb-16">
+              <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
+              <div className="relative overflow-hidden">
+                <div className="flex animate-scroll-left space-x-6">
+                  {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
+                    <div 
+                      key={`ml-${index}`}
+                      className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                    >
+                      <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                      <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

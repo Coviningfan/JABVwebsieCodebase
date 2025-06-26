@@ -71,10 +71,9 @@ export function Navigation() {
               </button>
               <button 
                 onClick={() => setLocation('/contact')}
-                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105"
               >
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
             </div>
           </div>
@@ -115,7 +114,7 @@ export function Navigation() {
             </button>
             <button 
               onClick={() => setLocation('/contact')}
-              className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
+              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 mx-3 my-1"
             >
               Contact
             </button>

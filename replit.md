@@ -126,6 +126,17 @@ Changelog:
   - Fixed hero section export/import issues for build compatibility
   - Added routing for all service pages with proper linking
   - Moved CSS animations to main stylesheet for better maintainability
+- June 26, 2025. Enhanced animations and user experience:
+  - Accelerated loading screen from ~3.5s to ~2s duration
+  - Added dramatic fade-in animation for hero content after typewriter completion
+  - Implemented ElevenLabs conversational AI widget integration
+  - Styled Contact button in navigation with red gradient matching hero CTA
+  - Updated portfolio carousel subtitle to "Some of the services we offer"
+  - Fixed About section image with custom SVG illustration (Nevada mountains + tech elements)
+  - Enhanced services section with shiny hover effects and symmetric button alignment
+  - Added collapsible technology carousel section with dropdown toggle
+  - Improved infinite scroll behavior for portfolio carousel
+  - Fixed all text alignment issues across service pages
 ```
 
 ## User Preferences

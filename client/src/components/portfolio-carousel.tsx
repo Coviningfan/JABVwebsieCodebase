@@ -74,30 +74,19 @@ export function PortfolioCarousel() {
 
     const interval = setInterval(() => {
       if (carouselRef.current) {
-        const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
+        const container = carouselRef.current;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        
         setScrollAmount(prev => {
-          const newAmount = prev >= maxScroll ? 0 : prev + scrollStep;
-          
-          if (newAmount === 0) {
-            // Smooth transition to beginning
-            carouselRef.current?.scrollTo({
-              left: maxScroll,
-              behavior: 'auto'
-            });
-            setTimeout(() => {
-              carouselRef.current?.scrollTo({
-                left: 0,
-                behavior: 'smooth'
-              });
-            }, 50);
+          if (prev >= maxScroll) {
+            // Reset to beginning smoothly
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+            return 0;
           } else {
-            carouselRef.current?.scrollTo({
-              left: newAmount,
-              behavior: 'smooth'
-            });
+            const newAmount = prev + scrollStep;
+            container.scrollTo({ left: newAmount, behavior: 'smooth' });
+            return newAmount;
           }
-          
-          return newAmount;
         });
       }
     }, 3000);
@@ -134,7 +123,7 @@ export function PortfolioCarousel() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Work</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Showcasing premium apps and websites we've crafted for our clients
+            Some of the services we offer
           </p>
         </div>
 
