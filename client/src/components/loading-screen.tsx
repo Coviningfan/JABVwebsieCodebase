@@ -8,10 +8,14 @@ interface LoadingScreenProps {
 export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
   const [showLogo, setShowLogo] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
       setProgress(0);
+      setIsComplete(false);
+      setFadeOut(false);
       
       // Show logo immediately with fade-in
       setTimeout(() => {
@@ -23,9 +27,17 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
         setProgress(prev => {
           if (prev >= 100) {
             clearInterval(interval);
+            setIsComplete(true);
+            
+            // Start fade out after progress is complete
             setTimeout(() => {
-              onComplete?.();
-            }, 800);
+              setFadeOut(true);
+              // Call onComplete after fade starts
+              setTimeout(() => {
+                onComplete?.();
+              }, 500); // Half second into the fade
+            }, 500); // Wait half second after loading completes
+            
             return 100;
           }
           return prev + Math.random() * 15 + 5; // Variable progress speed
@@ -39,7 +51,7 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center">
+    <div className={`fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
       {/* Background particles */}
       <div className="absolute inset-0">
         {Array.from({ length: 50 }).map((_, i) => (

@@ -69,11 +69,41 @@ export function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <img 
-              src="https://pixabay.com/get/g3539f2f1b6566700ac5a7cc39352494cb612be34726c968b62c0ab9d5aca144c65132d3def95444419bdd5dda97a94cb28cff6cb8de6dec61f76ae8d66fc4585_1280.jpg" 
-              alt="Modern tech workspace with minimalist design elements" 
-              className="rounded-2xl shadow-2xl w-full"
-            />
+            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-8 flex items-center justify-center min-h-[400px]">
+              <svg viewBox="0 0 400 300" className="w-full h-full max-w-md">
+                {/* Background */}
+                <rect width="400" height="300" fill="url(#bgGradient)" />
+                
+                {/* Circuit board pattern */}
+                <g opacity="0.3">
+                  <path d="M50 50 L350 50" stroke="#C82222" strokeWidth="2" />
+                  <path d="M50 50 L50 250" stroke="#C82222" strokeWidth="2" />
+                  <path d="M350 50 L350 250" stroke="#C82222" strokeWidth="2" />
+                  <path d="M50 250 L350 250" stroke="#C82222" strokeWidth="2" />
+                  <path d="M50 150 L350 150" stroke="#C82222" strokeWidth="1" opacity="0.5" />
+                  <path d="M200 50 L200 250" stroke="#C82222" strokeWidth="1" opacity="0.5" />
+                </g>
+                
+                {/* Code symbols */}
+                <g fill="#C82222" opacity="0.6">
+                  <text x="100" y="100" fontSize="24" fontFamily="monospace">&lt;/&gt;</text>
+                  <text x="300" y="100" fontSize="24" fontFamily="monospace">{}</text>
+                  <text x="100" y="200" fontSize="24" fontFamily="monospace">[]</text>
+                  <text x="300" y="200" fontSize="24" fontFamily="monospace">()</text>
+                </g>
+                
+                {/* Central logo area */}
+                <circle cx="200" cy="150" r="40" fill="rgba(200, 34, 34, 0.2)" stroke="#C82222" strokeWidth="2" />
+                <text x="200" y="160" fontSize="20" fontFamily="bold" textAnchor="middle" fill="white">JABV</text>
+                
+                <defs>
+                  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1a1a1a" />
+                    <stop offset="100%" stopColor="#0a0a0a" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
           </div>
           <div>
             <h3 className="text-3xl font-bold mb-6">Our Story</h3>

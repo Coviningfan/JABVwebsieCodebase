@@ -6,11 +6,11 @@ import { AboutSection } from '@/components/about-section';
 import { Footer } from '@/components/footer';
 import { FadeInSection } from '@/components/fade-in-section';
 
-export default function Home() {
+export default function Home({ loadingComplete = true }: { loadingComplete?: boolean }) {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
-      <HeroWithBanner />
+      <HeroWithBanner loadingComplete={loadingComplete} />
       <FadeInSection direction="up" delay={200}>
         <PortfolioCarousel />
       </FadeInSection>

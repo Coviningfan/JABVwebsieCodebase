@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
-export default function HeroWithBanner() {
+export default function HeroWithBanner({ loadingComplete = true }: { loadingComplete?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [typewriterJABV, setTypewriterJABV] = useState('');
   const [typewriterLabs, setTypewriterLabs] = useState('');
   const [showJABVCursor, setShowJABVCursor] = useState(false);
   const [showLabsCursor, setShowLabsCursor] = useState(false);
+  const [shouldStartTypewriter, setShouldStartTypewriter] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -22,13 +23,22 @@ export default function HeroWithBanner() {
     return () => clearTimeout(delay);
   }, []);
 
+  // Watch for loading completion to start typewriter
+  useEffect(() => {
+    if (loadingComplete) {
+      setShouldStartTypewriter(true);
+    }
+  }, [loadingComplete]);
+
   // Typewriter effect for JABV Labs
   useEffect(() => {
+    if (!shouldStartTypewriter) return;
+    
     const jabvText = 'JABV';
     const labsText = 'Labs';
     let timeouts: NodeJS.Timeout[] = [];
     
-    // Start typewriter after hero becomes visible
+    // Start typewriter after loading is complete
     const startDelay = setTimeout(() => {
       setShowJABVCursor(true);
       
@@ -54,10 +64,10 @@ export default function HeroWithBanner() {
                   labsIndex++;
                   timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
                 } else {
-                  // Labs complete, hide cursor after brief pause
+                  // Labs complete, hide cursor after 2 seconds
                   setTimeout(() => {
                     setShowLabsCursor(false);
-                  }, 800);
+                  }, 2000);
                 }
               };
               typeLabs();
@@ -151,13 +161,10 @@ export default function HeroWithBanner() {
                   {showJABVCursor && <span className="animate-pulse">|</span>}
                 </span>
                 {typewriterJABV.length === 4 && (
-                  <>
-                    <span className="text-white"> </span>
-                    <span style={{ color: '#C82222' }}>
-                      {typewriterLabs}
-                      {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
-                    </span>
-                  </>
+                  <span style={{ color: '#C82222' }}>
+                    {typewriterLabs}
+                    {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                  </span>
                 )}
               </span>
             </h1>

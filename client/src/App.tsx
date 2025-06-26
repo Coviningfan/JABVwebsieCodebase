@@ -13,7 +13,7 @@ import InteractiveWebsites from "@/pages/services/interactive-websites";
 import WebsiteRedesigns from "@/pages/services/website-redesigns";
 import NotFound from "@/pages/not-found";
 
-function Router() {
+function Router({ loadingComplete }: { loadingComplete: boolean }) {
   const [location] = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [prevLocation, setPrevLocation] = useState(location);
@@ -31,7 +31,7 @@ function Router() {
   return (
     <PageTransition isLoading={isTransitioning}>
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" component={() => <Home loadingComplete={loadingComplete} />} />
         <Route path="/contact" component={Contact} />
         <Route path="/services/mobile-app-development" component={MobileAppDevelopment} />
         <Route path="/services/interactive-websites" component={InteractiveWebsites} />
@@ -43,7 +43,11 @@ function Router() {
 }
 
 function App() {
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(() => {
+    // Check if loading has already been shown in this session
+    return !sessionStorage.getItem('hasLoadedOnce');
+  });
+  const [loadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -52,29 +56,34 @@ function App() {
     script.type = "text/javascript";
     document.body.appendChild(script);
 
-    // Initial loading timer
-    const loadTimer = setTimeout(() => {
-      setIsInitialLoading(false);
-    }, 2000);
-
     // Cleanup on unmount
     return () => {
-      clearTimeout(loadTimer);
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
     };
   }, []);
 
+  const handleLoadingComplete = () => {
+    // Mark that loading has been shown in this session
+    sessionStorage.setItem('hasLoadedOnce', 'true');
+    setLoadingComplete(true);
+    
+    // Give a moment for the loading screen fade out, then hide it completely
+    setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 1000); // 1 second for a nice fade out
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <LoadingScreen 
           isLoading={isInitialLoading} 
-          onComplete={() => setIsInitialLoading(false)} 
+          onComplete={handleLoadingComplete} 
         />
         <Toaster />
-        <Router />
+        <Router loadingComplete={loadingComplete} />
         {/* ElevenLabs Agent Widget */}
         <div dangerouslySetInnerHTML={{ __html: '<elevenlabs-convai agent-id="agent_01jynfyb8neqkby2q4esd71ybw"></elevenlabs-convai>' }} />
       </TooltipProvider>
