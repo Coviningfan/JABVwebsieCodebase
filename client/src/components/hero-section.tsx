@@ -4,10 +4,13 @@ import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
   console.log('🔄 HeroWithBanner component rendering with loadingComplete:', loadingComplete);
   
-  // Use refs to persist animation state across re-renders
+  // Use refs to persist animation state and prevent re-initialization
   const animationStartedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const animationInstanceRef = useRef<string | null>(null);
+  const stateInitializedRef = useRef(false);
   
+  // Initialize states only once to prevent jarring transitions
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [typewriterTagline, setTypewriterTagline] = useState('');
@@ -45,25 +48,29 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   // Complete typewriter effect sequence
   useEffect(() => {
     const timestamp = Date.now();
-    console.log(`[${timestamp}] Typewriter useEffect triggered:`, { 
+    const instanceId = `${timestamp}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    console.log(`[${instanceId}] Typewriter useEffect triggered:`, { 
       loadingComplete, 
       animationStarted: animationStartedRef.current,
+      currentInstance: animationInstanceRef.current,
       isVisible,
       showBanner 
     });
     
     if (loadingComplete !== true) {
-      console.log(`[${timestamp}] Skipped: loadingComplete is not true (${loadingComplete})`);
+      console.log(`[${instanceId}] Skipped: loadingComplete is not true (${loadingComplete})`);
       return;
     }
     
-    if (animationStartedRef.current) {
-      console.log(`[${timestamp}] Skipped: animation already started`);
+    if (animationStartedRef.current && animationInstanceRef.current) {
+      console.log(`[${instanceId}] Skipped: animation already started by instance ${animationInstanceRef.current}`);
       return;
     }
     
-    console.log(`[${timestamp}] ✅ CONDITIONS MET - Starting typewriter animation sequence...`);
+    console.log(`[${instanceId}] ✅ CONDITIONS MET - Starting typewriter animation sequence...`);
     animationStartedRef.current = true;
+    animationInstanceRef.current = instanceId;
     
     const taglineText = 'Build Your Future with';
     const jabvText = 'JABV';
@@ -71,9 +78,9 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     
     console.log(`[${timestamp}] Setting up typewriter delays and animations...`);
     
-    // Start typewriter sequence after component is ready
+    // Start typewriter sequence with smooth transition timing
     const startDelay = setTimeout(() => {
-      console.log(`[${timestamp}] 🎯 Starting tagline typing animation`);
+      console.log(`[${instanceId}] 🎯 Starting tagline typing animation`);
       setShowTaglineCursor(true);
       
       // Step 1: Type the tagline "Build Your Future with"
@@ -149,7 +156,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       };
       
       typeTagline();
-    }, 1000);
+    }, 200);
     
     timeoutsRef.current.push(startDelay);
     
@@ -230,25 +237,23 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="font-bold mb-6 leading-tight text-white">
-              <div className="text-4xl md:text-5xl mb-4">
-                <span className="text-white">
+            <h1 className="font-bold mb-6 leading-tight text-white min-h-[200px] flex flex-col justify-center">
+              <div className="text-4xl md:text-5xl mb-4 min-h-[60px] flex items-center justify-center">
+                <span className="text-white transition-opacity duration-300">
                   {animationStartedRef.current ? typewriterTagline : ''}
                   {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
               </div>
-              {taglineComplete && (
-                <div className="text-5xl md:text-7xl">
-                  <span className="text-white">
-                    {typewriterJABV}
-                    {showJABVCursor && <span className="animate-pulse">|</span>}
-                  </span>
-                  <span style={{ color: '#C82222' }}>
-                    {typewriterLabs}
-                    {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
-                  </span>
-                </div>
-              )}
+              <div className={`text-5xl md:text-7xl min-h-[80px] flex items-center justify-center transition-opacity duration-300 ${taglineComplete ? 'opacity-100' : 'opacity-0'}`}>
+                <span className="text-white">
+                  {typewriterJABV}
+                  {showJABVCursor && <span className="animate-pulse">|</span>}
+                </span>
+                <span style={{ color: '#C82222' }}>
+                  {typewriterLabs}
+                  {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                </span>
+              </div>
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
