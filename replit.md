@@ -135,10 +135,13 @@ Changelog:
   - Applied staggered animations across all sections of home and service pages
   - Integrated initial loading screen with variable progress simulation
   - Fixed loading sequence: progress bar → loading screen fade out → typewriter starts
-  - Implemented session-based caching (loading only shows on page refresh)
-  - Fixed "JABVLabs" typewriter to display without spacing, proper 2s cursor blink
+  - Removed session caching to ensure consistent typewriter behavior
+  - Implemented complete sequential typewriter effect for hero headline
+  - "Build Your Future with" types first in smaller white text (4xl/5xl)
+  - 100ms pause then "JABVLabs" types in larger text (5xl/7xl) with proper colors
+  - Removed page transition animations, keeping only initial loading screen
   - Enhanced navigation bar z-index to stay visible during loading
-  - Replaced broken image with custom brand-focused graphic in About section
+  - Replaced broken image with progress bars showing expertise in About section
 ```
 
 ## User Preferences
