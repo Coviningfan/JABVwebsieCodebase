@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { dataService } from './dataService.js';
+import { MessageCenter } from './MessageCenter.jsx';
 import { Router, Route, Switch, Link, useLocation } from 'wouter';
 
 function LoginScreen() {
@@ -385,6 +387,36 @@ function MetricsCard({ title, value, icon, color = 'primary' }) {
 }
 
 function Dashboard() {
+  const [dashboardData, setDashboardData] = useState({
+    user: null,
+    stats: null,
+    projects: [],
+    activities: []
+  });
+
+  useEffect(() => {
+    // Load dashboard data
+    const loadDashboardData = () => {
+      const user = dataService.getCurrentUser();
+      const stats = dataService.getProjectStats();
+      const projects = dataService.getUserProjects();
+      const activities = dataService.getRecentActivity();
+
+      setDashboardData({
+        user,
+        stats,
+        projects,
+        activities
+      });
+    };
+
+    loadDashboardData();
+  }, []);
+
+  if (!dashboardData.user) {
+    return <div style={{ color: 'white', padding: '20px' }}>Loading...</div>;
+  }
+
   return (
     <div>
       {/* Welcome Section */}
@@ -395,7 +427,7 @@ function Dashboard() {
           color: 'white',
           margin: '0 0 8px 0'
         }}>
-          Welcome back, John Doe!
+          Welcome back, {dashboardData.user.name}!
         </h1>
         <p style={{
           color: '#a1a1aa',
@@ -415,7 +447,7 @@ function Dashboard() {
       }}>
         <MetricsCard
           title="Total Projects"
-          value="4"
+          value={dashboardData.stats?.total || 0}
           color="primary"
           icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -430,7 +462,7 @@ function Dashboard() {
         
         <MetricsCard
           title="Active Projects"
-          value="2"
+          value={dashboardData.stats?.active || 0}
           color="warning"
           icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -442,7 +474,7 @@ function Dashboard() {
         
         <MetricsCard
           title="Completed Projects"
-          value="1"
+          value={dashboardData.stats?.completed || 0}
           color="success"
           icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -485,114 +517,134 @@ function Dashboard() {
             gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '20px'
           }}>
-            {/* E-commerce Platform */}
-            <div style={{
-              background: 'rgba(24, 24, 27, 0.8)',
-              border: '1px solid rgba(63, 63, 70, 0.4)',
-              borderRadius: '12px',
-              padding: '20px',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.borderColor = '#dc2626';
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(220, 38, 38, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 0.4)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}>
-              <div style={{ marginBottom: '16px' }}>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  background: '#dc2626',
-                  color: 'white',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  padding: '4px 8px',
+            {dashboardData.projects.slice(0, 4).map((project) => {
+              const getStatusConfig = (status) => {
+                switch (status) {
+                  case 'in_progress':
+                    return { color: '#dc2626', label: 'In Progress' };
+                  case 'active':
+                    return { color: '#f59e0b', label: 'Active' };
+                  case 'completed':
+                    return { color: '#22c55e', label: 'Completed' };
+                  case 'planning':
+                    return { color: '#3b82f6', label: 'Planning' };
+                  default:
+                    return { color: '#6b7280', label: 'Unknown' };
+                }
+              };
+
+              const statusConfig = getStatusConfig(project.status);
+
+              return (
+                <div key={project.id} style={{
+                  background: 'rgba(24, 24, 27, 0.8)',
+                  border: '1px solid rgba(63, 63, 70, 0.4)',
                   borderRadius: '12px',
-                  marginBottom: '12px'
+                  padding: '20px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.borderColor = statusConfig.color;
+                  e.currentTarget.style.boxShadow = `0 10px 25px ${statusConfig.color}25`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 0.4)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14"/>
-                  </svg>
-                  In Progress
-                </div>
-                <h3 style={{
-                  fontSize: '18px',
-                  fontWeight: '600',
-                  color: 'white',
-                  margin: '0 0 4px 0',
-                  transition: 'color 0.2s ease'
-                }}>E-commerce Platform Redesign</h3>
-                <p style={{
-                  color: '#a1a1aa',
-                  fontSize: '14px',
-                  margin: 0
-                }}>TechCorp Solutions</p>
-              </div>
-              <p style={{
-                color: '#a1a1aa',
-                fontSize: '14px',
-                lineHeight: '1.5',
-                margin: '0 0 16px 0'
-              }}>Complete redesign of the e-commerce platform with modern UI/UX and enhanced functionality</p>
-              <div style={{ marginBottom: '16px' }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '8px'
-                }}>
-                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
-                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>75%</span>
-                </div>
-                <div style={{
-                  width: '100%',
-                  height: '6px',
-                  background: 'rgba(63, 63, 70, 0.4)',
-                  borderRadius: '3px',
-                  overflow: 'hidden'
-                }}>
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      background: statusConfig.color,
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      padding: '4px 8px',
+                      borderRadius: '12px',
+                      marginBottom: '12px'
+                    }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                      </svg>
+                      {statusConfig.label}
+                    </div>
+                    <h3 style={{
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      color: 'white',
+                      margin: '0 0 4px 0',
+                      transition: 'color 0.2s ease'
+                    }}>{project.name}</h3>
+                    <p style={{
+                      color: '#a1a1aa',
+                      fontSize: '14px',
+                      margin: 0
+                    }}>{project.client_company}</p>
+                  </div>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    margin: '0 0 16px 0'
+                  }}>{project.description}</p>
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '8px'
+                    }}>
+                      <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
+                      <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>{project.progress}%</span>
+                    </div>
+                    <div style={{
+                      width: '100%',
+                      height: '6px',
+                      background: 'rgba(63, 63, 70, 0.4)',
+                      borderRadius: '3px',
+                      overflow: 'hidden'
+                    }}>
+                      <div style={{
+                        width: `${project.progress}%`,
+                        height: '100%',
+                        background: `linear-gradient(90deg, ${statusConfig.color} 0%, ${statusConfig.color}80 100%)`,
+                        borderRadius: '3px',
+                        transition: 'width 0.5s ease'
+                      }}></div>
+                    </div>
+                  </div>
                   <div style={{
-                    width: '75%',
-                    height: '100%',
-                    background: 'linear-gradient(90deg, #dc2626 0%, #ef4444 100%)',
-                    borderRadius: '3px',
-                    transition: 'width 0.5s ease'
-                  }}></div>
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    fontSize: '12px',
+                    color: '#a1a1aa'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                      <span>{project.start_date}</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10,8 16,12 10,16 10,8"/>
+                      </svg>
+                      <span>{project.end_date}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                fontSize: '12px',
-                color: '#a1a1aa'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                  </svg>
-                  <span>Jan 14, 2024</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polygon points="10,8 16,12 10,16 10,8"/>
-                  </svg>
-                  <span>Mar 29, 2024</span>
-                </div>
-              </div>
-            </div>
+              );
+            })}
 
             {/* Mobile App Development */}
             <div style={{
@@ -838,64 +890,115 @@ function Dashboard() {
             padding: '20px'
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {/* Activity Item 1 */}
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'flex-start', 
-                gap: '12px',
-                padding: '12px',
-                borderRadius: '8px',
-                transition: 'background-color 0.2s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.6)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}>
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  boxShadow: '0 2px 8px rgba(220, 38, 38, 0.3)'
-                }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                  </svg>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <p style={{
-                    color: 'white',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    margin: '0 0 4px 0'
-                  }}>New message from Project Manager</p>
-                  <p style={{
-                    color: '#a1a1aa',
-                    fontSize: '13px',
-                    margin: '0 0 4px 0',
-                    lineHeight: '1.4'
-                  }}>Updated on E-commerce Platform Redesign progress</p>
-                  <p style={{
-                    color: '#71717a',
-                    fontSize: '12px',
-                    margin: 0
-                  }}>2 hours ago</p>
-                </div>
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  background: '#dc2626',
-                  borderRadius: '50%',
-                  marginTop: '8px'
-                }}></div>
-              </div>
+              {dashboardData.activities.map((activity) => {
+                const getActivityIcon = (type) => {
+                  switch (type) {
+                    case 'message':
+                      return (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                      );
+                    case 'file_upload':
+                      return (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14,2 14,8 20,8"/>
+                          <line x1="16" y1="13" x2="8" y2="13"/>
+                          <line x1="16" y1="17" x2="8" y2="17"/>
+                          <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                      );
+                    case 'status_update':
+                      return (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                          <polyline points="20,6 9,17 4,12"/>
+                        </svg>
+                      );
+                    default:
+                      return (
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                          <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                      );
+                  }
+                };
+
+                const getActivityColor = (type) => {
+                  switch (type) {
+                    case 'message':
+                      return { bg: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)', color: '#dc2626' };
+                    case 'file_upload':
+                      return { bg: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)', color: '#f59e0b' };
+                    case 'status_update':
+                      return { bg: 'linear-gradient(135deg, #22c55e 0%, #34d399 100%)', color: '#22c55e' };
+                    default:
+                      return { bg: 'linear-gradient(135deg, #6b7280 0%, #9ca3af 100%)', color: '#6b7280' };
+                  }
+                };
+
+                const colorConfig = getActivityColor(activity.activity_type);
+
+                return (
+                  <div key={activity.id} style={{ 
+                    display: 'flex', 
+                    alignItems: 'flex-start', 
+                    gap: '12px',
+                    padding: '12px',
+                    borderRadius: '8px',
+                    transition: 'background-color 0.2s ease',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.6)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      background: colorConfig.bg,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: `0 2px 8px ${colorConfig.color}40`
+                    }}>
+                      {getActivityIcon(activity.activity_type)}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <p style={{
+                        color: 'white',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        margin: '0 0 4px 0'
+                      }}>{activity.description}</p>
+                      <p style={{
+                        color: '#a1a1aa',
+                        fontSize: '13px',
+                        margin: '0 0 4px 0',
+                        lineHeight: '1.4'
+                      }}>{activity.metadata?.message || activity.project_name}</p>
+                      <p style={{
+                        color: '#71717a',
+                        fontSize: '12px',
+                        margin: 0
+                      }}>{activity.time_ago}</p>
+                    </div>
+                    {activity.activity_type === 'message' && (
+                      <div style={{
+                        width: '8px',
+                        height: '8px',
+                        background: colorConfig.color,
+                        borderRadius: '50%',
+                        marginTop: '8px'
+                      }}></div>
+                    )}
+                  </div>
+                );
+              })}
 
               {/* Activity Item 2 */}
               <div style={{ 
@@ -1160,89 +1263,140 @@ function Dashboard() {
 }
 
 function Projects() {
-  return (
-    <div style={{ flex: 1, padding: '32px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: 'white', marginBottom: '8px' }}>
-          Projects
-        </h1>
-        <p style={{ color: '#9ca3af' }}>Manage your active projects and view progress.</p>
-      </div>
+  const [projectsData, setProjectsData] = useState({
+    projects: [],
+    selectedProject: null
+  });
 
+  useEffect(() => {
+    const projects = dataService.getUserProjects();
+    setProjectsData({
+      projects,
+      selectedProject: projects[0] || null
+    });
+  }, []);
+
+  const handleProjectSelect = (project) => {
+    setProjectsData(prev => ({
+      ...prev,
+      selectedProject: project
+    }));
+  };
+
+  return (
+    <div>
+      <h1 style={{
+        fontSize: '32px',
+        fontWeight: '700',
+        color: 'white',
+        margin: '0 0 32px 0'
+      }}>
+        Projects
+      </h1>
+      
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+        gridTemplateColumns: '1fr 2fr',
         gap: '24px'
       }}>
-        {[
-          { name: 'E-commerce Platform', progress: 85, status: 'On Track', deadline: 'Feb 15, 2024', team: 4, statusColor: '#10b981' },
-          { name: 'Mobile App Development', progress: 62, status: 'In Progress', deadline: 'Mar 01, 2024', team: 3, statusColor: '#3b82f6' }
-        ].map((project, index) => (
-          <div key={index} style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '16px',
-            padding: '24px'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
-              <div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'white', marginBottom: '4px' }}>
-                  {project.name}
-                </h3>
-                <p style={{ color: '#9ca3af', fontSize: '14px' }}>Full-stack solution with modern design</p>
-              </div>
-              <span style={{
-                padding: '4px 12px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: '500',
-                background: `${project.statusColor}20`,
-                color: project.statusColor,
-                border: `1px solid ${project.statusColor}30`
-              }}>
-                {project.status}
-              </span>
-            </div>
-            
-            <div style={{ marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span style={{ fontSize: '14px', color: '#9ca3af' }}>Progress</span>
-                <span style={{ fontSize: '14px', fontWeight: '500', color: 'white' }}>{project.progress}%</span>
-              </div>
-              <div style={{
-                width: '100%',
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                height: '8px'
-              }}>
-                <div style={{
-                  width: `${project.progress}%`,
-                  background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
-                  height: '8px',
-                  borderRadius: '8px',
-                  transition: 'all 0.5s ease'
-                }}></div>
-              </div>
-            </div>
+        {/* Projects List */}
+        <div style={{
+          background: 'rgba(24, 24, 27, 0.8)',
+          border: '1px solid rgba(63, 63, 70, 0.4)',
+          borderRadius: '12px',
+          padding: '24px'
+        }}>
+          <h2 style={{
+            fontSize: '20px',
+            fontWeight: '600',
+            color: 'white',
+            margin: '0 0 20px 0'
+          }}>Your Projects</h2>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {projectsData.projects.map((project) => {
+              const isSelected = projectsData.selectedProject?.id === project.id;
+              const getStatusColor = (status) => {
+                switch (status) {
+                  case 'in_progress': return '#dc2626';
+                  case 'active': return '#f59e0b';
+                  case 'completed': return '#22c55e';
+                  case 'planning': return '#3b82f6';
+                  default: return '#6b7280';
+                }
+              };
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '14px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <span style={{ color: '#9ca3af' }}>Due: {project.deadline}</span>
-                <span style={{ color: '#9ca3af' }}>{project.team} members</span>
-              </div>
-              <button style={{
-                color: '#dc2626',
-                background: 'none',
-                border: 'none',
-                fontWeight: '500',
-                cursor: 'pointer'
-              }}>
-                View Details
-              </button>
-            </div>
+              return (
+                <div
+                  key={project.id}
+                  onClick={() => handleProjectSelect(project)}
+                  style={{
+                    padding: '16px',
+                    background: isSelected ? 'rgba(220, 38, 38, 0.1)' : 'rgba(63, 63, 70, 0.2)',
+                    border: `1px solid ${isSelected ? '#dc2626' : 'rgba(63, 63, 70, 0.4)'}`,
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isSelected) {
+                      e.currentTarget.style.backgroundColor = 'rgba(63, 63, 70, 0.3)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSelected) {
+                      e.currentTarget.style.backgroundColor = 'rgba(63, 63, 70, 0.2)';
+                    }
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '8px'
+                  }}>
+                    <h3 style={{
+                      color: 'white',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      margin: 0
+                    }}>{project.name}</h3>
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      background: getStatusColor(project.status),
+                      borderRadius: '50%'
+                    }}></div>
+                  </div>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '14px',
+                    margin: '0 0 8px 0'
+                  }}>{project.client_company}</p>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{
+                      color: '#71717a',
+                      fontSize: '12px'
+                    }}>Progress: {project.progress}%</span>
+                    <span style={{
+                      color: getStatusColor(project.status),
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      textTransform: 'capitalize'
+                    }}>{project.status.replace('_', ' ')}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+
+        {/* Message Center */}
+        <MessageCenter projectId={projectsData.selectedProject?.id} />
       </div>
     </div>
   );
