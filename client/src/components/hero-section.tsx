@@ -76,10 +76,8 @@ export function HeroSection() {
               className="absolute rounded-full opacity-10 blur-sm"
               style={{
                 backgroundColor: b.color,
-                left: `${b.x}%`,
-                top: `${b.y}%`,
-                width: `${b.size}rem`,
-                height: `${b.size}rem`,
+                left: `${b.x}%`, top: `${b.y}%`,
+                width: `${b.size}rem`, height: `${b.size}rem`,
                 animation: `float ${b.duration}s ease-in-out ${b.delay}s infinite`,
               }}
             />
@@ -122,7 +120,7 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 mb-10 text-xs md:text-sm">
-              {['Tailored Software Solutions','iOS & Android App Development','Responsive Web Apps','Scalable Architecture','Pixel-Perfect UI/UX'].map((item,i)=> (
+              {['Tailored Software Solutions','iOS & Android App Development','Responsive Web Apps','Scalable Architecture','Pixel-Perfect UI/UX'].map((item, i) => (
                 <div key={i} className="flex items-center gap-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 text-gray-300 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full block" />
                   <span>{item}</span>
@@ -131,22 +129,22 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col items-center gap-5">
-              <button onClick={()=>scrollToSection('contact')} className="group relative inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-transform duration-300 hover:scale-105 animate-pulse-soft shadow-red-500/25">
+              <button onClick={() => scrollToSection('contact')} className="group relative inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-transform duration-300 hover:scale-105 animate-pulse-soft shadow-red-500/25">
                 Get a Quote<span className="ml-2 block transition-all duration-300 group-hover:ml-3">→</span>
               </button>
               <div className="flex space-x-1">
-                {[0,1,2].map((_,idx)=>(
-                  <span key={idx} className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay:`${idx*200}ms`}}/>
+                {[0, 1, 2].map((_, idx) => (
+                  <span key={idx} className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: `${idx * 200}ms` }} />
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-10 text-gray-400 text-sm">
               <a href="tel:7758005850" className="flex items-center gap-2 hover:text-red-400">
-                <Phone className="w-4 h-4"/>(775) 800-5850
+                <Phone className="w-4 h-4" /> (775) 800-5850
               </a>
               <a href="mailto:contact@jabvlabs.com" className="flex items-center gap-2 hover:text-red-400">
-                <Mail className="w-4 h-4"/>contact@jabvlabs.com
+                <Mail className="w-4 h-4" /> contact@jabvlabs.com
               </a>
             </div>
           </div>
@@ -160,12 +158,10 @@ export function HeroSection() {
           @keyframes pulseSoft {0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.95;transform:scale(1.02)}}
           .shimmer{background-size:400% 100%;animation:shimmer 4s ease-in-out infinite;}
           .animate-blink{animation:blink .8s step-start infinite;}
-          .animate-fade-in-slow{animation-fadeInSlow 1.5s ease-out both;}
+          .animate-fade-in-slow{animation:fadeInSlow 1.5s ease-out both;}
           .animate-pulse-soft{animation:pulseSoft 2.5s ease-in-out infinite;}
         `}</style>
       </section>
     </>
-  );
-}
   );
 }
