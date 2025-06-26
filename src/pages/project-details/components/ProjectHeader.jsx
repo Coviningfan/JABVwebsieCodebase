@@ -1,0 +1,105 @@
+import React from 'react';
+import Icon from 'components/AppIcon';
+import Image from 'components/AppImage';
+
+const ProjectHeader = ({ projectData }) => {
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case 'completed':
+        return 'bg-success text-white';
+      case 'in progress':
+        return 'bg-primary text-white';
+      case 'client review':
+        return 'bg-warning text-white';
+      case 'pending':
+        return 'bg-text-secondary text-white';
+      default:
+        return 'bg-text-secondary text-white';
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  return (
+    <div className="bg-surface rounded-lg shadow-card border border-border p-6 mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+        {/* Project Info */}
+        <div className="flex-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <h1 className="text-3xl font-bold text-text-primary">{projectData.name}</h1>
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(projectData.status)}`}>
+              <Icon name="Circle" size={8} className="mr-2 fill-current" />
+              {projectData.status}
+            </span>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-text-primary">Project Progress</span>
+              <span className="text-sm font-medium text-text-primary">{projectData.progress}%</span>
+            </div>
+            <div className="w-full bg-background rounded-full h-2">
+              <div 
+                className="bg-primary h-2 rounded-full transition-all duration-300"
+                style={{ width: `${projectData.progress}%` }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Project Metadata */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                <Icon name="Calendar" size={20} color="white" />
+              </div>
+              <div>
+                <p className="text-sm text-text-secondary">Start Date</p>
+                <p className="font-medium text-text-primary">{formatDate(projectData.startDate)}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-warning rounded-lg flex items-center justify-center">
+                <Icon name="Clock" size={20} color="white" />
+              </div>
+              <div>
+                <p className="text-sm text-text-secondary">Est. Completion</p>
+                <p className="font-medium text-text-primary">{formatDate(projectData.estimatedCompletion)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Team Members */}
+        <div className="lg:w-80">
+          <h3 className="text-lg font-semibold text-text-primary mb-4">Team Members</h3>
+          <div className="space-y-3">
+            {projectData.teamMembers.map((member) => (
+              <div key={member.id} className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-background">
+                  <Image
+                    src={member.avatar}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p className="font-medium text-text-primary">{member.name}</p>
+                  <p className="text-sm text-text-secondary">{member.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProjectHeader;

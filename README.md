@@ -1,180 +1,107 @@
-JABV Labs - Portfolio Website
+# React
 
-Description
+A modern React-based project utilizing the latest frontend technologies and tools for building responsive web applications.
 
-This is a full-stack web application for JABV Labs, a web and mobile app development company based in Reno, Nevada. The application features a modern, dark-themed portfolio website with a contact form and showcases the company's services and projects. Designed with an Apple-inspired aesthetic, the site uses a red and black color palette with professional animations, offering a clean, responsive interface for businesses and individuals seeking custom mobile app development (iOS/Android), interactive websites, and website redesigns. Hosted securely with a wildcard SSL certificate, the site is live at https://jabvlabs.com, with full subdomain (www.jabvlabs.com) functionality pending DNS propagation (expected by June 24-25, 2025). This project emphasizes bespoke development solutions, steering clear of AI-generated or template-based services, and is poised to attract US clients with optimized content and local SEO strategies.
+## 🚀 Features
 
-Overview
+- **React 18** - React version with improved rendering and concurrent features
+- **Vite** - Lightning-fast build tool and development server
+- **Redux Toolkit** - State management with simplified Redux setup
+- **TailwindCSS** - Utility-first CSS framework with extensive customization
+- **React Router v6** - Declarative routing for React applications
+- **Data Visualization** - Integrated D3.js and Recharts for powerful data visualization
+- **Form Management** - React Hook Form for efficient form handling
+- **Animation** - Framer Motion for smooth UI animations
+- **Testing** - Jest and React Testing Library setup
 
-JABV Labs is committed to delivering innovative digital solutions through custom web and mobile app development. This portfolio website serves as a showcase of our expertise, featuring a sleek dark theme with red accents, infinite-scrolling project carousels, and detailed service pages. The site is built to engage visitors with a self-guiding layout, leveraging psychological design principles for a premium user experience.
+## 📋 Prerequisites
 
-System Architecture
+- Node.js (v14.x or higher)
+- npm or yarn
 
-Frontend Architecture
+## 🛠️ Installation
 
-Framework: React 18 with TypeScript for type safety and scalability.
+1. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+   
+2. Start the development server:
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-Styling: Tailwind CSS with shadcn/ui components for a utility-first, customizable design.
+## 📁 Project Structure
 
-Routing: Wouter for lightweight client-side navigation.
+```
+react_app/
+├── public/             # Static assets
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Page components
+│   ├── styles/         # Global styles and Tailwind configuration
+│   ├── App.jsx         # Main application component
+│   ├── Routes.jsx      # Application routes
+│   └── index.jsx       # Application entry point
+├── .env                # Environment variables
+├── index.html          # HTML template
+├── package.json        # Project dependencies and scripts
+├── tailwind.config.js  # Tailwind CSS configuration
+└── vite.config.js      # Vite configuration
+```
 
-State Management: TanStack Query (React Query) for efficient server state handling.
+## 🧩 Adding Routes
 
-Form Handling: React Hook Form with Zod validation for robust form management.
+To add new routes to the application, update the `Routes.jsx` file:
 
-Build Tool: Vite for fast development and production builds.
+```jsx
+import { useRoutes } from "react-router-dom";
+import HomePage from "pages/HomePage";
+import AboutPage from "pages/AboutPage";
 
-Backend Architecture
+const ProjectRoutes = () => {
+  let element = useRoutes([
+    { path: "/", element: <HomePage /> },
+    { path: "/about", element: <AboutPage /> },
+    // Add more routes as needed
+  ]);
 
-Runtime: Node.js with Express.js for a lightweight server.
-Language: TypeScript with ES modules for type-safe code.
-Database: PostgreSQL with Drizzle ORM for structured, type-safe queries.
-Database Provider: Neon Database (serverless PostgreSQL) for scalability.
-Validation: Zod schemas for data integrity.
-Development: Hot module replacement with Vite integration.
-UI Component System
-Design System: shadcn/ui with Radix UI primitives for accessible, reusable components.
-Theme: Dark theme with red accent colors, inspired by Apple’s modern design.
-Typography: Inter font family for clean, professional text.
-Icons: Font Awesome and Lucide React for elegant, precise visuals.
-Responsive Design: Mobile-first approach using Tailwind breakpoints.
+  return element;
+};
+```
 
-Key Components
-Database Schema:
-Users Table: Basic authentication (id, username, password).
-Contacts Table: Stores form submissions (id, name, email, projectType, message, createdAt).
-Location: Defined in shared/schema.ts with Drizzle ORM.
-Storage Layer:
-Interface: IStorage for CRUD operations.
-Implementation: MemStorage class for in-memory storage (development).
-Location: server/storage.ts.
+## 🎨 Styling
 
-Frontend Pages:
+This project uses Tailwind CSS for styling. The configuration includes:
 
-Home Page: Features navigation, hero section, portfolio carousel, services, about, and contact sections.
-404 Page: Custom not found page for user guidance.
-API Structure:
-Routes: Defined in server/routes.ts (currently empty, ready for expansion).
-Prefix: All routes use /api prefix.
-Error Handling: Global middleware for robust error management.
-Data Flow:
-Client Requests: React components use TanStack Query for API calls.
-API Layer: Express.js handles requests with route handlers.
-Storage Layer: Abstracts database operations via the storage interface.
-Database: PostgreSQL with Drizzle ORM.
-Response: JSON sent back to the client.
-State Management: TanStack Query handles caching and synchronization.
-External Dependencies
+- Forms plugin for form styling
+- Typography plugin for text styling
+- Aspect ratio plugin for responsive elements
+- Container queries for component-specific responsive design
+- Fluid typography for responsive text
+- Animation utilities
 
-Core Dependencies:
-@neondatabase/serverless: Serverless PostgreSQL driver.
-drizzle-orm: Type-safe SQL query builder.
-@tanstack/react-query: Server state management.
-react-hook-form: Form handling.
-@hookform/resolvers: Form validation resolvers.
-zod: Schema validation.
-wouter: Lightweight routing.
-UI Dependencies:
-@radix-ui/*: Accessible UI primitives.
-tailwindcss: Utility-first CSS framework.
-class-variance-authority: CSS class variants.
-clsx: Conditional class names.
-lucide-react: Icon library.
-Development Dependencies:
-vite: Build tool and dev server.
-typescript: Type checking.
-tsx: TypeScript execution.
-esbuild: Fast bundling for production.
+## 📱 Responsive Design
 
-Deployment Strategy
-Development
-Command: npm run dev.
-Port: 5000 (configured for local testing).
-Hot Reload: Vite HMR for frontend, tsx for backend.
-Production Build
-Frontend: vite build outputs to dist/public.
-Backend: esbuild bundles server to dist/index.js.
+The app is built with responsive design using Tailwind CSS breakpoints.
 
 
+## 📦 Deployment
 
-Start: npm run start runs the production build.
+Build the application for production:
 
-Database Management
+```bash
+npm run build
+```
 
-Migrations: Drizzle Kit for schema migrations.
+## 🙏 Acknowledgments
 
-Push: npm run db:push applies schema changes.
+- Built with [Rocket.new](https://rocket.new)
+- Powered by React and Vite
+- Styled with Tailwind CSS
 
-Environment: DATABASE_URL required for database connection.
-
-Platform Configuration
-
-Deployment Target: Autoscale-capable hosting platform.
-
-Modules: nodejs-20, web, postgresql-16.
-
-Port Mapping: 5000 (internal) → 80 (external).
-
-Changelog
-
-
-June 24, 2025 - Initial Setup: Established core architecture with React, Node.js, and PostgreSQL.
-June 24, 2025 - Enhanced Design:
-
-Added carousel-style technology showcases with scrolling animations.
-
-Implemented background animations with floating particles.
-
-Updated contact info to (775) 800-5850 and contact@jabvlabs.com.
-
-Emphasized custom development, avoiding AI/template references.
-
-Created a separate Contact page with premium glass effects.
-
-Enhanced portfolio carousel with infinite scroll and 10 project examples.
-
-Updated copyright to © 2025 JABV Holdings LLC.
-
-Added comprehensive technology categories (40+ languages, frameworks, cloud, ML/AI).
-
-User Preferences
-
-
-Communication Style: Simple, everyday language for clear guidance.
-
-
-Marketing Focus: Highlight custom development, avoid AI or template service mentions.
-
-Contact: Phone (775) 800-5850, Email contact@jabvlabs.com.
-
-Company: JABV Holdings LLC (© 2025).
-
-Design Preference: Apple-inspired, red/black theme, professional animations.
-
-Next Steps
-
-Monitor DNS Propagation: Confirm www.jabvlabs.com CNAME resolves (expected by June 24-25, 2025) using www.whatsmydns.net.
-
-Test Fully: Verify https://jabvlabs.com and https://www.jabvlabs.com load with padlock icons.
-
-SEO Implementation:
-
-Research keywords (e.g., “Reno app development,” “Reno web design”).
-
-Optimize titles, meta descriptions, and content.
-
-Set up Google Search Console and Business Profile.
-
-Maintenance: Regularly update content and monitor performance with analytics tools.
-
-Contributing
-
-Guidelines: Suggest enhancements via issues or pull requests (if using version control).
-
-Contact: Reach out at contact@jabvlabs.com or (775) 800-5850 for collaboration.
-
-Note: Maintain a professional image by focusing on custom solutions in all communications.
-
-License
-
-© 2025 JABV Holdings LLC. All rights reserved.
+Built with ❤️ on Rocket.new
