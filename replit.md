@@ -137,7 +137,7 @@ The JABV Labs Client Portal is a modern React-based web application that provide
 - June 26, 2025. Integrated NotificationsCenter with real-time alerts, filtering, read/unread status, and action-based navigation
 - June 26, 2025. Enhanced portal with feedback workflows, approval systems, time tracking capabilities, and advanced self-service features
 - June 26, 2025. Implemented comprehensive AI-powered task recommendation engine using OpenAI API with intelligent project context analysis, user pattern recognition, confidence scoring, and fallback recommendations for enhanced task management automation
-- June 26, 2025. Created optimized dashboard with professional SVG-based charts including progress bars, donut charts, metric cards with trend indicators, activity feeds, and quick action panels for improved user experience and data visualization
+- June 26, 2025. Replaced business-focused dashboard with client-centric dashboard showing client's active projects, pending tasks, unread messages, and upcoming deadlines - removed revenue metrics as portal is for client organization, not business analytics
 
 ## User Preferences
 

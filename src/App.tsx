@@ -8,7 +8,7 @@ import { SupportPage } from './SupportPage.jsx';
 import { TasksPage } from './TasksPage.jsx';
 import { KnowledgeBasePage } from './KnowledgeBasePage.jsx';
 import { NotificationsCenter } from './NotificationsCenter.jsx';
-import { OptimizedDashboard } from './OptimizedDashboard.jsx';
+import { ClientDashboard } from './ClientDashboard.jsx';
 import { Router, Route, Switch, Link, useLocation } from 'wouter';
 
 function LoginScreen() {
@@ -2121,7 +2121,10 @@ export default function App() {
         <Route path="/dashboard">
           <AppLayout>
             {currentView === 'dashboard' && (
-              <OptimizedDashboard onProjectClick={handleProjectClick} />
+              <ClientDashboard 
+                onProjectClick={handleProjectClick} 
+                onNavigate={(path) => window.location.href = path}
+              />
             )}
             {currentView === 'project-details' && selectedProjectId && (
               <ProjectDetails 
