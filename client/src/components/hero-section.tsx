@@ -1,27 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
-  console.log('🔄 HeroWithBanner component rendering with loadingComplete:', loadingComplete);
-  
-  // Use refs to persist animation state and prevent re-initialization
+  // Use refs to persist animation state across re-renders and hot reloads
   const animationStartedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
-  const animationInstanceRef = useRef<string | null>(null);
-  const stateInitializedRef = useRef(false);
   
-  // Initialize states only once to prevent jarring transitions
-  const [isVisible, setIsVisible] = useState(false);
-  const [showBanner, setShowBanner] = useState(false);
-  const [typewriterTagline, setTypewriterTagline] = useState('');
-  const [typewriterJABV, setTypewriterJABV] = useState('');
-  const [typewriterLabs, setTypewriterLabs] = useState('');
-  const [showTaglineCursor, setShowTaglineCursor] = useState(false);
-  const [showJABVCursor, setShowJABVCursor] = useState(false);
-  const [showLabsCursor, setShowLabsCursor] = useState(false);
-  const [taglineComplete, setTaglineComplete] = useState(false);
-  const [typewriterStarted, setTypewriterStarted] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(false);
+  console.log('🔄 HeroWithBanner rendering:', { 
+    loadingComplete, 
+    animationStarted: animationStartedRef.current 
+  });
+  
+  // Single state object to reduce re-renders
+  const [animationState, setAnimationState] = useState({
+    isVisible: false,
+    showBanner: false,
+    typewriterTagline: '',
+    typewriterJABV: '',
+    typewriterLabs: '',
+    showTaglineCursor: false,
+    showJABVCursor: false,
+    showLabsCursor: false,
+    taglineComplete: false,
+    typewriterStarted: false,
+    animationComplete: false
+  });
+
+  // Destructure for easier access
+  const {
+    isVisible,
+    showBanner,
+    typewriterTagline,
+    typewriterJABV,
+    typewriterLabs,
+    showTaglineCursor,
+    showJABVCursor,
+    showLabsCursor,
+    taglineComplete,
+    typewriterStarted,
+    animationComplete
+  } = animationState;
   
   console.log('📊 Current states:', {
     typewriterTagline,
@@ -40,107 +58,113 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   };
 
   useEffect(() => {
-    setIsVisible(true);
-    const delay = setTimeout(() => setShowBanner(true), 1400);
+    console.log('🎯 Setting up visibility animations');
+    setAnimationState(prev => ({ ...prev, isVisible: true }));
+    const delay = setTimeout(() => {
+      console.log('🎯 Showing banner');
+      setAnimationState(prev => ({ ...prev, showBanner: true }));
+    }, 1400);
     return () => clearTimeout(delay);
   }, []);
 
   // Complete typewriter effect sequence
   useEffect(() => {
-    const timestamp = Date.now();
-    const instanceId = `${timestamp}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    console.log(`[${instanceId}] Typewriter useEffect triggered:`, { 
+    console.log('Typewriter useEffect triggered:', { 
       loadingComplete, 
-      animationStarted: animationStartedRef.current,
-      currentInstance: animationInstanceRef.current,
-      isVisible,
-      showBanner 
+      animationStarted: animationStartedRef.current
     });
     
     if (loadingComplete !== true) {
-      console.log(`[${instanceId}] Skipped: loadingComplete is not true (${loadingComplete})`);
+      console.log('Skipped: loadingComplete is not true');
       return;
     }
     
-    if (animationStartedRef.current && animationInstanceRef.current) {
-      console.log(`[${instanceId}] Skipped: animation already started by instance ${animationInstanceRef.current}`);
+    if (animationStartedRef.current) {
+      console.log('Skipped: animation already started');
       return;
     }
     
-    console.log(`[${instanceId}] ✅ CONDITIONS MET - Starting typewriter animation sequence...`);
+    console.log('✅ CONDITIONS MET - Starting typewriter animation sequence...');
     animationStartedRef.current = true;
-    animationInstanceRef.current = instanceId;
     
     const taglineText = 'Build Your Future with';
     const jabvText = 'JABV';
     const labsText = 'Labs';
     
-    console.log(`[${timestamp}] Setting up typewriter delays and animations...`);
+    console.log('Setting up typewriter delays and animations...');
     
     // Start typewriter sequence with smooth transition timing
     const startDelay = setTimeout(() => {
-      console.log(`[${instanceId}] 🎯 Starting tagline typing animation`);
-      setShowTaglineCursor(true);
+      console.log('🎯 Starting tagline typing animation');
+      setAnimationState(prev => ({ ...prev, showTaglineCursor: true }));
       
       // Step 1: Type the tagline "Build Your Future with"
       let taglineIndex = 0;
       const typeTagline = () => {
         if (taglineIndex < taglineText.length) {
           const currentText = taglineText.substring(0, taglineIndex + 1);
-          console.log(`[${timestamp}] Typing tagline: "${currentText}"`);
-          setTypewriterTagline(currentText);
+          console.log(`Typing tagline: "${currentText}"`);
+          setAnimationState(prev => ({ ...prev, typewriterTagline: currentText }));
           taglineIndex++;
           const timeout = setTimeout(typeTagline, 60 + Math.random() * 30);
           timeoutsRef.current.push(timeout);
         } else {
-          console.log(`[${timestamp}] ✅ Tagline complete: "${taglineText}"`);
+          console.log(`✅ Tagline complete: "${taglineText}"`);
           // Tagline complete, brief pause then hide cursor
           setTimeout(() => {
-            setShowTaglineCursor(false);
-            setTaglineComplete(true);
-            console.log(`[${timestamp}] 🎯 Starting JABV typing animation`);
+            setAnimationState(prev => ({ 
+              ...prev, 
+              showTaglineCursor: false, 
+              taglineComplete: true 
+            }));
+            console.log('🎯 Starting JABV typing animation');
             
             // Step 2: Brief pause (100ms) then start "JABV Labs"
             setTimeout(() => {
-              setShowJABVCursor(true);
+              setAnimationState(prev => ({ ...prev, showJABVCursor: true }));
               
               // Type "JABV" character by character
               let jabvIndex = 0;
               const typeJABV = () => {
                 if (jabvIndex < jabvText.length) {
                   const currentText = jabvText.substring(0, jabvIndex + 1);
-                  console.log(`[${timestamp}] Typing JABV: "${currentText}"`);
-                  setTypewriterJABV(currentText);
+                  console.log(`Typing JABV: "${currentText}"`);
+                  setAnimationState(prev => ({ ...prev, typewriterJABV: currentText }));
                   jabvIndex++;
                   const timeout = setTimeout(typeJABV, 80 + Math.random() * 40);
                   timeoutsRef.current.push(timeout);
                 } else {
-                  console.log(`[${timestamp}] ✅ JABV complete: "${jabvText}"`);
+                  console.log(`✅ JABV complete: "${jabvText}"`);
                   // JABV complete, transition to Labs immediately
                   setTimeout(() => {
-                    setShowJABVCursor(false);
-                    setShowLabsCursor(true);
-                    console.log(`[${timestamp}] 🎯 Starting Labs typing animation`);
+                    setAnimationState(prev => ({ 
+                      ...prev, 
+                      showJABVCursor: false, 
+                      showLabsCursor: true 
+                    }));
+                    console.log('🎯 Starting Labs typing animation');
                     
                     // Type "Labs" character by character
                     let labsIndex = 0;
                     const typeLabs = () => {
                       if (labsIndex < labsText.length) {
                         const currentText = labsText.substring(0, labsIndex + 1);
-                        console.log(`[${timestamp}] Typing Labs: "${currentText}"`);
-                        setTypewriterLabs(currentText);
+                        console.log(`Typing Labs: "${currentText}"`);
+                        setAnimationState(prev => ({ ...prev, typewriterLabs: currentText }));
                         labsIndex++;
                         const timeout = setTimeout(typeLabs, 80 + Math.random() * 40);
                         timeoutsRef.current.push(timeout);
                       } else {
-                        console.log(`[${timestamp}] ✅ Labs complete: "${labsText}"`);
-                        console.log(`[${timestamp}] 🎉 ENTIRE TYPEWRITER SEQUENCE COMPLETE!`);
+                        console.log(`✅ Labs complete: "${labsText}"`);
+                        console.log('🎉 ENTIRE TYPEWRITER SEQUENCE COMPLETE!');
                         // Labs complete, hide cursor after 2 seconds
                         setTimeout(() => {
-                          setShowLabsCursor(false);
-                          setAnimationComplete(true);
-                          console.log(`[${timestamp}] Final cursor hidden, animation complete`);
+                          setAnimationState(prev => ({ 
+                            ...prev, 
+                            showLabsCursor: false, 
+                            animationComplete: true 
+                          }));
+                          console.log('Final cursor hidden, animation complete');
                         }, 2000);
                       }
                     };
@@ -162,11 +186,9 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     
     // Only cleanup on unmount, not on re-renders
     return () => {
-      if (!animationStartedRef.current) {
-        console.log(`[${timestamp}] 🧹 Component unmounting, cleaning up ${timeoutsRef.current.length} timeouts`);
-        timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
-        timeoutsRef.current = [];
-      }
+      console.log('🧹 Component unmounting, cleaning up timeouts');
+      timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+      timeoutsRef.current = [];
     };
   }, [loadingComplete]);
 
@@ -188,7 +210,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
               </a>
             </div>
             <button
-              onClick={() => setShowBanner(false)}
+              onClick={() => setAnimationState(prev => ({ ...prev, showBanner: false }))}
               className="absolute right-4 text-gray-400 hover:text-red-500"
               aria-label="Close banner"
             >

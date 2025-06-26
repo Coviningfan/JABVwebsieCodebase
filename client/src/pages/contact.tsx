@@ -8,10 +8,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
+import { createClient } from '@supabase/supabase-js';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
+
+// Initialize Supabase client
+const supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6ZmNlZnZ1c2p6ZHpzZW9rZGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3MzMzMTAsImV4cCI6MjA2NjMwOTMxMH0.BAUV_j3vGgtJbOI42YueJxbYOI7JNmgV-0ZsKh80dGU';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -29,8 +34,19 @@ export default function Contact() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContact) => {
-      const response = await apiRequest('POST', '/api/contact', data);
-      return response.json();
+      const { error } = await supabase
+        .from('prospects')
+        .insert([
+          {
+            full_name: data.name,
+            email: data.email,
+            project_type: data.projectType,
+            project_details: data.message,
+          },
+        ]);
+
+      if (error) throw new Error(error.message);
+      return { success: true };
     },
     onSuccess: () => {
       setShowSuccess(true);
@@ -42,7 +58,7 @@ export default function Contact() {
     onError: (error) => {
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: error.message,
         variant: "destructive",
       });
     },
@@ -55,26 +71,6 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Let's Build
-              <span className="gradient-text block mt-2">Something Amazing</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Ready to transform your vision into reality? Get in touch with our expert team in Reno, Nevada.
-            </p>
-          </div>
-        </div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-red-600/20 rounded-full animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-white/10 rounded-full animate-float" style={{animationDelay: '-2s'}}></div>
-      </section>
 
       {/* Contact Section */}
       <section className="py-20 bg-neutral-900">
@@ -82,24 +78,17 @@ export default function Contact() {
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form */}
             <div className="bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-8 rounded-3xl border border-neutral-700/50 shadow-2xl">
-              <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Send us a message
-              </h3>
-              
+              <h3 className="text-3xl font-bold mb-8">Send us a message</h3>
+
               {showSuccess ? (
-                <div className="p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50 rounded-2xl backdrop-blur-sm">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center mr-4">
-                      <span className="text-black font-bold">✓</span>
-                    </div>
-                    <div>
-                      <p className="text-green-400 font-semibold text-lg mb-1">
-                        Message Sent Successfully!
-                      </p>
-                      <p className="text-green-300/80">
-                        Thank you for reaching out. We'll get back to you within 24 hours.
-                      </p>
-                    </div>
+                <div className="p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50 rounded-2xl">
+                  <div>
+                    <p className="text-green-400 font-semibold text-lg mb-1">
+                      Message Sent Successfully!
+                    </p>
+                    <p className="text-green-300/80">
+                      Thank you for reaching out. We'll get back to you within 24 hours.
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -110,13 +99,9 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Full Name</FormLabel>
+                          <FormLabel>Full Name</FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="Enter your full name" 
-                              {...field}
-                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500"
-                            />
+                            <Input placeholder="Enter your full name" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -128,14 +113,9 @@ export default function Contact() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Email Address</FormLabel>
+                          <FormLabel>Email Address</FormLabel>
                           <FormControl>
-                            <Input 
-                              type="email"
-                              placeholder="Enter your email address" 
-                              {...field}
-                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500"
-                            />
+                            <Input type="email" placeholder="Enter your email address" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -147,19 +127,18 @@ export default function Contact() {
                       name="projectType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Project Type</FormLabel>
+                          <FormLabel>Project Type</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="bg-neutral-800/50 border-neutral-600 text-white focus:border-red-500">
-                                <SelectValue placeholder="Select your project type" />
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a service..." />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="bg-neutral-800 border-neutral-600">
-                              <SelectItem value="mobile-app">Mobile App Development</SelectItem>
-                              <SelectItem value="website">Interactive Website</SelectItem>
-                              <SelectItem value="redesign">Website Redesign</SelectItem>
-                              <SelectItem value="consultation">Consultation</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
+                            <SelectContent>
+                              <SelectItem value="Mobile Web App Development">Mobile Web App Development</SelectItem>
+                              <SelectItem value="Interactive Website">Interactive Website</SelectItem>
+                              <SelectItem value="Website Redesign">Website Redesign</SelectItem>
+                              <SelectItem value="Consultation">Consultation</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -172,101 +151,28 @@ export default function Contact() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Message</FormLabel>
+                          <FormLabel>Project Details</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="Tell us about your project..." 
-                              {...field}
-                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500 min-h-[120px]"
-                            />
+                            <Textarea placeholder="Tell us about your project, timeline, and goals..." {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
 
-                    <Button 
-                      type="submit" 
-                      disabled={contactMutation.isPending}
-                      className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-red-500/25"
-                    >
-                      {contactMutation.isPending ? 'Sending...' : 'Send Message'}
+                    <Button type="submit" className="w-full">
+                      Send Message
                     </Button>
                   </form>
                 </Form>
               )}
             </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Get in Touch
-                </h3>
-                <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                  Ready to bring your digital vision to life? Our team of expert developers in Reno, Nevada is here to help you build something extraordinary.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
-                    <span className="text-white text-xl">📞</span>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Phone</p>
-                    <p className="text-white font-semibold">(775) 800-5850</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
-                    <span className="text-white text-xl">✉️</span>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Email</p>
-                    <p className="text-white font-semibold">contact@jabvlabs.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
-                    <span className="text-white text-xl">📍</span>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white font-semibold">Reno, Nevada</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-neutral-800/50 to-black/30 backdrop-blur-xl p-6 rounded-2xl border border-neutral-700/50">
-                <h4 className="text-xl font-bold mb-4 text-white">Why Choose JABV Labs?</h4>
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-start">
-                    <span className="text-red-500 mr-2">•</span>
-                    Custom solutions tailored to your business needs
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-500 mr-2">•</span>
-                    Expert team with 10+ years of experience
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-500 mr-2">•</span>
-                    Fast turnaround times and reliable support
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-500 mr-2">•</span>
-                    Cutting-edge technology and best practices
-                  </li>
-                </ul>
-              </div>
-            </div>
+            {/* You can add additional content here, such as contact info or a map */}
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
 }
+
