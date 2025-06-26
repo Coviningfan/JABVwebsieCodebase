@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
+import './hero-section.css'; // Import the CSS file
 
 export default function HeroWithBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -66,9 +67,6 @@ export default function HeroWithBanner() {
           </div>
         </div>
       </div>
-
-      {/* Dynamic spacer based on banner */}
-      
 
       {/* Hero Section */}
       <section
@@ -174,34 +172,6 @@ export default function HeroWithBanner() {
           </button>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes float {
-          0% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-        @keyframes slide-down {
-          from {
-            transform: translateY(-100%);
-          }
-          to {
-            transform: translateY(0%);
-          }
-        }
-        .animate-float {
-          animation: float 10s ease-in-out infinite;
-        }
-        .animate-slide-down {
-          animation: slide-down 0.6s ease-out forwards;
-        }
-      `}</style>
     </>
   );
 }
