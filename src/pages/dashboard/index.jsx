@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Icon from '../components/AppIcon';
+import Icon from '../../components/AppIcon';
 import Breadcrumb from '../components/ui/Breadcrumb';
 import RecentActivity from './components/RecentActivity';
 import ProjectCard from './components/ProjectCard';

@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../components/AppIcon';
-import Image from '../components/AppImage';
+import Icon from '../../../components/AppIcon';
+import Image from '../../../components/AppImage';
 
 const ProjectHeader = ({ projectData }) => {
   const getStatusColor = (status) => {

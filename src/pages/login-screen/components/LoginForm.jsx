@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Icon from '../components/AppIcon';
+import Icon from '../../../components/AppIcon';
 
 const LoginForm = ({ onSubmit, isLoading }) => {
   const [formData, setFormData] = useState({
