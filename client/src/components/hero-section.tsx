@@ -12,6 +12,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   const [showLabsCursor, setShowLabsCursor] = useState(false);
   const [taglineComplete, setTaglineComplete] = useState(false);
   const [typewriterStarted, setTypewriterStarted] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -28,9 +29,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
 
   // Complete typewriter effect sequence
   useEffect(() => {
-    // Wait for loading to complete, then start typewriter
-    const shouldStart = loadingComplete || loadingComplete === undefined;
-    if (!shouldStart || typewriterStarted) return;
+    if (loadingComplete !== true || typewriterStarted) return;
     
     setTypewriterStarted(true);
     
@@ -49,7 +48,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
         if (taglineIndex < taglineText.length) {
           setTypewriterTagline(taglineText.substring(0, taglineIndex + 1));
           taglineIndex++;
-          timeouts.push(setTimeout(typeTagline, 60 + Math.random() * 30)); // Slightly faster for tagline
+          timeouts.push(setTimeout(typeTagline, 60 + Math.random() * 30));
         } else {
           // Tagline complete, brief pause then hide cursor
           setTimeout(() => {
@@ -84,22 +83,23 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
                         // Labs complete, hide cursor after 2 seconds
                         setTimeout(() => {
                           setShowLabsCursor(false);
+                          setAnimationComplete(true);
                         }, 2000);
                       }
                     };
                     typeLabs();
-                  }, 50); // Very brief transition between JABV and Labs
+                  }, 50);
                 }
               };
               
               typeJABV();
-            }, 100); // 100ms pause after tagline
-          }, 200); // Brief pause after tagline completion
+            }, 100);
+          }, 200);
         }
       };
       
       typeTagline();
-    }, 1000); // Sync with hero fade-in
+    }, 1000);
     
     timeouts.push(startDelay);
     
@@ -178,22 +178,20 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
             <h1 className="font-bold mb-6 leading-tight text-white">
               <div className="text-4xl md:text-5xl mb-4">
                 <span className="text-white">
-                  {typewriterTagline}
+                  {typewriterTagline || (!typewriterStarted ? 'Build Your Future with' : '')}
                   {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
               </div>
-              {taglineComplete && (
+              {(taglineComplete || !typewriterStarted) && (
                 <div className="text-5xl md:text-7xl">
                   <span className="text-white">
-                    {typewriterJABV}
+                    {typewriterJABV || (!typewriterStarted ? 'JABV' : '')}
                     {showJABVCursor && <span className="animate-pulse">|</span>}
                   </span>
-                  {typewriterJABV.length === 4 && (
-                    <span style={{ color: '#C82222' }}>
-                      {typewriterLabs}
-                      {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
-                    </span>
-                  )}
+                  <span style={{ color: '#C82222' }}>
+                    {typewriterLabs || (!typewriterStarted ? 'Labs' : '')}
+                    {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                  </span>
                 </div>
               )}
             </h1>

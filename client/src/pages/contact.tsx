@@ -89,7 +89,9 @@ export default function Contact() {
               {showSuccess ? (
                 <div className="p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50 rounded-2xl backdrop-blur-sm">
                   <div className="flex items-center">
-                    <i className="fas fa-check-circle text-green-400 text-2xl mr-4"></i>
+                    <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center mr-4">
+                      <span className="text-black font-bold">✓</span>
+                    </div>
                     <div>
                       <p className="text-green-400 font-semibold text-lg mb-1">
                         Message Sent Successfully!
@@ -108,170 +110,156 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300 text-sm font-medium">Full Name</FormLabel>
+                          <FormLabel className="text-gray-300">Full Name</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="John Doe" 
-                              className="bg-black/50 border-gray-600/50 text-white placeholder-gray-500 focus:border-red-500 focus:ring-red-500/20 rounded-xl h-12 backdrop-blur-sm"
-                              {...field} 
+                              placeholder="Enter your full name" 
+                              {...field}
+                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500"
                             />
                           </FormControl>
-                          <FormMessage className="text-red-400" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300 text-sm font-medium">Email Address</FormLabel>
+                          <FormLabel className="text-gray-300">Email Address</FormLabel>
                           <FormControl>
                             <Input 
                               type="email"
-                              placeholder="john@example.com" 
-                              className="bg-black/50 border-gray-600/50 text-white placeholder-gray-500 focus:border-red-500 focus:ring-red-500/20 rounded-xl h-12 backdrop-blur-sm"
-                              {...field} 
+                              placeholder="Enter your email address" 
+                              {...field}
+                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500"
                             />
                           </FormControl>
-                          <FormMessage className="text-red-400" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="projectType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300 text-sm font-medium">Project Type</FormLabel>
+                          <FormLabel className="text-gray-300">Project Type</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="bg-black/50 border-gray-600/50 text-white focus:border-red-500 focus:ring-red-500/20 rounded-xl h-12 backdrop-blur-sm">
-                                <SelectValue placeholder="Select a service..." />
+                              <SelectTrigger className="bg-neutral-800/50 border-neutral-600 text-white focus:border-red-500">
+                                <SelectValue placeholder="Select your project type" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="bg-black/95 border-gray-600 backdrop-blur-xl">
+                            <SelectContent className="bg-neutral-800 border-neutral-600">
                               <SelectItem value="mobile-app">Mobile App Development</SelectItem>
                               <SelectItem value="website">Interactive Website</SelectItem>
                               <SelectItem value="redesign">Website Redesign</SelectItem>
                               <SelectItem value="consultation">Consultation</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
-                          <FormMessage className="text-red-400" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
-                    
+
                     <FormField
                       control={form.control}
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300 text-sm font-medium">Project Details</FormLabel>
+                          <FormLabel className="text-gray-300">Message</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Tell us about your project, timeline, and goals..."
-                              className="bg-black/50 border-gray-600/50 text-white placeholder-gray-500 focus:border-red-500 focus:ring-red-500/20 resize-none min-h-[140px] rounded-xl backdrop-blur-sm"
-                              {...field} 
+                              placeholder="Tell us about your project..." 
+                              {...field}
+                              className="bg-neutral-800/50 border-neutral-600 text-white placeholder-gray-400 focus:border-red-500 min-h-[120px]"
                             />
                           </FormControl>
-                          <FormMessage className="text-red-400" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
-                    
+
                     <Button 
                       type="submit" 
                       disabled={contactMutation.isPending}
-                      className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl shadow-red-500/25 border-0"
+                      className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg hover:shadow-red-500/25"
                     >
-                      {contactMutation.isPending ? (
-                        <div className="flex items-center justify-center">
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                          Sending...
-                        </div>
-                      ) : (
-                        'Send Message'
-                      )}
+                      {contactMutation.isPending ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </Form>
               )}
             </div>
-            
+
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
                 <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Get In Touch
+                  Get in Touch
                 </h3>
-                <div className="space-y-6">
-                  <div className="flex items-center p-4 bg-gradient-to-r from-neutral-800/50 to-transparent rounded-2xl backdrop-blur-sm border border-neutral-700/30">
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                      <i className="fas fa-phone text-white text-lg"></i>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-sm mb-1">Phone</p>
-                      <a href="tel:+1-775-800-5850" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
-                        +1 (775) 800-5850
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center p-4 bg-gradient-to-r from-neutral-800/50 to-transparent rounded-2xl backdrop-blur-sm border border-neutral-700/30">
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                      <i className="fas fa-envelope text-white text-lg"></i>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-sm mb-1">Email</p>
-                      <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium text-lg">
-                        contact@jabvlabs.com
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center p-4 bg-gradient-to-r from-neutral-800/50 to-transparent rounded-2xl backdrop-blur-sm border border-neutral-700/30">
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                      <i className="fas fa-map-marker-alt text-white text-lg"></i>
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-sm mb-1">Location</p>
-                      <p className="text-white font-medium text-lg">Reno, Nevada, USA</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Business Hours */}
-              <div className="bg-gradient-to-br from-neutral-800/60 to-black/40 p-8 rounded-3xl backdrop-blur-xl border border-neutral-700/50 shadow-2xl">
-                <h4 className="text-2xl font-bold mb-6 text-white">Business Hours</h4>
-                <div className="space-y-3 text-gray-300">
-                  <div className="flex justify-between items-center py-2 border-b border-gray-700/50">
-                    <span className="font-medium">Monday - Friday</span>
-                    <span className="text-red-400">9:00 AM - 6:00 PM PST</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-700/50">
-                    <span className="font-medium">Saturday</span>
-                    <span className="text-red-400">10:00 AM - 4:00 PM PST</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2">
-                    <span className="font-medium">Sunday</span>
-                    <span className="text-gray-500">Closed</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Response Time */}
-              <div className="bg-gradient-to-r from-red-600/20 via-red-500/10 to-transparent p-8 rounded-3xl backdrop-blur-xl border border-red-500/20">
-                <div className="flex items-center mb-4">
-                  <i className="fas fa-clock text-red-400 text-2xl mr-3"></i>
-                  <h4 className="text-2xl font-bold text-white">Quick Response Guarantee</h4>
-                </div>
-                <p className="text-gray-300 leading-relaxed">
-                  We respond to all inquiries within 24 hours. For urgent projects, call us directly for immediate assistance.
+                <p className="text-gray-300 text-lg leading-relaxed mb-8">
+                  Ready to bring your digital vision to life? Our team of expert developers in Reno, Nevada is here to help you build something extraordinary.
                 </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
+                    <span className="text-white text-xl">📞</span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Phone</p>
+                    <p className="text-white font-semibold">(775) 800-5850</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
+                    <span className="text-white text-xl">✉️</span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Email</p>
+                    <p className="text-white font-semibold">contact@jabvlabs.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-700 rounded-xl flex items-center justify-center">
+                    <span className="text-white text-xl">📍</span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Location</p>
+                    <p className="text-white font-semibold">Reno, Nevada</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-neutral-800/50 to-black/30 backdrop-blur-xl p-6 rounded-2xl border border-neutral-700/50">
+                <h4 className="text-xl font-bold mb-4 text-white">Why Choose JABV Labs?</h4>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Custom solutions tailored to your business needs
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Expert team with 10+ years of experience
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Fast turnaround times and reliable support
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">•</span>
+                    Cutting-edge technology and best practices
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
