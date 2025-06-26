@@ -2,75 +2,292 @@ import React, { useState } from 'react';
 import { Router, Route, Switch, Link, useLocation } from 'wouter';
 import { Menu, X, Home, FolderOpen, Settings, LogOut } from 'lucide-react';
 
-// Simple pages for the client portal
+// Modern login screen with professional design
 function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // For demo, redirect to dashboard
+    window.location.href = '/dashboard';
+  };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h1 className="text-center text-3xl font-bold text-white">JABV Labs</h1>
-          <p className="mt-2 text-center text-sm text-gray-400">Client Portal</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex">
+      {/* Left side - Branding */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-red-800/40"></div>
+        <div className="relative z-10 flex flex-col justify-center px-12 py-24">
+          <div className="mb-8">
+            <h1 className="text-5xl font-bold text-white mb-4">JABV Labs</h1>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Welcome to your client portal. Access your projects, track progress, and collaborate with our team.
+            </p>
+          </div>
+          <div className="space-y-6 text-gray-400">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span>Project Management & Tracking</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span>Real-time Communication</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span>File Sharing & Collaboration</span>
+            </div>
+          </div>
         </div>
-        <form className="mt-8 space-y-6">
-          <div>
-            <label htmlFor="email" className="sr-only">Email address</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              className="relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-gray-800 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+      </div>
+
+      {/* Right side - Login Form */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8 lg:hidden">
+            <h1 className="text-4xl font-bold text-white mb-2">JABV Labs</h1>
+            <p className="text-gray-400">Client Portal</p>
           </div>
-          <div>
-            <label htmlFor="password" className="sr-only">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              className="relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-gray-800 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 shadow-2xl">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">Welcome back</h2>
+              <p className="text-gray-400">Enter your credentials to continue</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                    </svg>
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-700/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-600 rounded-lg bg-gray-700/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <svg className="h-5 w-5 text-gray-400 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                      </svg>
+                    ) : (
+                      <svg className="h-5 w-5 text-gray-400 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <input
+                    id="remember-me"
+                    name="remember-me"
+                    type="checkbox"
+                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-600 rounded bg-gray-700"
+                  />
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
+                    Remember me
+                  </label>
+                </div>
+                <div className="text-sm">
+                  <a href="#" className="text-red-400 hover:text-red-300 transition-colors">
+                    Forgot your password?
+                  </a>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-gray-800 transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Sign In
+              </button>
+            </form>
+
+            <div className="mt-8 pt-6 border-t border-gray-700">
+              <p className="text-center text-sm text-gray-400">
+                New to JABV Labs?{' '}
+                <a href="#" className="text-red-400 hover:text-red-300 transition-colors">
+                  Create Account
+                </a>
+              </p>
+              
+              <div className="mt-4 p-4 bg-gray-700/30 rounded-lg border border-gray-600">
+                <p className="text-xs text-gray-400 mb-2 font-medium">Demo Credentials</p>
+                <p className="text-xs text-gray-300">Email: john.doe@company.com</p>
+                <p className="text-xs text-gray-300">Password: ClientPortal123</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
 }
 
 function Dashboard() {
+  const stats = [
+    { name: 'Active Projects', value: '3', change: '+12%', trend: 'up', icon: '📊', color: 'text-red-500' },
+    { name: 'Messages', value: '12', change: '+4', trend: 'up', icon: '💬', color: 'text-blue-500' },
+    { name: 'Files Shared', value: '24', change: '+8', trend: 'up', icon: '📁', color: 'text-green-500' },
+    { name: 'Team Members', value: '5', change: '+1', trend: 'up', icon: '👥', color: 'text-purple-500' }
+  ];
+
+  const recentProjects = [
+    { name: 'Website Redesign', progress: 75, status: 'In Progress', deadline: '2 days', priority: 'high' },
+    { name: 'Mobile App', progress: 25, status: 'Planning', deadline: '1 week', priority: 'medium' },
+    { name: 'Brand Identity', progress: 100, status: 'Completed', deadline: 'Completed', priority: 'low' }
+  ];
+
+  const recentActivity = [
+    { action: 'New message from Project Manager', time: '2 minutes ago', type: 'message' },
+    { action: 'File uploaded: design-mockups.pdf', time: '1 hour ago', type: 'file' },
+    { action: 'Project milestone completed', time: '3 hours ago', type: 'milestone' },
+    { action: 'Team meeting scheduled', time: '1 day ago', type: 'event' }
+  ];
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-white mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-2">Active Projects</h3>
-          <p className="text-3xl font-bold text-red-500">3</p>
+    <div className="p-6 space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+          <p className="mt-1 text-gray-400">Welcome back! Here's what's happening with your projects.</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-2">Messages</h3>
-          <p className="text-3xl font-bold text-blue-500">12</p>
+        <div className="mt-4 sm:mt-0">
+          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+            + New Project
+          </button>
         </div>
-        <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-2">Files</h3>
-          <p className="text-3xl font-bold text-green-500">24</p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, index) => (
+          <div key={index} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-gray-600/50 transition-all duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm font-medium">{stat.name}</p>
+                <p className={`text-2xl font-bold ${stat.color} mt-1`}>{stat.value}</p>
+              </div>
+              <div className="text-2xl">{stat.icon}</div>
+            </div>
+            <div className="mt-4 flex items-center text-sm">
+              <span className={`${stat.trend === 'up' ? 'text-green-400' : 'text-red-400'} font-medium`}>
+                {stat.change}
+              </span>
+              <span className="text-gray-400 ml-1">from last month</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Recent Projects */}
+        <div className="lg:col-span-2">
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-white">Recent Projects</h2>
+              <Link href="/projects" className="text-red-400 hover:text-red-300 text-sm font-medium">
+                View All →
+              </Link>
+            </div>
+            <div className="space-y-4">
+              {recentProjects.map((project, index) => (
+                <div key={index} className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-medium text-white">{project.name}</h3>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      project.status === 'Completed' ? 'bg-green-600/20 text-green-400' :
+                      project.status === 'In Progress' ? 'bg-blue-600/20 text-blue-400' :
+                      'bg-yellow-600/20 text-yellow-400'
+                    }`}>
+                      {project.status}
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
+                    <div 
+                      className="bg-red-500 h-2 rounded-full transition-all duration-300" 
+                      style={{ width: `${project.progress}%` }}
+                    ></div>
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-gray-400">
+                    <span>{project.progress}% complete</span>
+                    <span>{project.deadline}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div>
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6">
+            <h2 className="text-xl font-semibold text-white mb-6">Recent Activity</h2>
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <div className={`w-2 h-2 rounded-full mt-2 ${
+                    activity.type === 'message' ? 'bg-blue-500' :
+                    activity.type === 'file' ? 'bg-green-500' :
+                    activity.type === 'milestone' ? 'bg-red-500' :
+                    'bg-purple-500'
+                  }`}></div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-white">{activity.action}</p>
+                    <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -78,38 +295,203 @@ function Dashboard() {
 }
 
 function Projects() {
+  const [filter, setFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
   const projects = [
-    { id: 1, name: 'Website Redesign', status: 'In Progress', progress: 75 },
-    { id: 2, name: 'Mobile App', status: 'Planning', progress: 25 },
-    { id: 3, name: 'Brand Identity', status: 'Completed', progress: 100 }
+    { 
+      id: 1, 
+      name: 'Website Redesign', 
+      status: 'In Progress', 
+      progress: 75,
+      client: 'Tech Corp',
+      deadline: 'Dec 30, 2025',
+      team: ['John D.', 'Sarah M.', 'Mike R.'],
+      description: 'Complete overhaul of the company website with modern design and improved UX.',
+      priority: 'high'
+    },
+    { 
+      id: 2, 
+      name: 'Mobile App Development', 
+      status: 'Planning', 
+      progress: 25,
+      client: 'StartupCo',
+      deadline: 'Feb 15, 2026',
+      team: ['Alex K.', 'Lisa P.'],
+      description: 'Native iOS and Android app for customer engagement and loyalty.',
+      priority: 'medium'
+    },
+    { 
+      id: 3, 
+      name: 'Brand Identity Package', 
+      status: 'Completed', 
+      progress: 100,
+      client: 'Creative Agency',
+      deadline: 'Completed',
+      team: ['Emma T.', 'David L.'],
+      description: 'Complete brand identity including logo, guidelines, and marketing materials.',
+      priority: 'low'
+    },
+    { 
+      id: 4, 
+      name: 'E-commerce Platform', 
+      status: 'In Progress', 
+      progress: 60,
+      client: 'Retail Plus',
+      deadline: 'Jan 20, 2026',
+      team: ['Chris B.', 'Anna W.', 'Tom H.'],
+      description: 'Custom e-commerce solution with advanced inventory management.',
+      priority: 'high'
+    }
   ];
 
+  const filteredProjects = projects.filter(project => {
+    const matchesFilter = filter === 'all' || project.status.toLowerCase().replace(' ', '') === filter;
+    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         project.client.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  const statusCounts = {
+    all: projects.length,
+    planning: projects.filter(p => p.status === 'Planning').length,
+    inprogress: projects.filter(p => p.status === 'In Progress').length,
+    completed: projects.filter(p => p.status === 'Completed').length
+  };
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-white mb-6">Projects</h1>
-      <div className="space-y-4">
-        {projects.map((project) => (
-          <div key={project.id} className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-lg font-semibold text-white">{project.name}</h3>
-              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                project.status === 'Completed' ? 'bg-green-600 text-white' :
-                project.status === 'In Progress' ? 'bg-blue-600 text-white' :
-                'bg-yellow-600 text-white'
-              }`}>
-                {project.status}
-              </span>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white">Projects</h1>
+          <p className="mt-1 text-gray-400">Manage and track all your active projects</p>
+        </div>
+        <div className="mt-4 sm:mt-0">
+          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+            + New Project
+          </button>
+        </div>
+      </div>
+
+      {/* Filters and Search */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <div 
-                className="bg-red-600 h-2 rounded-full" 
-                style={{ width: `${project.progress}%` }}
-              ></div>
+            <input
+              type="text"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-lg bg-gray-700/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              placeholder="Search projects..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+        
+        <div className="flex gap-2">
+          {[
+            { key: 'all', label: 'All', count: statusCounts.all },
+            { key: 'planning', label: 'Planning', count: statusCounts.planning },
+            { key: 'inprogress', label: 'In Progress', count: statusCounts.inprogress },
+            { key: 'completed', label: 'Completed', count: statusCounts.completed }
+          ].map((filterOption) => (
+            <button
+              key={filterOption.key}
+              onClick={() => setFilter(filterOption.key)}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filter === filterOption.key
+                  ? 'bg-red-600 text-white'
+                  : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50'
+              }`}
+            >
+              {filterOption.label} ({filterOption.count})
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid gap-6">
+        {filteredProjects.map((project) => (
+          <div key={project.id} className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-gray-600/50 transition-all duration-200">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-1">{project.name}</h3>
+                    <p className="text-gray-400 text-sm">{project.client}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${
+                      project.priority === 'high' ? 'bg-red-500' :
+                      project.priority === 'medium' ? 'bg-yellow-500' :
+                      'bg-green-500'
+                    }`}></span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      project.status === 'Completed' ? 'bg-green-600/20 text-green-400' :
+                      project.status === 'In Progress' ? 'bg-blue-600/20 text-blue-400' :
+                      'bg-yellow-600/20 text-yellow-400'
+                    }`}>
+                      {project.status}
+                    </span>
+                  </div>
+                </div>
+                
+                <p className="text-gray-300 mb-4">{project.description}</p>
+                
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Due: {project.deadline}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                    </svg>
+                    <span>Team: {project.team.join(', ')}</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-400">Progress</span>
+                    <span className="text-white font-medium">{project.progress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-red-500 to-red-600 h-2 rounded-full transition-all duration-300" 
+                      style={{ width: `${project.progress}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex lg:flex-col gap-2">
+                <button className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-colors">
+                  View Details
+                </button>
+                <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors">
+                  Update Progress
+                </button>
+              </div>
             </div>
-            <p className="text-sm text-gray-400 mt-2">{project.progress}% complete</p>
           </div>
         ))}
       </div>
+
+      {filteredProjects.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-gray-400 text-lg mb-2">No projects found</div>
+          <div className="text-gray-500 text-sm">Try adjusting your search or filter criteria</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -150,76 +532,159 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
   const [location] = useLocation();
 
   const navigation = [
-    { name: 'Dashboard', href: '/dashboard', icon: Home },
-    { name: 'Projects', href: '/projects', icon: FolderOpen },
-    { name: 'Settings', href: '/settings', icon: Settings },
+    { name: 'Dashboard', href: '/dashboard', icon: Home, count: null },
+    { name: 'Projects', href: '/projects', icon: FolderOpen, count: 4 },
+    { name: 'Settings', href: '/settings', icon: Settings, count: null },
   ];
+
+  const handleLogout = () => {
+    window.location.href = '/';
+  };
 
   return (
     <>
+      {/* Mobile sidebar */}
       <div className={`fixed inset-0 flex z-40 md:hidden ${isOpen ? '' : 'pointer-events-none'}`}>
-        <div className={`fixed inset-0 bg-gray-600 bg-opacity-75 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity`} onClick={() => setIsOpen(false)} />
-        <div className={`relative flex-1 flex flex-col max-w-xs w-full bg-gray-800 ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform`}>
+        <div className={`fixed inset-0 bg-gray-900/75 backdrop-blur-sm ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`} onClick={() => setIsOpen(false)} />
+        <div className={`relative flex-1 flex flex-col max-w-xs w-full bg-gray-800/95 backdrop-blur-xl border-r border-gray-700/50 ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300`}>
           <div className="absolute top-0 right-0 -mr-12 pt-2">
             <button
-              className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <X className="h-6 w-6 text-white" />
             </button>
           </div>
-          <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-            <div className="flex-shrink-0 flex items-center px-4">
-              <h1 className="text-xl font-bold text-white">JABV Labs</h1>
+          
+          <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center px-4 mb-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">J</span>
+                </div>
+                <h1 className="text-xl font-bold text-white">JABV Labs</h1>
+              </div>
             </div>
-            <nav className="mt-5 px-2 space-y-1">
+            
+            {/* Navigation */}
+            <nav className="mt-5 flex-1 px-3 space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
+                const isActive = location === item.href;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-                      location === item.href
-                        ? 'bg-red-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    className={`group flex items-center justify-between px-3 py-3 text-base font-medium rounded-xl transition-all duration-200 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-500/25'
+                        : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
                     }`}
                   >
-                    <Icon className="mr-4 h-6 w-6" />
-                    {item.name}
+                    <div className="flex items-center">
+                      <Icon className="mr-4 h-5 w-5" />
+                      {item.name}
+                    </div>
+                    {item.count && (
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-gray-600 text-gray-300'
+                      }`}>
+                        {item.count}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
             </nav>
+            
+            {/* User section */}
+            <div className="mt-auto px-3 pt-4 border-t border-gray-700/50">
+              <div className="flex items-center px-3 py-3 mb-3 bg-gray-700/30 rounded-xl">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-medium text-sm">JD</span>
+                </div>
+                <div className="ml-3 flex-1 min-w-0">
+                  <p className="text-sm font-medium text-white truncate">John Doe</p>
+                  <p className="text-xs text-gray-400 truncate">john.doe@company.com</p>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700/50 hover:text-white rounded-lg transition-colors"
+              >
+                <LogOut className="mr-3 h-4 w-4" />
+                Sign Out
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Desktop sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-        <div className="flex-1 flex flex-col min-h-0 bg-gray-800">
+        <div className="flex-1 flex flex-col min-h-0 bg-gray-800/95 backdrop-blur-xl border-r border-gray-700/50">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <div className="flex items-center flex-shrink-0 px-4">
-              <h1 className="text-xl font-bold text-white">JABV Labs</h1>
+            {/* Logo */}
+            <div className="flex items-center flex-shrink-0 px-4 mb-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">J</span>
+                </div>
+                <h1 className="text-xl font-bold text-white">JABV Labs</h1>
+              </div>
             </div>
-            <nav className="mt-5 flex-1 px-2 space-y-1">
+            
+            {/* Navigation */}
+            <nav className="mt-5 flex-1 px-3 space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
+                const isActive = location === item.href;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
-                      location === item.href
-                        ? 'bg-red-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    className={`group flex items-center justify-between px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-500/25'
+                        : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
                     }`}
                   >
-                    <Icon className="mr-3 h-6 w-6" />
-                    {item.name}
+                    <div className="flex items-center">
+                      <Icon className="mr-3 h-5 w-5" />
+                      {item.name}
+                    </div>
+                    {item.count && (
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-gray-600 text-gray-300'
+                      }`}>
+                        {item.count}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
             </nav>
+            
+            {/* User section */}
+            <div className="mt-auto px-3 pt-4 border-t border-gray-700/50">
+              <div className="flex items-center px-3 py-3 mb-3 bg-gray-700/30 rounded-xl">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-medium text-sm">JD</span>
+                </div>
+                <div className="ml-3 flex-1 min-w-0">
+                  <p className="text-sm font-medium text-white truncate">John Doe</p>
+                  <p className="text-xs text-gray-400 truncate">john.doe@company.com</p>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700/50 hover:text-white rounded-lg transition-colors"
+              >
+                <LogOut className="mr-3 h-4 w-4" />
+                Sign Out
+              </button>
+            </div>
           </div>
         </div>
       </div>
