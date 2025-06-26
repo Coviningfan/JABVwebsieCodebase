@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
+  console.log('🔄 HeroWithBanner component rendering with loadingComplete:', loadingComplete);
+  
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [typewriterTagline, setTypewriterTagline] = useState('');
@@ -13,6 +15,15 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   const [taglineComplete, setTaglineComplete] = useState(false);
   const [typewriterStarted, setTypewriterStarted] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  
+  console.log('📊 Current states:', {
+    typewriterTagline,
+    typewriterJABV,
+    typewriterLabs,
+    typewriterStarted,
+    taglineComplete,
+    animationComplete
+  });
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -29,14 +40,25 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
 
   // Complete typewriter effect sequence
   useEffect(() => {
-    console.log('Typewriter useEffect triggered:', { loadingComplete, typewriterStarted });
+    const timestamp = Date.now();
+    console.log(`[${timestamp}] Typewriter useEffect triggered:`, { 
+      loadingComplete, 
+      typewriterStarted,
+      isVisible,
+      showBanner 
+    });
     
-    if (loadingComplete !== true || typewriterStarted) {
-      console.log('Typewriter effect skipped - conditions not met');
+    if (loadingComplete !== true) {
+      console.log(`[${timestamp}] Skipped: loadingComplete is not true (${loadingComplete})`);
       return;
     }
     
-    console.log('Starting typewriter animation sequence...');
+    if (typewriterStarted) {
+      console.log(`[${timestamp}] Skipped: typewriterStarted is already true`);
+      return;
+    }
+    
+    console.log(`[${timestamp}] ✅ CONDITIONS MET - Starting typewriter animation sequence...`);
     setTypewriterStarted(true);
     
     const taglineText = 'Build Your Future with';
@@ -44,22 +66,29 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     const labsText = 'Labs';
     let timeouts: NodeJS.Timeout[] = [];
     
+    console.log(`[${timestamp}] Setting up typewriter delays and animations...`);
+    
     // Start typewriter sequence after component is ready
     const startDelay = setTimeout(() => {
+      console.log(`[${timestamp}] 🎯 Starting tagline typing animation`);
       setShowTaglineCursor(true);
       
       // Step 1: Type the tagline "Build Your Future with"
       let taglineIndex = 0;
       const typeTagline = () => {
         if (taglineIndex < taglineText.length) {
-          setTypewriterTagline(taglineText.substring(0, taglineIndex + 1));
+          const currentText = taglineText.substring(0, taglineIndex + 1);
+          console.log(`[${timestamp}] Typing tagline: "${currentText}"`);
+          setTypewriterTagline(currentText);
           taglineIndex++;
           timeouts.push(setTimeout(typeTagline, 60 + Math.random() * 30));
         } else {
+          console.log(`[${timestamp}] ✅ Tagline complete: "${taglineText}"`);
           // Tagline complete, brief pause then hide cursor
           setTimeout(() => {
             setShowTaglineCursor(false);
             setTaglineComplete(true);
+            console.log(`[${timestamp}] 🎯 Starting JABV typing animation`);
             
             // Step 2: Brief pause (100ms) then start "JABV Labs"
             setTimeout(() => {
@@ -69,27 +98,36 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
               let jabvIndex = 0;
               const typeJABV = () => {
                 if (jabvIndex < jabvText.length) {
-                  setTypewriterJABV(jabvText.substring(0, jabvIndex + 1));
+                  const currentText = jabvText.substring(0, jabvIndex + 1);
+                  console.log(`[${timestamp}] Typing JABV: "${currentText}"`);
+                  setTypewriterJABV(currentText);
                   jabvIndex++;
                   timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40));
                 } else {
+                  console.log(`[${timestamp}] ✅ JABV complete: "${jabvText}"`);
                   // JABV complete, transition to Labs immediately
                   setTimeout(() => {
                     setShowJABVCursor(false);
                     setShowLabsCursor(true);
+                    console.log(`[${timestamp}] 🎯 Starting Labs typing animation`);
                     
                     // Type "Labs" character by character
                     let labsIndex = 0;
                     const typeLabs = () => {
                       if (labsIndex < labsText.length) {
-                        setTypewriterLabs(labsText.substring(0, labsIndex + 1));
+                        const currentText = labsText.substring(0, labsIndex + 1);
+                        console.log(`[${timestamp}] Typing Labs: "${currentText}"`);
+                        setTypewriterLabs(currentText);
                         labsIndex++;
                         timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
                       } else {
+                        console.log(`[${timestamp}] ✅ Labs complete: "${labsText}"`);
+                        console.log(`[${timestamp}] 🎉 ENTIRE TYPEWRITER SEQUENCE COMPLETE!`);
                         // Labs complete, hide cursor after 2 seconds
                         setTimeout(() => {
                           setShowLabsCursor(false);
                           setAnimationComplete(true);
+                          console.log(`[${timestamp}] Final cursor hidden, animation complete`);
                         }, 2000);
                       }
                     };
@@ -110,6 +148,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     timeouts.push(startDelay);
     
     return () => {
+      console.log(`[${timestamp}] 🧹 Cleaning up ${timeouts.length} timeouts`);
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
   }, [loadingComplete, typewriterStarted]);
