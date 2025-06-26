@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
   console.log('🔄 HeroWithBanner component rendering with loadingComplete:', loadingComplete);
+  
+  // Use refs to persist animation state across re-renders
+  const animationStartedRef = useRef(false);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
@@ -20,9 +24,9 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     typewriterTagline,
     typewriterJABV,
     typewriterLabs,
-    typewriterStarted,
     taglineComplete,
-    animationComplete
+    animationComplete,
+    animationStarted: animationStartedRef.current
   });
 
   const scrollToSection = (id: string) => {
@@ -43,7 +47,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     const timestamp = Date.now();
     console.log(`[${timestamp}] Typewriter useEffect triggered:`, { 
       loadingComplete, 
-      typewriterStarted,
+      animationStarted: animationStartedRef.current,
       isVisible,
       showBanner 
     });
@@ -53,18 +57,17 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       return;
     }
     
-    if (typewriterStarted) {
-      console.log(`[${timestamp}] Skipped: typewriterStarted is already true`);
+    if (animationStartedRef.current) {
+      console.log(`[${timestamp}] Skipped: animation already started`);
       return;
     }
     
     console.log(`[${timestamp}] ✅ CONDITIONS MET - Starting typewriter animation sequence...`);
-    setTypewriterStarted(true);
+    animationStartedRef.current = true;
     
     const taglineText = 'Build Your Future with';
     const jabvText = 'JABV';
     const labsText = 'Labs';
-    let timeouts: NodeJS.Timeout[] = [];
     
     console.log(`[${timestamp}] Setting up typewriter delays and animations...`);
     
@@ -81,7 +84,8 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
           console.log(`[${timestamp}] Typing tagline: "${currentText}"`);
           setTypewriterTagline(currentText);
           taglineIndex++;
-          timeouts.push(setTimeout(typeTagline, 60 + Math.random() * 30));
+          const timeout = setTimeout(typeTagline, 60 + Math.random() * 30);
+          timeoutsRef.current.push(timeout);
         } else {
           console.log(`[${timestamp}] ✅ Tagline complete: "${taglineText}"`);
           // Tagline complete, brief pause then hide cursor
@@ -102,7 +106,8 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
                   console.log(`[${timestamp}] Typing JABV: "${currentText}"`);
                   setTypewriterJABV(currentText);
                   jabvIndex++;
-                  timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40));
+                  const timeout = setTimeout(typeJABV, 80 + Math.random() * 40);
+                  timeoutsRef.current.push(timeout);
                 } else {
                   console.log(`[${timestamp}] ✅ JABV complete: "${jabvText}"`);
                   // JABV complete, transition to Labs immediately
@@ -119,7 +124,8 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
                         console.log(`[${timestamp}] Typing Labs: "${currentText}"`);
                         setTypewriterLabs(currentText);
                         labsIndex++;
-                        timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
+                        const timeout = setTimeout(typeLabs, 80 + Math.random() * 40);
+                        timeoutsRef.current.push(timeout);
                       } else {
                         console.log(`[${timestamp}] ✅ Labs complete: "${labsText}"`);
                         console.log(`[${timestamp}] 🎉 ENTIRE TYPEWRITER SEQUENCE COMPLETE!`);
@@ -145,13 +151,17 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       typeTagline();
     }, 1000);
     
-    timeouts.push(startDelay);
+    timeoutsRef.current.push(startDelay);
     
+    // Only cleanup on unmount, not on re-renders
     return () => {
-      console.log(`[${timestamp}] 🧹 Cleaning up ${timeouts.length} timeouts`);
-      timeouts.forEach(timeout => clearTimeout(timeout));
+      if (!animationStartedRef.current) {
+        console.log(`[${timestamp}] 🧹 Component unmounting, cleaning up ${timeoutsRef.current.length} timeouts`);
+        timeoutsRef.current.forEach(timeout => clearTimeout(timeout));
+        timeoutsRef.current = [];
+      }
     };
-  }, [loadingComplete, typewriterStarted]);
+  }, [loadingComplete]);
 
   return (
     <>
@@ -223,18 +233,18 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
             <h1 className="font-bold mb-6 leading-tight text-white">
               <div className="text-4xl md:text-5xl mb-4">
                 <span className="text-white">
-                  {typewriterStarted ? typewriterTagline : 'Build Your Future with'}
+                  {animationStartedRef.current ? typewriterTagline : 'Build Your Future with'}
                   {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
               </div>
-              {(taglineComplete || !typewriterStarted) && (
+              {(taglineComplete || !animationStartedRef.current) && (
                 <div className="text-5xl md:text-7xl">
                   <span className="text-white">
-                    {typewriterStarted ? typewriterJABV : 'JABV'}
+                    {animationStartedRef.current ? typewriterJABV : 'JABV'}
                     {showJABVCursor && <span className="animate-pulse">|</span>}
                   </span>
                   <span style={{ color: '#C82222' }}>
-                    {typewriterStarted ? typewriterLabs : 'Labs'}
+                    {animationStartedRef.current ? typewriterLabs : 'Labs'}
                     {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
                   </span>
                 </div>
