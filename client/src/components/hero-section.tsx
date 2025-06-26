@@ -11,6 +11,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   const [showJABVCursor, setShowJABVCursor] = useState(false);
   const [showLabsCursor, setShowLabsCursor] = useState(false);
   const [taglineComplete, setTaglineComplete] = useState(false);
+  const [typewriterStarted, setTypewriterStarted] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -29,7 +30,9 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   useEffect(() => {
     // Wait for loading to complete, then start typewriter
     const shouldStart = loadingComplete || loadingComplete === undefined;
-    if (!shouldStart) return;
+    if (!shouldStart || typewriterStarted) return;
+    
+    setTypewriterStarted(true);
     
     const taglineText = 'Build Your Future with';
     const jabvText = 'JABV';
@@ -103,7 +106,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, [loadingComplete]);
+  }, [loadingComplete, typewriterStarted]);
 
   return (
     <>
