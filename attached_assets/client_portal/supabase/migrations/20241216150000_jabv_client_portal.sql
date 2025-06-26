@@ -45,17 +45,62 @@ CREATE TABLE public.project_messages (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Additional business tables for complete client portal
+CREATE TYPE public.invoice_status AS ENUM ('pending', 'paid', 'overdue', 'cancelled');
+CREATE TYPE public.ticket_status AS ENUM ('open', 'in_progress', 'resolved', 'closed');
+CREATE TYPE public.ticket_priority AS ENUM ('low', 'medium', 'high', 'urgent');
+
+CREATE TABLE public.invoices (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    invoice_number TEXT UNIQUE NOT NULL,
+    project_id UUID REFERENCES public.projects(id) ON DELETE CASCADE,
+    amount DECIMAL(10,2) NOT NULL,
+    status public.invoice_status DEFAULT 'pending'::public.invoice_status,
+    due_date DATE,
+    paid_date DATE,
+    description TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE public.support_tickets (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ticket_number TEXT UNIQUE NOT NULL,
+    client_id UUID REFERENCES public.clients(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    status public.ticket_status DEFAULT 'open'::public.ticket_status,
+    priority public.ticket_priority DEFAULT 'medium'::public.ticket_priority,
+    assigned_to UUID REFERENCES public.user_profiles(id),
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE public.ticket_messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ticket_id UUID REFERENCES public.support_tickets(id) ON DELETE CASCADE,
+    sender_id UUID REFERENCES public.user_profiles(id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 2. Essential Indexes
 CREATE INDEX idx_user_profiles_user_id ON public.user_profiles(id);
 CREATE INDEX idx_clients_user_id ON public.clients(user_id);
 CREATE INDEX idx_projects_client_id ON public.projects(client_id);
 CREATE INDEX idx_project_messages_project_id ON public.project_messages(project_id);
+CREATE INDEX idx_invoices_project_id ON public.invoices(project_id);
+CREATE INDEX idx_support_tickets_client_id ON public.support_tickets(client_id);
+CREATE INDEX idx_ticket_messages_ticket_id ON public.ticket_messages(ticket_id);
 
 -- 3. RLS Setup
 ALTER TABLE public.user_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.project_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.invoices ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.support_tickets ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.ticket_messages ENABLE ROW LEVEL SECURITY;
 
 -- 4. Safe Helper Functions
 CREATE OR REPLACE FUNCTION public.is_client_owner(client_uuid UUID)
@@ -112,6 +157,26 @@ USING (public.can_access_project(id)) WITH CHECK (public.can_access_project(id))
 CREATE POLICY "message_access_control" ON public.project_messages FOR ALL
 USING (public.can_access_project(project_id)) WITH CHECK (public.can_access_project(project_id));
 
+-- Additional RLS policies for new tables
+CREATE POLICY "invoice_access_control" ON public.invoices FOR ALL
+USING (public.can_access_project(project_id)) WITH CHECK (public.can_access_project(project_id));
+
+CREATE POLICY "ticket_access_control" ON public.support_tickets FOR ALL
+USING (public.is_client_owner(client_id)) WITH CHECK (public.is_client_owner(client_id));
+
+CREATE POLICY "ticket_message_access_control" ON public.ticket_messages FOR ALL
+USING (
+    EXISTS (
+        SELECT 1 FROM public.support_tickets st
+        WHERE st.id = ticket_id AND public.is_client_owner(st.client_id)
+    )
+) WITH CHECK (
+    EXISTS (
+        SELECT 1 FROM public.support_tickets st
+        WHERE st.id = ticket_id AND public.is_client_owner(st.client_id)
+    )
+);
+
 -- 6. Complete Mock Data
 DO $$
 DECLARE
@@ -152,4 +217,15 @@ BEGIN
     INSERT INTO public.project_messages (project_id, sender_id, content) VALUES
         (project1_uuid, user_uuid, 'Thank you for the update on the e-commerce platform. The progress looks great!'),
         (project2_uuid, user_uuid, 'When can we expect the mobile app beta version?');
+
+    -- Create sample invoices
+    INSERT INTO public.invoices (invoice_number, project_id, amount, status, due_date, description) VALUES
+        ('INV-2024-001', project1_uuid, 15000.00, 'paid'::public.invoice_status, '2024-02-15', 'E-commerce Platform Redesign - Phase 1'),
+        ('INV-2024-002', project2_uuid, 25000.00, 'pending'::public.invoice_status, '2024-03-30', 'Mobile App Development - Full Payment'),
+        ('INV-2024-003', project3_uuid, 8000.00, 'paid'::public.invoice_status, '2024-01-15', 'Database Migration Services');
+
+    -- Create sample support tickets
+    INSERT INTO public.support_tickets (ticket_number, client_id, title, description, status, priority) VALUES
+        ('TICK-2024-001', client_uuid, 'Login Issues on Mobile App', 'Users are experiencing intermittent login failures on the mobile application', 'in_progress'::public.ticket_status, 'high'::public.ticket_priority),
+        ('TICK-2024-002', client_uuid, 'Feature Request: Dark Mode', 'Request to implement dark mode theme for better user experience', 'open'::public.ticket_status, 'medium'::public.ticket_priority);
 END $$;

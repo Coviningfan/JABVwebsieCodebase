@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import projectService from '../../services/projectService';
+import invoiceService from '../../services/invoiceService';
+import ticketService from '../../services/ticketService';
 import Icon from 'components/AppIcon';
 import Breadcrumb from 'components/ui/Breadcrumb';
 import RecentActivity from './components/RecentActivity';
@@ -7,63 +11,88 @@ import ProjectCard from './components/ProjectCard';
 import MetricsCard from './components/MetricsCard';
 
 const Dashboard = () => {
-  // Mock user data
-  const currentUser = {
-    id: 1,
-    fullName: "John Doe",
-    email: "john.doe@company.com",
-    clientId: 1
-  };
+  const { user, userProfile } = useAuth();
+  const [projects, setProjects] = useState([]);
+  const [projectStats, setProjectStats] = useState(null);
+  const [invoiceStats, setInvoiceStats] = useState(null);
+  const [ticketStats, setTicketStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Mock projects data
-  const projects = [
-    {
-      id: 1,
-      name: "E-commerce Platform Redesign",
-      clientCompany: "TechCorp Solutions",
-      status: "In Progress",
-      progress: 75,
-      description: "Complete redesign of the e-commerce platform with modern UI/UX and enhanced functionality",
-      startDate: "2024-01-15",
-      endDate: "2024-03-30",
-      clientId: 1
-    },
-    {
-      id: 2,
-      name: "Mobile App Development",
-      clientCompany: "TechCorp Solutions",
-      status: "Client Review",
-      progress: 90,
-      description: "Native mobile application for iOS and Android platforms with real-time synchronization",
-      startDate: "2024-02-01",
-      endDate: "2024-04-15",
-      clientId: 1
-    },
-    {
-      id: 3,
-      name: "Database Migration",
-      clientCompany: "TechCorp Solutions",
-      status: "Completed",
-      progress: 100,
-      description: "Migration of legacy database to modern cloud infrastructure with improved performance",
-      startDate: "2023-11-01",
-      endDate: "2024-01-10",
-      clientId: 1
-    },
-    {
-      id: 4,
-      name: "Security Audit",
-      clientCompany: "TechCorp Solutions",
-      status: "Pending",
-      progress: 0,
-      description: "Comprehensive security assessment and implementation of security best practices",
-      startDate: "2024-04-01",
-      endDate: "2024-05-15",
-      clientId: 1
-    }
-  ];
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      if (!user) return;
 
-  // Filter projects for current user
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Load all dashboard data concurrently
+        const [projectsResult, projectStatsResult, invoiceStatsResult, ticketStatsResult] = await Promise.all([
+          projectService.getProjects(),
+          projectService.getProjectStats(),
+          invoiceService.getInvoiceStats(),
+          ticketService.getTicketStats()
+        ]);
+
+        if (projectsResult.success) {
+          setProjects(projectsResult.data || []);
+        } else {
+          setError(projectsResult.error);
+        }
+
+        if (projectStatsResult.success) {
+          setProjectStats(projectStatsResult.data);
+        }
+
+        if (invoiceStatsResult.success) {
+          setInvoiceStats(invoiceStatsResult.data);
+        }
+
+        if (ticketStatsResult.success) {
+          setTicketStats(ticketStatsResult.data);
+        }
+      } catch (err) {
+        setError('Failed to load dashboard data');
+        console.error('Dashboard error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="text-red-500 mb-4">
+            <Icon name="AlertTriangle" size={48} />
+          </div>
+          <h2 className="text-white text-xl mb-2">Dashboard Error</h2>
+          <p className="text-gray-400 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
   const userProjects = projects.filter(project => project.clientId === currentUser.clientId);
 
   // Calculate metrics
