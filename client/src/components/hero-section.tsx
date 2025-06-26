@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronDown, Phone, Mail } from 'lucide-react';
 
-export default function HeroWithBanner() {
+export function HeroWithBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const prefixText = 'Build Your Future with';
   const [typedPrefix, setTypedPrefix] = useState('');
