@@ -12,7 +12,11 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   useEffect(() => {
     if (isLoading) {
       setProgress(0);
-      setShowLogo(false);
+      
+      // Show logo immediately with fade-in
+      setTimeout(() => {
+        setShowLogo(true);
+      }, 100);
       
       // Simulate loading progress
       const interval = setInterval(() => {
@@ -20,11 +24,8 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
           if (prev >= 100) {
             clearInterval(interval);
             setTimeout(() => {
-              setShowLogo(true);
-              setTimeout(() => {
-                onComplete?.();
-              }, 800);
-            }, 200);
+              onComplete?.();
+            }, 800);
             return 100;
           }
           return prev + Math.random() * 15 + 5; // Variable progress speed
