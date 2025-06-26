@@ -430,13 +430,16 @@ const RegistrationScreen = () => {
             )}
           </form>
 
-          {/* Mock Credentials Info */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800 font-medium mb-2">Demo Credentials:</p>
-            <div className="text-xs text-blue-700 space-y-1">
-              <p><strong>Name:</strong> {mockCredentials.fullName}</p>
-              <p><strong>Email:</strong> {mockCredentials.email}</p>
-              <p><strong>Password:</strong> {mockCredentials.password}</p>
+          {/* Demo Credentials Info */}
+          <div className="mt-6 p-4 bg-red-950/20 border border-red-600/30 rounded-lg">
+            <div className="flex items-start space-x-3">
+              <Icon name="Info" size={20} color="#AB1C1C" className="mt-0.5" />
+              <div>
+                <p className="text-red-400 font-medium text-sm mb-1 font-heading">Demo Registration</p>
+                <p className="text-red-300 text-xs font-body">
+                  Use any valid email format and a strong password that meets the requirements above.
+                </p>
+              </div>
             </div>
           </div>
 
