@@ -350,15 +350,14 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="opacity-100 translate-y-0">
             <h1 className="font-bold mb-6 leading-tight text-white min-h-[200px] flex flex-col justify-center">
               <div className="text-4xl md:text-5xl mb-4 min-h-[60px] flex items-center justify-center">
                 <span 
                   id="typewriter-tagline"
-                  className="text-white transition-opacity duration-300"
-                  style={{ opacity: loadingComplete ? 1 : 0 }}
+                  className="text-white"
                 >
-                  Build Your Future with<span id="tagline-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
+                  <span id="tagline-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
                 </span>
               </div>
               <div 
@@ -367,10 +366,10 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
                 style={{ opacity: 0 }}
               >
                 <span className="text-white">
-                  <span id="typewriter-jabv">JABV</span><span id="jabv-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
+                  <span id="typewriter-jabv"></span><span id="jabv-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
                 </span>
                 <span style={{ color: '#C82222' }}>
-                  <span id="typewriter-labs">Labs</span><span id="labs-cursor" className="animate-pulse" style={{ color: '#C82222', display: 'none' }}>|</span>
+                  <span id="typewriter-labs"></span><span id="labs-cursor" className="animate-pulse" style={{ color: '#C82222', display: 'none' }}>|</span>
                 </span>
               </div>
             </h1>

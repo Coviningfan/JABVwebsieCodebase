@@ -1,5 +1,5 @@
 import { Navigation } from '@/components/navigation';
-import HeroWithBanner from '@/components/hero-section';
+import TypewriterHero from '@/components/typewriter-hero';
 import { PortfolioCarousel } from '@/components/portfolio-carousel';
 import { ServicesSection } from '@/components/services-section';
 import { AboutSection } from '@/components/about-section';
@@ -10,7 +10,7 @@ export default function Home({ loadingComplete }: { loadingComplete?: boolean })
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
-      <HeroWithBanner loadingComplete={loadingComplete} />
+      <TypewriterHero loadingComplete={loadingComplete} />
       <FadeInSection direction="up" delay={200}>
         <PortfolioCarousel />
       </FadeInSection>
