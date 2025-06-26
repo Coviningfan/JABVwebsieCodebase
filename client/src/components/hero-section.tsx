@@ -115,10 +115,19 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
                     const timeout = setTimeout(typeLabs, 80 + Math.random() * 40);
                     timeoutsRef.current.push(timeout);
                   } else {
-                    // Hide cursor after 2 seconds
+                    // JABV Labs typing complete - trigger dramatic fade-in for content below
                     setTimeout(() => {
-                      if (labsCursor) labsCursor.style.display = 'none';
-                    }, 2000);
+                      const heroContentEl = document.getElementById('hero-content');
+                      if (heroContentEl) {
+                        heroContentEl.style.opacity = '1';
+                        heroContentEl.style.transform = 'translateY(0)';
+                      }
+                      
+                      // Hide cursor after content fades in
+                      setTimeout(() => {
+                        if (labsCursor) labsCursor.style.display = 'none';
+                      }, 800);
+                    }, 300); // Brief pause before content appears
                   }
                 };
                 typeLabs();
@@ -228,50 +237,55 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Custom mobile apps and websites that drive results. No templates — just premium development tailored to your business.
-            </p>
+            <div 
+              id="hero-content" 
+              className="opacity-0 transition-all duration-1000 ease-out transform translate-y-8"
+            >
+              <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Custom mobile apps and websites that drive results. No templates — just premium development tailored to your business.
+              </p>
 
-            {/* Features */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs md:text-sm">
-              {[
-                'Tailored Software Solutions',
-                'iOS & Android App Development',
-                'Responsive Web Apps',
-                'Scalable Architecture',
-                'Pixel-Perfect UI/UX',
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1 bg-white/5 backdrop-blur-sm rounded-full px-3 py-1.5 text-gray-300"
+              {/* Features */}
+              <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs md:text-sm">
+                {[
+                  'Tailored Software Solutions',
+                  'iOS & Android App Development',
+                  'Responsive Web Apps',
+                  'Scalable Architecture',
+                  'Pixel-Perfect UI/UX',
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-1 bg-white/5 backdrop-blur-sm rounded-full px-3 py-1.5 text-gray-300"
+                  >
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="flex justify-center items-center mb-8">
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25 min-w-[200px]"
                 >
-                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+                  <span className="flex items-center justify-center gap-2">
+                    Get a Quote
+                    <div className="w-0 group-hover:w-4 transition-all duration-300 overflow-hidden">→</div>
+                  </span>
+                </button>
+              </div>
 
-            {/* CTA */}
-            <div className="flex justify-center items-center mb-8">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25 min-w-[200px]"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  Get a Quote
-                  <div className="w-0 group-hover:w-4 transition-all duration-300 overflow-hidden">→</div>
-                </span>
-              </button>
-            </div>
-
-            {/* Contact Info */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-gray-400 text-sm">
-              <a href="tel:7758005850" className="flex items-center gap-2 hover:text-red-400 transition-colors duration-200">
-                <Phone className="w-4 h-4" /> (775) 800-5850
-              </a>
-              <a href="mailto:contact@jabvlabs.com" className="flex items-center gap-2 hover:text-red-400 transition-colors duration-200">
-                <Mail className="w-4 h-4" /> contact@jabvlabs.com
-              </a>
+              {/* Contact Info */}
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-gray-400 text-sm">
+                <a href="tel:7758005850" className="flex items-center gap-2 hover:text-red-400 transition-colors duration-200">
+                  <Phone className="w-4 h-4" /> (775) 800-5850
+                </a>
+                <a href="mailto:contact@jabvlabs.com" className="flex items-center gap-2 hover:text-red-400 transition-colors duration-200">
+                  <Mail className="w-4 h-4" /> contact@jabvlabs.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
