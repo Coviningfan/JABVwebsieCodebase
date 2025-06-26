@@ -1268,9 +1268,8 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
             flexDirection: 'column',
             maxWidth: '320px',
             width: '100%',
-            background: 'rgba(31, 41, 55, 0.95)',
-            backdropFilter: 'blur(12px)',
-            borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+            background: '#000000',
+            borderRight: '1px solid rgba(63, 63, 70, 0.4)',
             transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
             transition: 'transform 0.3s ease'
           }}>
@@ -1451,9 +1450,8 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
           flexDirection: 'column',
           flex: 1,
           minHeight: 0,
-          background: 'rgba(31, 41, 55, 0.95)',
-          backdropFilter: 'blur(12px)',
-          borderRight: '1px solid rgba(255, 255, 255, 0.1)'
+          background: '#000000',
+          borderRight: '1px solid rgba(63, 63, 70, 0.4)'
         }}>
           <div style={{
             display: 'flex',

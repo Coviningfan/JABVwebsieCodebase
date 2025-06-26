@@ -124,6 +124,7 @@ The JABV Labs Client Portal is a modern React-based web application that provide
 - June 26, 2025. Updated branding throughout application - "JABV" is red, "Labs" is white
 - June 26, 2025. Removed "Create Account" functionality as customers cannot self-register
 - June 26, 2025. Recreated dashboard to match professional reference design with project cards, stats, and activity feed
+- June 26, 2025. Fixed sidebar styling to use black background instead of blue, maintaining design consistency
 
 ## User Preferences
 
