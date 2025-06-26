@@ -14,284 +14,359 @@ function LoginScreen() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #1f2937 0%, #111827 50%, #1f2937 100%)',
+      background: '#000000',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '16px'
+      padding: '24px',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
-      <div style={{ width: '100%', maxWidth: '400px' }}>
-        {/* Logo and Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '64px',
-            height: '64px',
-            background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
-            borderRadius: '12px',
-            marginBottom: '16px',
-            boxShadow: '0 10px 25px rgba(220, 38, 38, 0.3)'
-          }}>
-            <span style={{
-              fontSize: '28px',
-              fontWeight: 'bold',
-              color: 'white'
-            }}>J</span>
-          </div>
-          <h1 style={{
-            fontSize: '32px',
-            fontWeight: 'bold',
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+        <h1 style={{
+          fontSize: '48px',
+          fontWeight: '700',
+          color: 'white',
+          margin: '0 0 16px 0',
+          letterSpacing: '-0.025em'
+        }}>
+          <span style={{ color: '#dc2626' }}>JABV</span>Labs
+        </h1>
+        <p style={{ 
+          color: '#a1a1aa', 
+          fontSize: '18px',
+          margin: 0,
+          fontWeight: '400'
+        }}>
+          Sign in to access your projects
+        </p>
+      </div>
+
+      {/* Login Card */}
+      <div style={{
+        width: '100%',
+        maxWidth: '420px',
+        background: 'rgba(24, 24, 27, 0.8)',
+        border: '1px solid rgba(63, 63, 70, 0.4)',
+        borderRadius: '12px',
+        padding: '40px',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+      }}>
+        <div style={{ marginBottom: '32px' }}>
+          <h2 style={{
+            fontSize: '28px',
+            fontWeight: '600',
             color: 'white',
-            marginBottom: '4px'
+            margin: '0 0 8px 0',
+            letterSpacing: '-0.025em'
           }}>
-            <span style={{ color: '#dc2626' }}>JABV</span>Labs
-          </h1>
-          <p style={{ color: '#9ca3af' }}>Client Portal</p>
+            Welcome back
+          </h2>
+          <p style={{ 
+            color: '#a1a1aa', 
+            fontSize: '16px',
+            margin: 0
+          }}>
+            Enter your credentials to continue
+          </p>
         </div>
 
-        {/* Login Card */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          backdropFilter: 'blur(12px)',
-          borderRadius: '16px',
-          padding: '32px',
-          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.3)',
-          border: '1px solid rgba(255, 255, 255, 0.1)'
-        }}>
+        <form onSubmit={handleSubmit}>
+          {/* Email Field */}
           <div style={{ marginBottom: '24px' }}>
-            <h2 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: 'white',
-              marginBottom: '8px'
-            }}>Welcome Back</h2>
-            <p style={{ color: '#9ca3af' }}>Sign in to access your projects</p>
-          </div>
-
-          <form onSubmit={handleSubmit}>
-            {/* Email Field */}
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{
-                display: 'block',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#d1d5db',
-                marginBottom: '8px'
-              }}>
-                Email Address
-              </label>
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  position: 'absolute',
-                  left: '12px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: '#9ca3af'
-                }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                </div>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{
-                    width: '100%',
-                    paddingLeft: '40px',
-                    paddingRight: '16px',
-                    paddingTop: '12px',
-                    paddingBottom: '12px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'all 0.2s ease'
-                  }}
-                  placeholder="Enter your email"
-                  required
-                  onFocus={(e) => {
-                    e.target.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Password Field */}
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{
-                display: 'block',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#d1d5db',
-                marginBottom: '8px'
-              }}>
-                Password
-              </label>
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  position: 'absolute',
-                  left: '12px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: '#9ca3af'
-                }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                    <circle cx="12" cy="16" r="1"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
-                </div>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    paddingLeft: '40px',
-                    paddingRight: '48px',
-                    paddingTop: '12px',
-                    paddingBottom: '12px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'all 0.2s ease'
-                  }}
-                  placeholder="Enter your password"
-                  required
-                  onFocus={(e) => {
-                    e.target.style.borderColor = 'rgba(220, 38, 38, 0.5)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: 'absolute',
-                    right: '12px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'none',
-                    border: 'none',
-                    color: '#9ca3af',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  {showPassword ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                      <line x1="1" y1="1" x2="23" y2="23"/>
-                    </svg>
-                  ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '24px'
-            }}>
-              <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                <input
-                  type="checkbox"
-                  style={{
-                    width: '16px',
-                    height: '16px',
-                    marginRight: '8px'
-                  }}
-                />
-                <span style={{ fontSize: '14px', color: '#9ca3af' }}>Remember me</span>
-              </label>
-              <a href="#" style={{
-                fontSize: '14px',
-                color: '#dc2626',
-                textDecoration: 'none'
-              }}>
-                Forgot password?
-              </a>
-            </div>
-
-            {/* Sign In Button */}
-            <button
-              type="submit"
-              style={{
-                width: '100%',
-                background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
-                color: 'white',
-                padding: '12px 16px',
-                borderRadius: '8px',
-                fontSize: '16px',
-                fontWeight: '600',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 4px 14px rgba(220, 38, 38, 0.3)',
-                marginBottom: '24px'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-1px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(220, 38, 38, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 14px rgba(220, 38, 38, 0.3)';
-              }}
-            >
-              Sign In
-            </button>
-          </form>
-
-          {/* Demo Credentials */}
-          <div style={{
-            background: 'rgba(220, 38, 38, 0.1)',
-            border: '1px solid rgba(220, 38, 38, 0.2)',
-            borderRadius: '8px',
-            padding: '16px'
-          }}>
-            <h4 style={{
+            <label style={{
+              display: 'block',
               fontSize: '14px',
               fontWeight: '500',
-              color: '#dc2626',
+              color: 'white',
               marginBottom: '8px'
-            }}>Demo Credentials</h4>
-            <div style={{ fontSize: '12px', color: '#d1d5db' }}>
-              <p style={{ marginBottom: '4px' }}>
-                Email: <span style={{ color: '#dc2626' }}>john.doe@company.com</span>
-              </p>
-              <p>
-                Password: <span style={{ color: '#dc2626' }}>ClientPortal123</span>
-              </p>
+            }}>
+              Email Address
+            </label>
+            <div style={{ position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                left: '16px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: '#71717a',
+                zIndex: 1
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  width: '100%',
+                  paddingLeft: '48px',
+                  paddingRight: '16px',
+                  paddingTop: '14px',
+                  paddingBottom: '14px',
+                  background: 'transparent',
+                  border: '1px solid rgba(63, 63, 70, 0.8)',
+                  borderRadius: '8px',
+                  color: 'white',
+                  fontSize: '16px',
+                  outline: 'none',
+                  transition: 'all 0.2s ease',
+                  boxSizing: 'border-box'
+                }}
+                placeholder="Enter your email"
+                required
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(63, 63, 70, 0.8)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
             </div>
           </div>
+
+          {/* Password Field */}
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: '14px',
+              fontWeight: '500',
+              color: 'white',
+              marginBottom: '8px'
+            }}>
+              Password
+            </label>
+            <div style={{ position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                left: '16px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: '#71717a',
+                zIndex: 1
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <circle cx="12" cy="16" r="1"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </div>
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{
+                  width: '100%',
+                  paddingLeft: '48px',
+                  paddingRight: '48px',
+                  paddingTop: '14px',
+                  paddingBottom: '14px',
+                  background: 'transparent',
+                  border: '1px solid rgba(63, 63, 70, 0.8)',
+                  borderRadius: '8px',
+                  color: 'white',
+                  fontSize: '16px',
+                  outline: 'none',
+                  transition: 'all 0.2s ease',
+                  boxSizing: 'border-box'
+                }}
+                placeholder="Enter your password"
+                required
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'rgba(220, 38, 38, 0.6)';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(63, 63, 70, 0.8)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '16px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: '#71717a',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 0
+                }}
+              >
+                {showPassword ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Sign In Button */}
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              background: '#dc2626',
+              color: 'white',
+              padding: '14px 24px',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '600',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              marginBottom: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = '#b91c1c';
+              e.target.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = '#dc2626';
+              e.target.style.transform = 'translateY(0)';
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10,17 15,12 10,7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            Sign In
+          </button>
+
+          {/* Forgot Password */}
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <a href="#" style={{
+              color: '#a1a1aa',
+              fontSize: '14px',
+              textDecoration: 'none'
+            }}>
+              Forgot your password?
+            </a>
+          </div>
+
+          {/* Divider */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '24px'
+          }}>
+            <div style={{
+              flex: 1,
+              height: '1px',
+              background: 'rgba(63, 63, 70, 0.4)'
+            }}></div>
+            <span style={{
+              padding: '0 16px',
+              color: '#71717a',
+              fontSize: '14px'
+            }}>
+              New to JABV Labs?
+            </span>
+            <div style={{
+              flex: 1,
+              height: '1px',
+              background: 'rgba(63, 63, 70, 0.4)'
+            }}></div>
+          </div>
+
+          {/* Create Account Button */}
+          <button
+            type="button"
+            style={{
+              width: '100%',
+              background: 'transparent',
+              color: '#a1a1aa',
+              padding: '14px 24px',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '500',
+              border: '1px solid rgba(63, 63, 70, 0.8)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.borderColor = 'rgba(113, 113, 122, 0.8)';
+              e.target.style.color = 'white';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.borderColor = 'rgba(63, 63, 70, 0.8)';
+              e.target.style.color = '#a1a1aa';
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <line x1="19" y1="8" x2="19" y2="14"/>
+              <line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+            Create Account
+          </button>
+        </form>
+      </div>
+
+      {/* Demo Credentials */}
+      <div style={{
+        marginTop: '32px',
+        padding: '16px',
+        background: 'rgba(220, 38, 38, 0.1)',
+        border: '1px solid rgba(220, 38, 38, 0.2)',
+        borderRadius: '8px',
+        maxWidth: '420px',
+        width: '100%'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          marginBottom: '8px'
+        }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <h4 style={{
+            fontSize: '14px',
+            fontWeight: '500',
+            color: '#dc2626',
+            margin: 0
+          }}>Demo Credentials</h4>
+        </div>
+        <div style={{ fontSize: '14px', color: '#fca5a5' }}>
+          <p style={{ margin: '0 0 4px 0' }}>
+            Email: john.doe@company.com
+          </p>
+          <p style={{ margin: 0 }}>
+            Password: ClientPortal123
+          </p>
         </div>
       </div>
     </div>
