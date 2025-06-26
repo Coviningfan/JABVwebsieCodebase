@@ -155,6 +155,8 @@ Changelog:
   - Portal features: login-first experience, project management, invoice tracking, support tickets
   - Branch separation enables independent development cycles and deployment processes
   - Portal ready for Render.com deployment from ThePortal branch root directory
+  - MIGRATION COMPLETE: All client portal files moved to ThePortal branch and removed from main
+  - Main branch now contains only JABV Labs website, portal development isolated to ThePortal branch
 ```
 
 ## User Preferences
