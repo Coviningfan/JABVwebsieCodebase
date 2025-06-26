@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../components/AppIcon';
-import Breadcrumb from '../components/ui/Breadcrumb';
+import Breadcrumb from '../../components/ui/Breadcrumb';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Settings = () => {

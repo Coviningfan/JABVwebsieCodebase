@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../components/AppIcon';
 
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Icon from '../components/AppIcon';
+
 const NotFound = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
