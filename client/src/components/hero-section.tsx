@@ -170,8 +170,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       return;
     }
     
-    console.log(`✅ [${renderIdRef.current}][${effectId}] CONDITIONS MET - Starting PURE DOM typewriter animation...`);
-    console.log(`🎬 [${renderIdRef.current}][${effectId}] USING DIRECT DOM MANIPULATION - NO RE-RENDERS!`);
+    console.log(`✅ [${renderIdRef.current}][${effectId}] Starting typewriter animation with pure DOM manipulation`);
     animationStartedRef.current = true;
     
     // Start typewriter sequence with pure DOM manipulation (no React state updates)
