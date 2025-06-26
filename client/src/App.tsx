@@ -45,7 +45,7 @@ function App() {
     if (loadingComplete || hasShownLoading) {
       // Create widget element
       const widgetDiv = document.createElement("elevenlabs-convai");
-      widgetDiv.setAttribute("agent-id", "your-agent-id"); // You'll need to provide this
+      widgetDiv.setAttribute("agent-id", "agent_01jynfyb8neqkby2q4esd71ybw");
       document.body.appendChild(widgetDiv);
 
       // Load the script
