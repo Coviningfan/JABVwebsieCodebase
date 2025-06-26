@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ChevronDown, Phone, Mail } from 'lucide-react';
-import { Navigation } from '@/components/navigation';
+import { X, Phone, Mail } from 'lucide-react';
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const prefixText = 'Build Your Future with';
   const [typedPrefix, setTypedPrefix] = useState('');
   const [startBrand, setStartBrand] = useState(false);
@@ -55,21 +55,28 @@ export function HeroSection() {
 
   return (
     <>
-      <Navigation />
-
-      <div className="sticky top-0 z-40 bg-black shadow-md">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 py-2 px-4">
-          <span className="text-white text-xs md:text-sm font-light">Already a customer?</span>
-          <a
-            href="https://portal.jabvlabs.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
+      {showBanner && (
+        <div className="w-full bg-black shadow-md z-50 relative">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 py-2 px-4">
+            <span className="text-white text-xs md:text-sm font-light">Already a customer?</span>
+            <a
+              href="https://portal.jabvlabs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
+            >
+              Login to your portal
+            </a>
+          </div>
+          <button
+            onClick={() => setShowBanner(false)}
+            className="absolute top-2 right-4 text-gray-400 hover:text-red-500"
+            aria-label="Close Banner"
           >
-            Login to your portal
-          </a>
+            <X className="w-4 h-4" />
+          </button>
         </div>
-      </div>
+      )}
 
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-zinc-950 via-black to-zinc-900">
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -125,7 +132,7 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 mb-10 text-xs md:text-sm">
-              {['Tailored Software Solutions','iOS & Android App Development','Responsive Web Apps','Scalable Architecture','Pixel-Perfect UI/UX'].map((item, i) => (
+              {['Tailored Software Solutions', 'iOS & Android App Development', 'Responsive Web Apps', 'Scalable Architecture', 'Pixel-Perfect UI/UX'].map((item, i) => (
                 <div key={i} className="flex items-center gap-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 text-gray-300 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full block" />
                   <span>{item}</span>
