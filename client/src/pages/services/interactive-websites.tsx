@@ -200,8 +200,7 @@ export default function InteractiveWebsites() {
             </p>
             <a 
               href="/contact"
-              className="inline-block text-white px-12 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
-              style={{ backgroundColor: '#C82222' }}
+              className="inline-block bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-12 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25"
             >
               Get a Quote
             </a>
