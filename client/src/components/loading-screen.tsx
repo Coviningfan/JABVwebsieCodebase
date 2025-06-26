@@ -11,11 +11,11 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   const [showProgress, setShowProgress] = useState(true);
 
   const loadingSteps = [
-    { text: 'Initializing...', duration: 200 },
-    { text: 'Loading assets...', duration: 300 },
-    { text: 'Preparing interface...', duration: 200 },
-    { text: 'Almost ready...', duration: 150 },
-    { text: 'Welcome to JABV Labs', duration: 150 }
+    { text: 'Initializing...', duration: 300 },
+    { text: 'Loading assets...', duration: 350 },
+    { text: 'Preparing interface...', duration: 300 },
+    { text: 'Almost ready...', duration: 250 },
+    { text: 'Welcome to JABV Labs', duration: 300 }
   ];
 
   useEffect(() => {
