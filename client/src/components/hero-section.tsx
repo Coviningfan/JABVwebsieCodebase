@@ -136,9 +136,14 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     console.log(`🎯 [${renderIdRef.current}] Setting isVisible: true`);
     setAnimationState(prev => ({ ...prev, isVisible: true }));
     
+    // Use DOM manipulation for banner to avoid re-render during animation
     const delay = setTimeout(() => {
-      console.log(`🎯 [${renderIdRef.current}] Setting showBanner: true`);
-      setAnimationState(prev => ({ ...prev, showBanner: true }));
+      console.log(`🎯 [${renderIdRef.current}] Setting showBanner via DOM - NO RE-RENDER`);
+      const bannerEl = document.querySelector('[data-banner]') as HTMLElement;
+      if (bannerEl) {
+        bannerEl.style.display = 'block';
+        bannerEl.style.opacity = '1';
+      }
     }, 1400);
     return () => {
       console.log(`🧹 [${renderIdRef.current}] Visibility useEffect cleanup`);
@@ -275,36 +280,44 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   return (
     <>
       {/* Customer banner */}
-      {showBanner && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-black text-white shadow-md animate-slide-down">
-          <div className="flex items-center justify-center px-4 py-2 relative">
-            <div className="flex items-center gap-2">
-              <span className="text-sm md:text-base font-light">Already a customer?</span>
-              <a
-                href="https://portal.jabvlabs.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
-              >
-                Login to your portal
-              </a>
-            </div>
-            <button
-              onClick={() => setAnimationState(prev => ({ ...prev, showBanner: false }))}
-              className="absolute right-4 text-gray-400 hover:text-red-500"
-              aria-label="Close banner"
+      <div 
+        data-banner
+        className="fixed top-16 left-0 right-0 z-40 bg-black text-white shadow-md animate-slide-down"
+        style={{ display: 'none', opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
+      >
+        <div className="flex items-center justify-center px-4 py-2 relative">
+          <div className="flex items-center gap-2">
+            <span className="text-sm md:text-base font-light">Already a customer?</span>
+            <a
+              href="https://portal.jabvlabs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
             >
-              <X className="w-4 h-4" />
-            </button>
+              Login to your portal
+            </a>
           </div>
+          <button
+            onClick={() => {
+              const bannerEl = document.querySelector('[data-banner]') as HTMLElement;
+              if (bannerEl) {
+                bannerEl.style.display = 'none';
+                bannerEl.style.opacity = '0';
+              }
+            }}
+            className="absolute right-4 text-gray-400 hover:text-red-500"
+            aria-label="Close banner"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
-      )}
+      </div>
 
       {/* Hero Section */}
       <section
         id="home"
         className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900"
-        style={{ paddingTop: showBanner ? '120px' : '80px' }}
+        style={{ paddingTop: '80px' }}
       >
         {/* Background & overlay */}
         <div className="absolute inset-0 z-0">
