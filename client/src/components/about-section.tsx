@@ -71,40 +71,40 @@ export function AboutSection() {
           <div>
             <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-black p-8">
               <div className="grid grid-cols-2 gap-6 h-80">
-                {/* Team workspace illustration */}
+                {/* ROI focused illustration */}
                 <div className="bg-gradient-to-br from-red-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
                   <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-users text-white text-2xl"></i>
+                    <i className="fas fa-chart-line text-white text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Expert Team</h4>
-                  <p className="text-gray-400 text-sm text-center">Full-stack developers from Reno, Nevada</p>
+                  <h4 className="text-lg font-bold text-white mb-2">Proven ROI</h4>
+                  <p className="text-gray-400 text-sm text-center">Digital solutions that increase revenue</p>
                 </div>
                 
-                {/* Innovation illustration */}
+                {/* Speed to market illustration */}
                 <div className="bg-gradient-to-br from-blue-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
                   <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-lightbulb text-white text-2xl"></i>
+                    <i className="fas fa-rocket text-white text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Innovation</h4>
-                  <p className="text-gray-400 text-sm text-center">Cutting-edge solutions, no templates</p>
+                  <h4 className="text-lg font-bold text-white mb-2">Fast Delivery</h4>
+                  <p className="text-gray-400 text-sm text-center">Launch faster than competitors</p>
                 </div>
                 
                 {/* Custom development illustration */}
                 <div className="bg-gradient-to-br from-green-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
                   <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-code text-white text-2xl"></i>
+                    <i className="fas fa-shield-alt text-white text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Custom Code</h4>
-                  <p className="text-gray-400 text-sm text-center">Hand-crafted, premium development</p>
+                  <h4 className="text-lg font-bold text-white mb-2">Future-Proof</h4>
+                  <p className="text-gray-400 text-sm text-center">Scalable solutions that grow with you</p>
                 </div>
                 
-                {/* Results illustration */}
+                {/* Customer satisfaction illustration */}
                 <div className="bg-gradient-to-br from-purple-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
                   <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-chart-line text-white text-2xl"></i>
+                    <i className="fas fa-handshake text-white text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Results</h4>
-                  <p className="text-gray-400 text-sm text-center">Measurable business impact</p>
+                  <h4 className="text-lg font-bold text-white mb-2">Partnership</h4>
+                  <p className="text-gray-400 text-sm text-center">Long-term success relationships</p>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ export function AboutSection() {
           <div>
             <h3 className="text-3xl font-bold mb-6">Our Story</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Founded in the innovative tech ecosystem of Reno, Nevada, JABV Labs emerged from a passion for creating digital solutions that make a real impact. We believe that great technology should be both powerful and intuitive, solving complex problems with elegant simplicity.
+              Founded in Reno, Nevada, JABV Labs emerged from a passion for creating digital solutions that make a real impact. We believe that great technology should be both powerful and intuitive, solving complex problems with elegant simplicity.
             </p>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. We specialize in custom-built solutions from the ground up - no templates, no shortcuts, just pure innovation tailored to your business needs.
@@ -155,11 +155,12 @@ export function AboutSection() {
                 const chevron = document.querySelector('#tech-stack-btn i') as HTMLElement;
                 if (techSection && chevron) {
                   const isHidden = techSection.style.display === 'none' || !techSection.style.display;
-                  techSection.style.display = isHidden ? 'block' : 'none';
                   chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
                   chevron.style.transition = 'transform 0.3s ease';
                   
                   if (isHidden) {
+                    // Show with fade-in
+                    techSection.style.display = 'block';
                     techSection.style.opacity = '0';
                     techSection.style.transform = 'translateY(-20px)';
                     setTimeout(() => {
@@ -167,6 +168,14 @@ export function AboutSection() {
                       techSection.style.transform = 'translateY(0)';
                       techSection.style.transition = 'all 0.5s ease-out';
                     }, 50);
+                  } else {
+                    // Hide with fade-out
+                    techSection.style.opacity = '0';
+                    techSection.style.transform = 'translateY(-20px)';
+                    techSection.style.transition = 'all 0.3s ease-in';
+                    setTimeout(() => {
+                      techSection.style.display = 'none';
+                    }, 300);
                   }
                 }
               }}

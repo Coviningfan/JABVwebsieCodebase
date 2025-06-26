@@ -124,15 +124,12 @@ export function PortfolioCarousel() {
         <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-6 scroll-smooth px-6 md:px-4"
-            onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {portfolioItems.map((item, index) => (
               <div 
                 key={item.id} 
-                className={`portfolio-item flex-none w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative`}
+                className={`portfolio-item bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon section with dynamic colors */}
@@ -190,20 +187,6 @@ export function PortfolioCarousel() {
               </div>
             ))}
           </div>
-
-          {/* Carousel Controls */}
-          <button 
-            onClick={handlePrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
-          >
-            <i className="fas fa-chevron-left"></i>
-          </button>
-          <button 
-            onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
-          >
-            <i className="fas fa-chevron-right"></i>
-          </button>
         </div>
       </div>
     </section>

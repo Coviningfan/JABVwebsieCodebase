@@ -41,19 +41,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
-    script.async = true;
-    script.type = "text/javascript";
-    document.body.appendChild(script);
+    // Add ElevenLabs widget when loading is complete
+    if (loadingComplete || hasShownLoading) {
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+      script.async = true;
+      script.type = "text/javascript";
+      document.body.appendChild(script);
 
-    // Cleanup on unmount
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, [loadingComplete, hasShownLoading]);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
