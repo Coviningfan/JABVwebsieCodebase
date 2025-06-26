@@ -70,59 +70,43 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-black p-8">
-              <svg viewBox="0 0 400 300" className="w-full h-auto">
-                {/* Background */}
-                <rect width="400" height="300" fill="url(#techGradient)" />
+              <div className="grid grid-cols-2 gap-6 h-80">
+                {/* Team workspace illustration */}
+                <div className="bg-gradient-to-br from-red-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mb-4">
+                    <i className="fas fa-users text-white text-2xl"></i>
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">Expert Team</h4>
+                  <p className="text-gray-400 text-sm text-center">Full-stack developers from Reno, Nevada</p>
+                </div>
                 
-                {/* Geometric tech elements */}
-                <defs>
-                  <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#1f2937', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#000000', stopOpacity: 1 }} />
-                  </linearGradient>
-                  <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#dc2626', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#b91c1c', stopOpacity: 1 }} />
-                  </linearGradient>
-                </defs>
+                {/* Innovation illustration */}
+                <div className="bg-gradient-to-br from-blue-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
+                    <i className="fas fa-lightbulb text-white text-2xl"></i>
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">Innovation</h4>
+                  <p className="text-gray-400 text-sm text-center">Cutting-edge solutions, no templates</p>
+                </div>
                 
-                {/* Code symbols */}
-                <text x="50" y="80" fill="url(#redGradient)" fontSize="24" fontFamily="monospace">&lt;/&gt;</text>
-                <text x="320" y="60" fill="#6b7280" fontSize="16" fontFamily="monospace">{ }</text>
-                <text x="300" y="220" fill="url(#redGradient)" fontSize="20" fontFamily="monospace">&lt;/&gt;</text>
+                {/* Custom development illustration */}
+                <div className="bg-gradient-to-br from-green-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-4">
+                    <i className="fas fa-code text-white text-2xl"></i>
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">Custom Code</h4>
+                  <p className="text-gray-400 text-sm text-center">Hand-crafted, premium development</p>
+                </div>
                 
-                {/* Circuit-like connections */}
-                <line x1="80" y1="80" x2="150" y2="80" stroke="#dc2626" strokeWidth="2" />
-                <line x1="150" y1="80" x2="150" y2="150" stroke="#dc2626" strokeWidth="2" />
-                <line x1="150" y1="150" x2="250" y2="150" stroke="#dc2626" strokeWidth="2" />
-                
-                {/* Tech nodes */}
-                <circle cx="80" cy="80" r="4" fill="#dc2626" />
-                <circle cx="150" cy="80" r="4" fill="#dc2626" />
-                <circle cx="150" cy="150" r="4" fill="#dc2626" />
-                <circle cx="250" cy="150" r="4" fill="#dc2626" />
-                
-                {/* Device screens */}
-                <rect x="80" y="180" width="60" height="40" rx="4" fill="#374151" stroke="#6b7280" strokeWidth="1" />
-                <rect x="85" y="185" width="50" height="25" fill="#111827" />
-                <line x1="87" y1="188" x2="130" y2="188" stroke="#dc2626" strokeWidth="1" />
-                <line x1="87" y1="192" x2="125" y2="192" stroke="#6b7280" strokeWidth="1" />
-                
-                <rect x="260" y="180" width="60" height="40" rx="4" fill="#374151" stroke="#6b7280" strokeWidth="1" />
-                <rect x="265" y="185" width="50" height="25" fill="#111827" />
-                <line x1="267" y1="188" x2="310" y2="188" stroke="#dc2626" strokeWidth="1" />
-                <line x1="267" y1="192" x2="305" y2="192" stroke="#6b7280" strokeWidth="1" />
-                
-                {/* Mountain silhouette for Nevada */}
-                <polygon points="20,260 40,230 60,240 80,220 100,235 120,225 140,240 160,225 180,235 200,220 220,230 240,215 260,225 280,210 300,220 320,205 340,215 360,200 380,210 400,190 400,300 20,300" 
-                         fill="#1f2937" stroke="#374151" strokeWidth="1" />
-                
-                {/* Stars */}
-                <circle cx="100" cy="40" r="1" fill="#ffffff" opacity="0.8" />
-                <circle cx="200" cy="30" r="1" fill="#ffffff" opacity="0.6" />
-                <circle cx="300" cy="50" r="1" fill="#ffffff" opacity="0.7" />
-                <circle cx="350" cy="35" r="1" fill="#ffffff" opacity="0.9" />
-              </svg>
+                {/* Results illustration */}
+                <div className="bg-gradient-to-br from-purple-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
+                  <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-4">
+                    <i className="fas fa-chart-line text-white text-2xl"></i>
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">Results</h4>
+                  <p className="text-gray-400 text-sm text-center">Measurable business impact</p>
+                </div>
+              </div>
             </div>
           </div>
           <div>
@@ -164,17 +148,32 @@ export function AboutSection() {
             <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
             <p className="text-gray-400 mb-8">Comprehensive expertise across the full technology spectrum</p>
             <button 
+              id="tech-stack-btn"
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
               onClick={() => {
                 const techSection = document.getElementById('tech-carousels');
-                if (techSection) {
-                  techSection.style.display = techSection.style.display === 'none' ? 'block' : 'none';
+                const chevron = document.querySelector('#tech-stack-btn i') as HTMLElement;
+                if (techSection && chevron) {
+                  const isHidden = techSection.style.display === 'none' || !techSection.style.display;
+                  techSection.style.display = isHidden ? 'block' : 'none';
+                  chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+                  chevron.style.transition = 'transform 0.3s ease';
+                  
+                  if (isHidden) {
+                    techSection.style.opacity = '0';
+                    techSection.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                      techSection.style.opacity = '1';
+                      techSection.style.transform = 'translateY(0)';
+                      techSection.style.transition = 'all 0.5s ease-out';
+                    }, 50);
+                  }
                 }
               }}
             >
               <span className="flex items-center gap-2">
                 View Our Tech Stack
-                <i className="fas fa-chevron-down"></i>
+                <i className="fas fa-chevron-down transition-transform duration-300"></i>
               </span>
             </button>
           </div>

@@ -267,7 +267,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
               {/* CTA */}
               <div className="flex justify-center items-center mb-8">
                 <button
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => window.location.href = '/contact'}
                   className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25 min-w-[200px]"
                 >
                   <span className="flex items-center justify-center gap-2">

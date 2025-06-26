@@ -3,63 +3,57 @@ import { useState, useEffect, useRef } from 'react';
 const portfolioItems = [
   {
     id: 1,
-    title: "FinTech Mobile App",
-    description: "iOS & Android banking solution with biometric security",
-    icon: "fas fa-university"
+    title: "FinTech Revolution",
+    description: "Next-gen banking with AI fraud detection",
+    icon: "fas fa-university",
+    color: "from-blue-500 to-blue-700",
+    stats: "2M+ Users",
+    tech: ["React Native", "Node.js", "AI/ML"]
   },
   {
     id: 2,
-    title: "E-Commerce Platform",
-    description: "Cross-platform shopping app with AR integration",
-    icon: "fas fa-shopping-cart"
+    title: "AR Shopping Experience",
+    description: "Try-before-you-buy with augmented reality",
+    icon: "fas fa-shopping-cart",
+    color: "from-green-500 to-green-700",
+    stats: "300% Sales ↗",
+    tech: ["ARKit", "React", "AWS"]
   },
   {
     id: 3,
-    title: "HealthTech Solution",
-    description: "Patient management system with telemedicine features",
-    icon: "fas fa-heartbeat"
+    title: "HealthTech Platform",
+    description: "Telemedicine with real-time diagnostics",
+    icon: "fas fa-heartbeat",
+    color: "from-red-500 to-red-700",
+    stats: "50K+ Patients",
+    tech: ["Vue.js", "WebRTC", "Firebase"]
   },
   {
     id: 4,
-    title: "Fitness Tracker",
-    description: "Wearable-connected app with custom workout plans",
-    icon: "fas fa-dumbbell"
+    title: "Smart Fitness AI",
+    description: "Personal trainer powered by machine learning",
+    icon: "fas fa-dumbbell",
+    color: "from-purple-500 to-purple-700",
+    stats: "95% Retention",
+    tech: ["Swift", "TensorFlow", "Python"]
   },
   {
     id: 5,
-    title: "Social Platform",
-    description: "Community-driven app with real-time messaging",
-    icon: "fas fa-users"
+    title: "Social Network 3.0",
+    description: "Decentralized community with crypto rewards",
+    icon: "fas fa-users",
+    color: "from-orange-500 to-orange-700",
+    stats: "1M+ Posts/Day",
+    tech: ["Next.js", "Blockchain", "GraphQL"]
   },
   {
     id: 6,
-    title: "Food Delivery App",
-    description: "Multi-restaurant platform with live tracking",
-    icon: "fas fa-utensils"
-  },
-  {
-    id: 7,
-    title: "Corporate Website",
-    description: "Enterprise-grade website with modern design",
-    icon: "fas fa-building"
-  },
-  {
-    id: 8,
-    title: "Real Estate Platform",
-    description: "Property management system with virtual tours",
-    icon: "fas fa-home"
-  },
-  {
-    id: 9,
-    title: "Education Portal",
-    description: "Learning management system with interactive content",
-    icon: "fas fa-graduation-cap"
-  },
-  {
-    id: 10,
-    title: "Travel Booking App",
-    description: "Complete travel solution with booking and itinerary management",
-    icon: "fas fa-plane"
+    title: "Autonomous Delivery",
+    description: "AI-powered logistics with drone integration",
+    icon: "fas fa-utensils",
+    color: "from-yellow-500 to-yellow-700",
+    stats: "15min Average",
+    tech: ["Flutter", "IoT", "Machine Learning"]
   }
 ];
 
@@ -135,14 +129,66 @@ export function PortfolioCarousel() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {portfolioItems.map((item) => (
-              <div key={item.id} className="portfolio-item flex-none w-72 md:w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500">
-                <div className="relative overflow-hidden h-40 md:h-48 flex items-center justify-center bg-gradient-to-br from-red-600/20 to-red-700/20">
-                  <i className={`${item.icon} text-5xl md:text-6xl text-red-500 transition-transform duration-500 hover:scale-110`}></i>
+            {portfolioItems.map((item, index) => (
+              <div 
+                key={item.id} 
+                className={`portfolio-item flex-none w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Animated background pattern */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}></div>
+                
+                {/* Icon section with dynamic colors */}
+                <div className={`relative overflow-hidden h-48 md:h-56 flex items-center justify-center bg-gradient-to-br ${item.color}/20 to-black/40`}>
+                  <div className={`w-24 h-24 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                    <i className={`${item.icon} text-4xl text-white`}></i>
+                  </div>
+                  
+                  {/* Floating particles effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-white/20 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="absolute top-8 right-6 w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="absolute bottom-8 left-8 w-1 h-1 bg-white/25 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+                  </div>
                 </div>
-                <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-semibold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{item.title}</h3>
-                  <p className="text-sm md:text-base text-gray-400 leading-relaxed">{item.description}</p>
+                
+                <div className="p-6 md:p-8 relative z-10">
+                  {/* Title with gradient text */}
+                  <h3 className={`text-xl md:text-2xl font-bold mb-3 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                    {item.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-gray-300 leading-relaxed mb-4 text-base md:text-lg">
+                    {item.description}
+                  </p>
+                  
+                  {/* Stats badge */}
+                  <div className={`bg-gradient-to-r ${item.color}/20 border border-neutral-600/40 rounded-full px-4 py-2 mb-4 text-center backdrop-blur-sm`}>
+                    <span className={`text-sm font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                      {item.stats}
+                    </span>
+                  </div>
+                  
+                  {/* Tech stack */}
+                  <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                    {item.tech.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex}
+                        className="bg-neutral-800/60 border border-neutral-600/40 rounded-lg px-3 py-1.5 text-xs text-gray-300 backdrop-blur-sm hover:bg-neutral-700/60 transition-colors duration-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* CTA Button */}
+                  <button className={`w-full bg-gradient-to-r ${item.color} text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lg group-hover:shadow-xl`}>
+                    <span className="flex items-center justify-center gap-2">
+                      Explore Project
+                      <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
+                    </span>
+                  </button>
                 </div>
               </div>
             ))}
