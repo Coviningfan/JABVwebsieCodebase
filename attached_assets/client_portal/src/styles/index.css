@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@300;400;500;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: normal;
+  font-family: inherit;
+  margin: unset;
+}
+
+:root {
+  /* JABV Labs Brand Colors - DARK MODE */
+  --jabv-primary: #AB1C1C; /* Vibrant Red - primary brand color */
+  --jabv-accent: #AB1C1C; /* Vibrant Red - accent color */
+  --jabv-white: #FFFFFF; /* Pure white for dark backgrounds */
+  --jabv-dark-text: #FFFFFF; /* White text for dark backgrounds */
+  --jabv-light-bg: #000000; /* Pure black background */
+  --jabv-secondary-text: #9CA3AF; /* Gray-400 for secondary text */
+  --jabv-tertiary-text: #D1D5DB; /* Gray-300 for descriptions */
+  
+  /* Dark Mode Backgrounds */
+  --jabv-card-bg: rgba(0, 0, 0, 0.5); /* Semi-transparent black for cards */
+  --jabv-header-bg: rgba(0, 0, 0, 0.8); /* Semi-transparent black for header */
+  --jabv-sidebar-bg: rgba(0, 0, 0, 0.9); /* Semi-transparent black for sidebar */
+  
+  /* Status Colors aligned with JABV palette */
+  --jabv-success: #10B981; /* Green for completed */
+  --jabv-progress: #AB1C1C; /* Red for in progress */
+  --jabv-review: #F59E0B; /* Yellow/orange for client review */
+  --jabv-pending: #6B7280; /* Neutral grey for pending */
+  
+  /* Legacy variables updated for dark mode */
+  --p8-bg-primary: #000000;
+  --p8-dark: #AB1C1C;
+  --text-subtitle: #9CA3AF;
+  --system-bg-secondary: #000000;
+  --gray-50: #000000;
+  --muted-text: #D1D5DB;
+  --link-text: #FFFFFF;
+  --gray-700: #9CA3AF;
+  --gray-950: #000000;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --gray-100: #000000;
+  --gray-400: #9CA3AF;
+  --gray-800: #000000;
+}
+
+/* Typography Classes */
+.font-heading {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-body {
+  font-family: 'Lato', sans-serif;
+}
+
+/* Glassmorphism Effect - Updated for dark mode */
+.glassmorphism {
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Progress Bar */
+.progress-bar-jabv {
+  background: linear-gradient(90deg, #AB1C1C 0%, #DC2626 100%) !important;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode button styles */
+.btn-primary {
+  background: linear-gradient(135deg, #AB1C1C 0%, #DC2626 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px 0 rgba(171, 28, 28, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px 0 rgba(171, 28, 28, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  color: #D1D5DB;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.btn-secondary:hover {
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Card styling */
+.card-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo gradient styling */
+.logo-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shadow styles for brand red */
+.shadow-red {
+  box-shadow: 0 4px 20px rgba(171, 28, 28, 0.3);
+}
+
+/* Custom scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #AB1C1C, #DC2626);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #DC2626, #AB1C1C);
+}
+
+/* Loading animation */
+.loading-dots {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-dots div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #AB1C1C;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-dots div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/* Updated styles for better visibility in dark mode - CRITICAL FIX */
+input, textarea, select {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #D1D5DB !important;
+  opacity: 0.8;
+}
+
+input:focus, textarea:focus, select:focus {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: #AB1C1C !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(171, 28, 28, 0.2) !important;
+}
+
+/* Password reset instructions visibility fix */
+.password-reset-instructions {
+  background-color: #333333 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #AB1C1C !important;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+}
+
+.password-reset-instructions h3,
+.password-reset-instructions p,
+.password-reset-instructions li {
+  color: #FFFFFF !important;
+}

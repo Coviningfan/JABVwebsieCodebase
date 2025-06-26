@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* JABV Labs Dark Mode Colors */
+    --color-primary: #AB1C1C; /* Vibrant red (primary) */
+    --color-secondary: #9CA3AF; /* Gray-400 (secondary text) */
+    --color-accent: #AB1C1C; /* Vibrant red (accent) */
+    
+    /* Background Colors - Dark Mode */
+    --color-background: #000000; /* Pure black (background) */
+    --color-surface: #000000; /* Pure black (surface) */
+    
+    /* Text Colors - Dark Mode */
+    --color-text-primary: #FFFFFF; /* Pure white (text primary) */
+    --color-text-secondary: #9CA3AF; /* Gray-400 (text secondary) */
+    --color-text-tertiary: #D1D5DB; /* Gray-300 (descriptions) */
+    
+    /* Status Colors */
+    --color-success: #10B981; /* Green (success) */
+    --color-warning: #F59E0B; /* Amber (warning) */
+    --color-error: #DC2626; /* Red (error) */
+    
+    /* Border Colors - Dark Mode */
+    --color-border: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-black text-white font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-white;
+  }
+}
+
+@layer components {
+  .shadow-card {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .shadow-modal {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  }
+  
+  .shadow-red {
+    box-shadow: 0 4px 14px rgba(171, 28, 28, 0.3);
+  }
+  
+  .shadow-red-hover {
+    box-shadow: 0 6px 20px rgba(171, 28, 28, 0.4);
+  }
+  
+  .transition-smooth {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-hover {
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-height {
+    transition: height 300ms ease-out;
+  }
+
+  .glassmorphism {
+    backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-red-600 to-red-700 text-white rounded-full px-6 py-3 font-medium;
+    @apply shadow-red hover:shadow-red-hover hover:scale-105 transition-smooth;
+  }
+
+  .btn-secondary {
+    @apply bg-black/40 backdrop-blur-md text-gray-300 border border-white/20 rounded-xl px-6 py-3;
+    @apply hover:text-white hover:border-white/30 transition-smooth;
+  }
+
+  .card-dark {
+    @apply bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl shadow-card;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #FFFFFF 0%, #D1D5DB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
