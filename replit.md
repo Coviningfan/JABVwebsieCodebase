@@ -119,6 +119,13 @@ Changelog:
   - Enhanced portfolio carousel with infinite scroll functionality
   - Updated copyright to 2025 JABV Holdings LLC
   - Added comprehensive technology categories (40+ languages, frameworks, cloud, ML/AI)
+- June 26, 2025. Added detailed service pages:
+  - Created Mobile App Development page with process breakdown and tech stack
+  - Created Interactive Websites page with comprehensive service details
+  - Created Website Redesigns page with transformation focus
+  - Fixed hero section export/import issues for build compatibility
+  - Added routing for all service pages with proper linking
+  - Moved CSS animations to main stylesheet for better maintainability
 ```
 
 ## User Preferences

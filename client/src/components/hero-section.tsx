@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
-import './hero-section.css'; // Import the CSS file
 
 export default function HeroWithBanner() {
   const [isVisible, setIsVisible] = useState(false);
