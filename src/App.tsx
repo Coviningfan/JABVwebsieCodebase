@@ -313,101 +313,721 @@ function LoginScreen() {
 
 function Dashboard() {
   return (
-    <div style={{ flex: 1, padding: '32px' }}>
+    <div>
+      {/* Welcome Section */}
       <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: 'white', marginBottom: '8px' }}>
-          Dashboard
+        <h1 style={{
+          fontSize: '32px',
+          fontWeight: '700',
+          color: 'white',
+          margin: '0 0 8px 0'
+        }}>
+          Welcome back, John Doe!
         </h1>
-        <p style={{ color: '#9ca3af' }}>Welcome back! Here's what's happening with your projects.</p>
+        <p style={{
+          color: '#a1a1aa',
+          fontSize: '16px',
+          margin: 0
+        }}>
+          Here's an overview of your projects and recent activity.
+        </p>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Cards */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '24px',
         marginBottom: '32px'
       }}>
-        {[
-          { name: 'Active Projects', value: '4', color: '#3b82f6' },
-          { name: 'Completed Tasks', value: '127', color: '#10b981' },
-          { name: 'Team Members', value: '8', color: '#8b5cf6' },
-          { name: 'Total Hours', value: '2,340', color: '#f59e0b' }
-        ].map((stat, index) => (
-          <div key={index} style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '16px',
-            padding: '24px'
+        {/* Total Projects */}
+        <div style={{
+          background: 'rgba(24, 24, 27, 0.8)',
+          border: '1px solid rgba(63, 63, 70, 0.4)',
+          borderRadius: '12px',
+          padding: '24px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Total Projects</p>
+              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>4</p>
+            </div>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(239, 68, 68, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10,9 9,9 8,9"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Active Projects */}
+        <div style={{
+          background: 'rgba(24, 24, 27, 0.8)',
+          border: '1px solid rgba(63, 63, 70, 0.4)',
+          borderRadius: '12px',
+          padding: '24px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Active Projects</p>
+              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>2</p>
+            </div>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(251, 146, 60, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12,6 12,12 16,14"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Completed Projects */}
+        <div style={{
+          background: 'rgba(24, 24, 27, 0.8)',
+          border: '1px solid rgba(63, 63, 70, 0.4)',
+          borderRadius: '12px',
+          padding: '24px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Completed Projects</p>
+              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>1</p>
+            </div>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(34, 197, 94, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                <polyline points="20,6 9,17 4,12"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Projects and Activity Row */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '2fr 1fr',
+        gap: '32px'
+      }}>
+        {/* Your Projects */}
+        <div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div>
-                <p style={{ color: '#9ca3af', fontSize: '14px', fontWeight: '500' }}>{stat.name}</p>
-                <p style={{ color: 'white', fontSize: '32px', fontWeight: 'bold', marginTop: '4px' }}>
-                  {stat.value}
-                </p>
+            <h2 style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              color: 'white',
+              margin: 0
+            }}>Your Projects</h2>
+            <a href="#" style={{
+              color: '#dc2626',
+              fontSize: '14px',
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}>View All →</a>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '20px'
+          }}>
+            {/* E-commerce Platform */}
+            <div style={{
+              background: 'rgba(24, 24, 27, 0.8)',
+              border: '1px solid rgba(63, 63, 70, 0.4)',
+              borderRadius: '12px',
+              padding: '20px'
+            }}>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'inline-block',
+                  background: '#dc2626',
+                  color: 'white',
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  marginBottom: '12px'
+                }}>In Progress</div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: 'white',
+                  margin: '0 0 4px 0'
+                }}>E-commerce Platform Redesign</h3>
+                <p style={{
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  margin: 0
+                }}>TechCorp Solutions</p>
+              </div>
+              <p style={{
+                color: '#a1a1aa',
+                fontSize: '14px',
+                lineHeight: '1.5',
+                margin: '0 0 16px 0'
+              }}>Complete redesign of the e-commerce platform with modern UI/UX and enhanced functionality</p>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>75%</span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  background: 'rgba(63, 63, 70, 0.4)',
+                  borderRadius: '3px'
+                }}>
+                  <div style={{
+                    width: '75%',
+                    height: '100%',
+                    background: '#dc2626',
+                    borderRadius: '3px'
+                  }}></div>
+                </div>
               </div>
               <div style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: `${stat.color}20`,
                 display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                justifyContent: 'center'
+                fontSize: '12px',
+                color: '#a1a1aa'
               }}>
+                <span>📅 Jan 14, 2024</span>
+                <span>🎯 Mar 29, 2024</span>
+              </div>
+            </div>
+
+            {/* Mobile App Development */}
+            <div style={{
+              background: 'rgba(24, 24, 27, 0.8)',
+              border: '1px solid rgba(63, 63, 70, 0.4)',
+              borderRadius: '12px',
+              padding: '20px'
+            }}>
+              <div style={{ marginBottom: '16px' }}>
                 <div style={{
-                  width: '16px',
-                  height: '16px',
-                  background: stat.color,
-                  borderRadius: '4px'
-                }}></div>
+                  display: 'inline-block',
+                  background: '#f59e0b',
+                  color: 'white',
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  marginBottom: '12px'
+                }}>Client Review</div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: 'white',
+                  margin: '0 0 4px 0'
+                }}>Mobile App Development</h3>
+                <p style={{
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  margin: 0
+                }}>TechCorp Solutions</p>
+              </div>
+              <p style={{
+                color: '#a1a1aa',
+                fontSize: '14px',
+                lineHeight: '1.5',
+                margin: '0 0 16px 0'
+              }}>Native mobile application for iOS and Android platforms with real-time synchronization</p>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>90%</span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  background: 'rgba(63, 63, 70, 0.4)',
+                  borderRadius: '3px'
+                }}>
+                  <div style={{
+                    width: '90%',
+                    height: '100%',
+                    background: '#f59e0b',
+                    borderRadius: '3px'
+                  }}></div>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '12px',
+                color: '#a1a1aa'
+              }}>
+                <span>📅 Jan 31, 2024</span>
+                <span>🎯 Apr 14, 2024</span>
+              </div>
+            </div>
+
+            {/* Database Migration */}
+            <div style={{
+              background: 'rgba(24, 24, 27, 0.8)',
+              border: '1px solid rgba(63, 63, 70, 0.4)',
+              borderRadius: '12px',
+              padding: '20px'
+            }}>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'inline-block',
+                  background: '#22c55e',
+                  color: 'white',
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  marginBottom: '12px'
+                }}>Completed</div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: 'white',
+                  margin: '0 0 4px 0'
+                }}>Database Migration</h3>
+                <p style={{
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  margin: 0
+                }}>TechCorp Solutions</p>
+              </div>
+              <p style={{
+                color: '#a1a1aa',
+                fontSize: '14px',
+                lineHeight: '1.5',
+                margin: '0 0 16px 0'
+              }}>Migration of legacy database to modern cloud infrastructure with improved performance</p>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>100%</span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  background: 'rgba(63, 63, 70, 0.4)',
+                  borderRadius: '3px'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    background: '#22c55e',
+                    borderRadius: '3px'
+                  }}></div>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '12px',
+                color: '#a1a1aa'
+              }}>
+                <span>📅 Oct 31, 2023</span>
+                <span>🎯 Jan 7, 2024</span>
+              </div>
+            </div>
+
+            {/* Security Audit */}
+            <div style={{
+              background: 'rgba(24, 24, 27, 0.8)',
+              border: '1px solid rgba(63, 63, 70, 0.4)',
+              borderRadius: '12px',
+              padding: '20px'
+            }}>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'inline-block',
+                  background: '#6b7280',
+                  color: 'white',
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  marginBottom: '12px'
+                }}>Pending</div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '600',
+                  color: 'white',
+                  margin: '0 0 4px 0'
+                }}>Security Audit</h3>
+                <p style={{
+                  color: '#a1a1aa',
+                  fontSize: '14px',
+                  margin: 0
+                }}>TechCorp Solutions</p>
+              </div>
+              <p style={{
+                color: '#a1a1aa',
+                fontSize: '14px',
+                lineHeight: '1.5',
+                margin: '0 0 16px 0'
+              }}>Comprehensive security assessment and implementation of security best practices</p>
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>Progress</span>
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>0%</span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  background: 'rgba(63, 63, 70, 0.4)',
+                  borderRadius: '3px'
+                }}>
+                  <div style={{
+                    width: '0%',
+                    height: '100%',
+                    background: '#6b7280',
+                    borderRadius: '3px'
+                  }}></div>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '12px',
+                color: '#a1a1aa'
+              }}>
+                <span>📅 Mar 31, 2024</span>
+                <span>🎯 May 14, 2024</span>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Recent Activity */}
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.05)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        borderRadius: '16px',
-        padding: '24px'
-      }}>
-        <h2 style={{ fontSize: '20px', fontWeight: '600', color: 'white', marginBottom: '24px' }}>
-          Recent Activity
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {[
-            { action: 'Project milestone completed', project: 'E-commerce Platform', time: '2 hours ago', color: '#dc2626' },
-            { action: 'New message from team', project: 'Mobile App Development', time: '4 hours ago', color: '#3b82f6' },
-            { action: 'File uploaded to project', project: 'Website Redesign', time: '6 hours ago', color: '#10b981' }
-          ].map((activity, index) => (
-            <div key={index} style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '12px',
-              padding: '16px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              borderRadius: '12px'
-            }}>
-              <div style={{
-                width: '8px',
-                height: '8px',
-                background: activity.color,
-                borderRadius: '50%',
-                marginTop: '8px'
-              }}></div>
-              <div>
-                <p style={{ color: 'white', fontWeight: '500' }}>{activity.action}</p>
-                <p style={{ color: '#9ca3af', fontSize: '14px' }}>{activity.project}</p>
-                <p style={{ color: '#6b7280', fontSize: '12px', marginTop: '4px' }}>{activity.time}</p>
+        {/* Recent Activity */}
+        <div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px'
+          }}>
+            <h2 style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              color: 'white',
+              margin: 0
+            }}>Recent Activity</h2>
+            <a href="#" style={{
+              color: '#dc2626',
+              fontSize: '14px',
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}>View All</a>
+          </div>
+
+          <div style={{
+            background: 'rgba(24, 24, 27, 0.8)',
+            border: '1px solid rgba(63, 63, 70, 0.4)',
+            borderRadius: '12px',
+            padding: '20px'
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {/* Activity Item 1 */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: '#dc2626',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: 'white', fontSize: '12px' }}>N</span>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p style={{
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    margin: '0 0 4px 0'
+                  }}>New message from Project Manager</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '13px',
+                    margin: '0 0 4px 0'
+                  }}>Updated on E-commerce Platform Redesign progress</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '12px',
+                    margin: 0
+                  }}>2 hours ago</p>
+                </div>
+              </div>
+
+              {/* Activity Item 2 */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: '#f59e0b',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: 'white', fontSize: '12px' }}>D</span>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p style={{
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    margin: '0 0 4px 0'
+                  }}>Design mockups uploaded</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '13px',
+                    margin: '0 0 4px 0'
+                  }}>Mobile App Development wireframes available</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '12px',
+                    margin: 0
+                  }}>1 day ago</p>
+                </div>
+              </div>
+
+              {/* Activity Item 3 */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  background: '#22c55e',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <span style={{ color: 'white', fontSize: '12px' }}>P</span>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p style={{
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    margin: '0 0 4px 0'
+                  }}>Project status updated</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '13px',
+                    margin: '0 0 4px 0'
+                  }}>Database Migration marked as completed</p>
+                  <p style={{
+                    color: '#a1a1aa',
+                    fontSize: '12px',
+                    margin: 0
+                  }}>3 days ago</p>
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* View Messages Button */}
+            <button style={{
+              width: '100%',
+              background: '#dc2626',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '12px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              marginTop: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              View Messages
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div style={{ marginTop: '40px' }}>
+        <h2 style={{
+          fontSize: '24px',
+          fontWeight: '600',
+          color: 'white',
+          margin: '0 0 24px 0'
+        }}>Quick Actions</h2>
+        
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '20px'
+        }}>
+          {/* View Messages */}
+          <div style={{
+            background: 'rgba(24, 24, 27, 0.8)',
+            border: '1px solid rgba(63, 63, 70, 0.4)',
+            borderRadius: '12px',
+            padding: '20px',
+            cursor: 'pointer'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(220, 38, 38, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: 'white',
+              margin: '0 0 8px 0'
+            }}>View Messages</h3>
+            <p style={{
+              color: '#a1a1aa',
+              fontSize: '14px',
+              margin: 0
+            }}>Check project communications</p>
+          </div>
+
+          {/* Access Files */}
+          <div style={{
+            background: 'rgba(24, 24, 27, 0.8)',
+            border: '1px solid rgba(63, 63, 70, 0.4)',
+            borderRadius: '12px',
+            padding: '20px',
+            cursor: 'pointer'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(220, 38, 38, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: 'white',
+              margin: '0 0 8px 0'
+            }}>Access Files</h3>
+            <p style={{
+              color: '#a1a1aa',
+              fontSize: '14px',
+              margin: 0
+            }}>Download project documents</p>
+          </div>
+
+          {/* View Progress */}
+          <div style={{
+            background: 'rgba(24, 24, 27, 0.8)',
+            border: '1px solid rgba(63, 63, 70, 0.4)',
+            borderRadius: '12px',
+            padding: '20px',
+            cursor: 'pointer'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(220, 38, 38, 0.1)',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '16px'
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
+                <path d="M3 3v18h18"/>
+                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+              </svg>
+            </div>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: 'white',
+              margin: '0 0 8px 0'
+            }}>View Progress</h3>
+            <p style={{
+              color: '#a1a1aa',
+              fontSize: '14px',
+              margin: 0
+            }}>Track project milestones</p>
+          </div>
         </div>
       </div>
     </div>
