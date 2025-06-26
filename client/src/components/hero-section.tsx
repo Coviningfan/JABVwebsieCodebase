@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronDown, Phone, Mail } from 'lucide-react';
 
-export function HeroWithBanner() {
+export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const prefixText = 'Build Your Future with';
   const [typedPrefix, setTypedPrefix] = useState('');
@@ -47,7 +47,7 @@ export function HeroWithBanner() {
     return () => clearInterval(timer);
   }, [startBrand]);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -160,10 +160,12 @@ export function HeroWithBanner() {
           @keyframes pulseSoft {0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.95;transform:scale(1.02)}}
           .shimmer{background-size:400% 100%;animation:shimmer 4s ease-in-out infinite;}
           .animate-blink{animation:blink .8s step-start infinite;}
-          .animate-fade-in-slow{animation:fadeInSlow 1.5s ease-out both;}
+          .animate-fade-in-slow{animation-fadeInSlow 1.5s ease-out both;}
           .animate-pulse-soft{animation:pulseSoft 2.5s ease-in-out infinite;}
         `}</style>
       </section>
     </>
+  );
+}
   );
 }
