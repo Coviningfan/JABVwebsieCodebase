@@ -26,13 +26,19 @@ function Router({ loadingComplete }: { loadingComplete: boolean }) {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(() => {
-    // Only show loading screen on initial page load, not on navigation
-    return !sessionStorage.getItem('hasLoadedBefore');
-  });
-  const [loadingComplete, setLoadingComplete] = useState(() => {
-    return !!sessionStorage.getItem('hasLoadedBefore');
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+  const [hasShownLoading, setHasShownLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if we've already shown the loading screen this session
+    const hasLoaded = sessionStorage.getItem('hasLoadedBefore');
+    if (hasLoaded) {
+      setIsLoading(false);
+      setLoadingComplete(true);
+      setHasShownLoading(true);
+    }
+  }, []);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -43,13 +49,16 @@ function App() {
 
     // Cleanup on unmount
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
     sessionStorage.setItem('hasLoadedBefore', 'true');
+    setHasShownLoading(true);
     setTimeout(() => {
       setLoadingComplete(true);
     }, 300);
@@ -58,10 +67,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <LoadingScreen isLoading={isLoading} onComplete={handleLoadingComplete} />
-        <div className={`transition-opacity duration-500 ${loadingComplete ? 'opacity-100' : 'opacity-0'}`}>
+        {isLoading && !hasShownLoading && (
+          <LoadingScreen isLoading={isLoading} onComplete={handleLoadingComplete} />
+        )}
+        <div className={`transition-opacity duration-500 ${loadingComplete || hasShownLoading ? 'opacity-100' : 'opacity-0'}`}>
           <Toaster />
-          <Router loadingComplete={loadingComplete} />
+          <Router loadingComplete={loadingComplete || hasShownLoading} />
         </div>
       </TooltipProvider>
     </QueryClientProvider>

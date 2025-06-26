@@ -3,57 +3,57 @@ import { useState, useEffect, useRef } from 'react';
 const portfolioItems = [
   {
     id: 1,
-    title: "FinTech Revolution",
-    description: "Next-gen banking with AI fraud detection",
-    icon: "fas fa-university",
+    title: "Local Restaurant Chain",
+    description: "Online ordering system with loyalty rewards",
+    icon: "fas fa-utensils",
     color: "from-blue-500 to-blue-700",
-    stats: "2M+ Users",
-    tech: ["React Native", "Node.js", "AI/ML"]
+    stats: "45% More Orders",
+    tech: ["React", "Stripe", "SMS"]
   },
   {
     id: 2,
-    title: "AR Shopping Experience",
-    description: "Try-before-you-buy with augmented reality",
-    icon: "fas fa-shopping-cart",
+    title: "Real Estate Agency",
+    description: "Property showcase with virtual tours",
+    icon: "fas fa-home",
     color: "from-green-500 to-green-700",
-    stats: "300% Sales ↗",
-    tech: ["ARKit", "React", "AWS"]
+    stats: "60% Faster Sales",
+    tech: ["Next.js", "Maps API", "CRM"]
   },
   {
     id: 3,
-    title: "HealthTech Platform",
-    description: "Telemedicine with real-time diagnostics",
-    icon: "fas fa-heartbeat",
+    title: "Medical Practice",
+    description: "Patient portal with appointment booking",
+    icon: "fas fa-stethoscope",
     color: "from-red-500 to-red-700",
-    stats: "50K+ Patients",
-    tech: ["Vue.js", "WebRTC", "Firebase"]
+    stats: "Less Phone Calls",
+    tech: ["Vue.js", "Calendar", "HIPAA"]
   },
   {
     id: 4,
-    title: "Smart Fitness AI",
-    description: "Personal trainer powered by machine learning",
+    title: "Fitness Studio",
+    description: "Class booking and membership management",
     icon: "fas fa-dumbbell",
     color: "from-purple-500 to-purple-700",
-    stats: "95% Retention",
-    tech: ["Swift", "TensorFlow", "Python"]
+    stats: "80% Online Bookings",
+    tech: ["React", "Payments", "Mobile"]
   },
   {
     id: 5,
-    title: "Social Network 3.0",
-    description: "Decentralized community with crypto rewards",
-    icon: "fas fa-users",
+    title: "Professional Services",
+    description: "Client portal with project tracking",
+    icon: "fas fa-briefcase",
     color: "from-orange-500 to-orange-700",
-    stats: "1M+ Posts/Day",
-    tech: ["Next.js", "Blockchain", "GraphQL"]
+    stats: "Better Client Relations",
+    tech: ["Dashboard", "Reports", "Invoicing"]
   },
   {
     id: 6,
-    title: "Autonomous Delivery",
-    description: "AI-powered logistics with drone integration",
-    icon: "fas fa-utensils",
+    title: "Retail Store",
+    description: "E-commerce with inventory management",
+    icon: "fas fa-shopping-bag",
     color: "from-yellow-500 to-yellow-700",
-    stats: "15min Average",
-    tech: ["Flutter", "IoT", "Machine Learning"]
+    stats: "200% Online Sales",
+    tech: ["Shopify", "Analytics", "SEO"]
   }
 ];
 
