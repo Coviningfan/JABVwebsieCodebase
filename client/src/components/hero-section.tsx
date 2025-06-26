@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronDown, Phone, Mail } from 'lucide-react';
+import { Navigation } from '@/components/navigation';
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -54,7 +55,9 @@ export function HeroSection() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-black shadow-md">
+      <Navigation />
+
+      <div className="sticky top-0 z-40 bg-black shadow-md">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 py-2 px-4">
           <span className="text-white text-xs md:text-sm font-light">Already a customer?</span>
           <a
@@ -76,8 +79,10 @@ export function HeroSection() {
               className="absolute rounded-full opacity-10 blur-sm"
               style={{
                 backgroundColor: b.color,
-                left: `${b.x}%`, top: `${b.y}%`,
-                width: `${b.size}rem`, height: `${b.size}rem`,
+                left: `${b.x}%`,
+                top: `${b.y}%`,
+                width: `${b.size}rem`,
+                height: `${b.size}rem`,
                 animation: `float ${b.duration}s ease-in-out ${b.delay}s infinite`,
               }}
             />
