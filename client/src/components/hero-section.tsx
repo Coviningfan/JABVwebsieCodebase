@@ -8,7 +8,6 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   const [typewriterLabs, setTypewriterLabs] = useState('');
   const [showJABVCursor, setShowJABVCursor] = useState(false);
   const [showLabsCursor, setShowLabsCursor] = useState(false);
-  const [shouldStartTypewriter, setShouldStartTypewriter] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -23,22 +22,11 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     return () => clearTimeout(delay);
   }, []);
 
-  // Watch for loading completion to start typewriter
-  useEffect(() => {
-    if (loadingComplete === true) {
-      setShouldStartTypewriter(true);
-    } else if (loadingComplete === undefined) {
-      // If no loading screen (cached session), start typewriter after component mounts
-      const fallbackTimer = setTimeout(() => {
-        setShouldStartTypewriter(true);
-      }, 1500);
-      return () => clearTimeout(fallbackTimer);
-    }
-  }, [loadingComplete]);
-
   // Typewriter effect for JABV Labs
   useEffect(() => {
-    if (!shouldStartTypewriter) return;
+    // Wait for loading to complete, then start typewriter
+    const shouldStart = loadingComplete || loadingComplete === undefined;
+    if (!shouldStart) return;
     
     const jabvText = 'JABV';
     const labsText = 'Labs';
@@ -90,7 +78,7 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, [shouldStartTypewriter]);
+  }, [loadingComplete]);
 
   return (
     <>

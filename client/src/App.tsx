@@ -43,10 +43,7 @@ function Router({ loadingComplete }: { loadingComplete: boolean }) {
 }
 
 function App() {
-  const [isInitialLoading, setIsInitialLoading] = useState(() => {
-    // Check if loading has already been shown in this session
-    return !sessionStorage.getItem('hasLoadedOnce');
-  });
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [loadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
@@ -65,9 +62,6 @@ function App() {
   }, []);
 
   const handleLoadingComplete = () => {
-    // Mark that loading has been shown in this session
-    sessionStorage.setItem('hasLoadedOnce', 'true');
-    
     // Set loading complete first to start typewriter
     setTimeout(() => {
       setLoadingComplete(true);
