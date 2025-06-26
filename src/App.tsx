@@ -15,153 +15,225 @@ function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex">
-      {/* Left side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-red-800/40"></div>
-        <div className="relative z-10 flex flex-col justify-center px-12 py-24">
-          <div className="mb-8">
-            <h1 className="text-5xl font-bold text-white mb-4">JABV Labs</h1>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Welcome to your client portal. Access your projects, track progress, and collaborate with our team.
-            </p>
-          </div>
-          <div className="space-y-6 text-gray-400">
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <span>Project Management & Tracking</span>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Premium background with subtle animation */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.01"%3E%3Ccircle cx="10" cy="10" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+      
+      <div className="flex min-h-screen">
+        {/* Left side - Professional branding */}
+        <div className="hidden lg:flex lg:w-1/2 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-red-500/2 to-transparent"></div>
+          <div className="relative z-10 flex flex-col justify-center px-20 py-24 max-w-2xl">
+            <div className="mb-20">
+              <div className="flex items-center space-x-5 mb-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center shadow-2xl shadow-red-500/25 ring-1 ring-white/10">
+                  <span className="text-white font-bold text-2xl">J</span>
+                </div>
+                <div>
+                  <h1 className="text-6xl font-bold text-white leading-none tracking-tight">JABV Labs</h1>
+                  <p className="text-red-400 font-semibold text-xl mt-1">Client Portal</p>
+                </div>
+              </div>
+              <p className="text-2xl text-gray-300 leading-relaxed font-light">
+                Your centralized workspace for project collaboration, real-time updates, and seamless communication with our development team.
+              </p>
             </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <span>Real-time Communication</span>
+            
+            <div className="space-y-10">
+              <div className="flex items-start space-x-6">
+                <div className="w-3 h-3 bg-red-500 rounded-full mt-3 shadow-lg shadow-red-500/50 ring-2 ring-red-500/20"></div>
+                <div>
+                  <h3 className="text-white font-semibold text-xl mb-2">Project Intelligence</h3>
+                  <p className="text-gray-400 text-lg">Real-time progress tracking, milestone management, and automated reporting</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-6">
+                <div className="w-3 h-3 bg-blue-500 rounded-full mt-3 shadow-lg shadow-blue-500/50 ring-2 ring-blue-500/20"></div>
+                <div>
+                  <h3 className="text-white font-semibold text-xl mb-2">Secure Collaboration</h3>
+                  <p className="text-gray-400 text-lg">End-to-end encrypted messaging and file sharing with your dedicated team</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-6">
+                <div className="w-3 h-3 bg-green-500 rounded-full mt-3 shadow-lg shadow-green-500/50 ring-2 ring-green-500/20"></div>
+                <div>
+                  <h3 className="text-white font-semibold text-xl mb-2">Asset Management</h3>
+                  <p className="text-gray-400 text-lg">Centralized access to all project deliverables, documentation, and resources</p>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <span>File Sharing & Collaboration</span>
+            
+            <div className="mt-20 pt-8 border-t border-gray-700/30">
+              <div className="flex items-center space-x-8">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">500+</div>
+                  <div className="text-gray-500 text-sm">Companies</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">99.9%</div>
+                  <div className="text-gray-500 text-sm">Uptime</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">24/7</div>
+                  <div className="text-gray-500 text-sm">Support</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Right side - Login Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8 lg:hidden">
-            <h1 className="text-4xl font-bold text-white mb-2">JABV Labs</h1>
-            <p className="text-gray-400">Client Portal</p>
-          </div>
-          
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 shadow-2xl">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-white mb-2">Welcome back</h2>
-              <p className="text-gray-400">Enter your credentials to continue</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                    </svg>
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-700/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+        {/* Right side - Premium login form */}
+        <div className="flex-1 flex items-center justify-center px-8 py-12 lg:px-20">
+          <div className="w-full max-w-lg">
+            {/* Mobile header */}
+            <div className="text-center mb-16 lg:hidden">
+              <div className="flex items-center justify-center space-x-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-xl">
+                  <span className="text-white font-bold text-xl">J</span>
                 </div>
+                <h1 className="text-4xl font-bold text-white">JABV Labs</h1>
+              </div>
+              <p className="text-gray-400 text-xl">Client Portal Access</p>
+            </div>
+            
+            {/* Premium login form */}
+            <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-3xl p-12 shadow-2xl shadow-black/40 ring-1 ring-white/5">
+              <div className="text-center mb-12">
+                <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-red-700 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-red-500/30 ring-1 ring-white/10">
+                  <span className="text-white font-bold text-4xl">J</span>
+                </div>
+                <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">Welcome Back</h2>
+                <p className="text-gray-400 text-xl">Access your project workspace</p>
               </div>
 
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="space-y-8">
+                  <div>
+                    <label htmlFor="email" className="block text-base font-semibold text-gray-200 mb-4">
+                      Email Address
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg className="h-6 w-6 text-gray-400 group-focus-within:text-red-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                      </div>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        className="block w-full pl-16 pr-5 py-6 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm text-white text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:border-red-500/40 focus:bg-white/[0.05] transition-all duration-300 ring-1 ring-white/5"
+                        placeholder="Enter your email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    required
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-600 rounded-lg bg-gray-700/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+
+                  <div>
+                    <label htmlFor="password" className="block text-base font-semibold text-gray-200 mb-4">
+                      Password
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <svg className="h-6 w-6 text-gray-400 group-focus-within:text-red-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                      </div>
+                      <input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        required
+                        className="block w-full pl-16 pr-16 py-6 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm text-white text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:border-red-500/40 focus:bg-white/[0.05] transition-all duration-300 ring-1 ring-white/5"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 pr-5 flex items-center focus:outline-none group"
+                      >
+                        {showPassword ? (
+                          <svg className="h-6 w-6 text-gray-400 hover:text-gray-300 focus:text-red-400 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L12 12m-3.122-3.122L3 3m6.878 6.878L12 12" />
+                          </svg>
+                        ) : (
+                          <svg className="h-6 w-6 text-gray-400 hover:text-gray-300 focus:text-red-400 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      className="h-5 w-5 text-red-600 focus:ring-red-500/50 border-gray-500 rounded bg-white/10 backdrop-blur-sm ring-1 ring-white/5"
+                    />
+                    <label htmlFor="remember-me" className="ml-4 block text-base text-gray-300 font-medium">
+                      Keep me signed in
+                    </label>
+                  </div>
+
+                  <div className="text-base">
+                    <a href="#" className="font-semibold text-red-400 hover:text-red-300 transition-colors duration-200">
+                      Forgot password?
+                    </a>
+                  </div>
+                </div>
+
+                <div className="pt-6">
                   <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
+                    type="submit"
+                    className="group relative w-full flex justify-center items-center py-6 px-8 border border-transparent text-xl font-semibold rounded-2xl text-white bg-gradient-to-r from-red-600 via-red-600 to-red-700 hover:from-red-700 hover:via-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500/50 focus:ring-offset-transparent transition-all duration-300 shadow-2xl shadow-red-600/30 hover:shadow-2xl hover:shadow-red-600/50 transform hover:scale-[1.02] active:scale-[0.98] ring-1 ring-white/10"
                   >
-                    {showPassword ? (
-                      <svg className="h-5 w-5 text-gray-400 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                    <span className="flex items-center space-x-4">
+                      <span>Access Portal</span>
+                      <svg className="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
-                    ) : (
-                      <svg className="h-5 w-5 text-gray-400 hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    )}
+                    </span>
                   </button>
                 </div>
-              </div>
+              </form>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-600 rounded bg-gray-700"
-                  />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                    Remember me
-                  </label>
-                </div>
-                <div className="text-sm">
-                  <a href="#" className="text-red-400 hover:text-red-300 transition-colors">
-                    Forgot your password?
+              <div className="mt-12 pt-8 border-t border-white/10">
+                <p className="text-base text-gray-400 text-center mb-6">
+                  New to JABV Labs?{' '}
+                  <a href="#" className="font-semibold text-red-400 hover:text-red-300 transition-colors">
+                    Request Access
                   </a>
+                </p>
+
+                <div className="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/10 ring-1 ring-white/5">
+                  <h4 className="text-base font-semibold text-gray-200 mb-4 flex items-center">
+                    <svg className="w-5 h-5 mr-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Demo Credentials
+                  </h4>
+                  <div className="space-y-3 font-mono text-base">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300">Email:</span>
+                      <span className="text-red-400 font-medium">john.doe@company.com</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-300">Password:</span>
+                      <span className="text-red-400 font-medium">ClientPortal123</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-gray-800 transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
-              >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                </svg>
-                Sign In
-              </button>
-            </form>
-
-            <div className="mt-8 pt-6 border-t border-gray-700">
-              <p className="text-center text-sm text-gray-400">
-                New to JABV Labs?{' '}
-                <a href="#" className="text-red-400 hover:text-red-300 transition-colors">
-                  Create Account
-                </a>
-              </p>
-              
-              <div className="mt-4 p-4 bg-gray-700/30 rounded-lg border border-gray-600">
-                <p className="text-xs text-gray-400 mb-2 font-medium">Demo Credentials</p>
-                <p className="text-xs text-gray-300">Email: john.doe@company.com</p>
-                <p className="text-xs text-gray-300">Password: ClientPortal123</p>
               </div>
             </div>
           </div>
