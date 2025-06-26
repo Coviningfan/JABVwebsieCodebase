@@ -135,47 +135,44 @@ export function PortfolioCarousel() {
                 className={`portfolio-item flex-none w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Animated background pattern */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}></div>
-                
                 {/* Icon section with dynamic colors */}
-                <div className={`relative overflow-hidden h-48 md:h-56 flex items-center justify-center bg-gradient-to-br ${item.color}/20 to-black/40`}>
-                  <div className={`w-24 h-24 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                <div className={`relative overflow-hidden h-48 md:h-56 flex items-center justify-center bg-gradient-to-br ${item.color}/15 to-black/60`}>
+                  <div className={`w-24 h-24 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110`}>
                     <i className={`${item.icon} text-4xl text-white`}></i>
                   </div>
                   
-                  {/* Floating particles effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    <div className="absolute top-4 left-4 w-2 h-2 bg-white/20 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                    <div className="absolute top-8 right-6 w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                  {/* Subtle floating particles effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-500">
+                    <div className="absolute top-4 left-4 w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="absolute top-8 right-6 w-1 h-1 bg-white/20 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
                     <div className="absolute bottom-8 left-8 w-1 h-1 bg-white/25 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
                   </div>
                 </div>
                 
-                <div className="p-6 md:p-8 relative z-10">
-                  {/* Title with gradient text */}
-                  <h3 className={`text-xl md:text-2xl font-bold mb-3 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                <div className="p-6 md:p-8 relative z-10 bg-black/20 backdrop-blur-sm">
+                  {/* Title with better contrast */}
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-white">
                     {item.title}
                   </h3>
                   
-                  {/* Description */}
-                  <p className="text-gray-300 leading-relaxed mb-4 text-base md:text-lg">
+                  {/* Description with high contrast */}
+                  <p className="text-gray-200 leading-relaxed mb-4 text-base md:text-lg">
                     {item.description}
                   </p>
                   
-                  {/* Stats badge */}
-                  <div className={`bg-gradient-to-r ${item.color}/20 border border-neutral-600/40 rounded-full px-4 py-2 mb-4 text-center backdrop-blur-sm`}>
+                  {/* Stats badge with better readability */}
+                  <div className={`bg-black/40 border border-neutral-500/60 rounded-full px-4 py-2 mb-4 text-center backdrop-blur-sm`}>
                     <span className={`text-sm font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
                       {item.stats}
                     </span>
                   </div>
                   
-                  {/* Tech stack */}
+                  {/* Tech stack with improved contrast */}
                   <div className="flex flex-wrap gap-2 mb-6 justify-center">
                     {item.tech.map((tech, techIndex) => (
                       <span 
                         key={techIndex}
-                        className="bg-neutral-800/60 border border-neutral-600/40 rounded-lg px-3 py-1.5 text-xs text-gray-300 backdrop-blur-sm hover:bg-neutral-700/60 transition-colors duration-200"
+                        className="bg-black/50 border border-neutral-500/50 rounded-lg px-3 py-1.5 text-xs text-gray-200 backdrop-blur-sm hover:bg-black/60 transition-colors duration-200"
                       >
                         {tech}
                       </span>
@@ -183,7 +180,7 @@ export function PortfolioCarousel() {
                   </div>
                   
                   {/* CTA Button */}
-                  <button className={`w-full bg-gradient-to-r ${item.color} text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lg group-hover:shadow-xl`}>
+                  <button className={`w-full bg-gradient-to-r ${item.color} text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group-hover:shadow-xl`}>
                     <span className="flex items-center justify-center gap-2">
                       Explore Project
                       <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>

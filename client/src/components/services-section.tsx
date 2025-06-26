@@ -72,37 +72,32 @@ export function ServicesSection() {
           {services.map((service) => (
             <div 
               key={service.id}
-              className="relative bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-8 rounded-3xl text-center hover:transform hover:scale-105 transition-all duration-500 cursor-pointer group border border-neutral-700/50 hover:border-red-500/50 shadow-2xl hover:shadow-red-500/20 overflow-hidden"
+              className="bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-8 rounded-3xl text-center hover:transform hover:scale-[1.02] transition-all duration-300 cursor-pointer group border border-neutral-700/50 hover:border-red-500/30 shadow-2xl hover:shadow-red-500/10 min-h-[480px] flex flex-col"
             >
-              {/* Shiny border effect */}
-              <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-red-500/20 to-transparent animate-pulse"></div>
-            
-              <div className="relative z-10">
-                <div className="mb-8 relative">
-                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-red-600/20 to-red-700/20 rounded-2xl flex items-center justify-center group-hover:from-red-600/40 group-hover:to-red-700/40 transition-all duration-500 backdrop-blur-sm border border-red-500/20">
-                    <i className={`${service.icon} text-4xl text-red-500 group-hover:text-red-400 transition-all duration-500 group-hover:scale-110`}></i>
-                  </div>
+              <div className="mb-8 relative">
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-red-600/20 to-red-700/20 rounded-2xl flex items-center justify-center group-hover:from-red-600/30 group-hover:to-red-700/30 transition-all duration-300 backdrop-blur-sm border border-red-500/20">
+                  <i className={`${service.icon} text-4xl text-red-500 group-hover:text-red-400 transition-all duration-300`}></i>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{service.title}</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">{service.description}</p>
-                <ul className="text-left text-gray-300 mb-8 space-y-3">
-                  {service.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
-                      <div className="w-5 h-5 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                        <i className="fas fa-check text-white text-xs"></i>
-                      </div>
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex justify-center">
-                  <button 
-                    onClick={() => handleLearnMore(service.id)}
-                    className="bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25 w-full max-w-[200px]"
-                  >
-                    Learn More
-                  </button>
-                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{service.title}</h3>
+              <p className="text-gray-400 mb-6 leading-relaxed flex-grow">{service.description}</p>
+              <ul className="text-left text-gray-300 mb-8 space-y-3">
+                {service.features.map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <div className="w-5 h-5 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      <i className="fas fa-check text-white text-xs"></i>
+                    </div>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex justify-center mt-auto">
+                <button 
+                  onClick={() => handleLearnMore(service.id)}
+                  className="bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25 w-full max-w-[200px]"
+                >
+                  Learn More
+                </button>
               </div>
             </div>
           ))}

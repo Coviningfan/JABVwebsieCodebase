@@ -26,8 +26,13 @@ function Router({ loadingComplete }: { loadingComplete: boolean }) {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingComplete, setLoadingComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Only show loading screen on initial page load, not on navigation
+    return !sessionStorage.getItem('hasLoadedBefore');
+  });
+  const [loadingComplete, setLoadingComplete] = useState(() => {
+    return !!sessionStorage.getItem('hasLoadedBefore');
+  });
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -44,6 +49,7 @@ function App() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
+    sessionStorage.setItem('hasLoadedBefore', 'true');
     setTimeout(() => {
       setLoadingComplete(true);
     }, 300);
