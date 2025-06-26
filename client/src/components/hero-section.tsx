@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
-export default function HeroWithBanner() {
+export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [typewriterJABV, setTypewriterJABV] = useState('');
@@ -17,13 +17,17 @@ export default function HeroWithBanner() {
   };
 
   useEffect(() => {
+    if (!loadingComplete) return;
+    
     setIsVisible(true);
     const delay = setTimeout(() => setShowBanner(true), 1400);
     return () => clearTimeout(delay);
-  }, []);
+  }, [loadingComplete]);
 
   // Typewriter effect for JABV Labs
   useEffect(() => {
+    if (!loadingComplete) return;
+    
     const jabvText = 'JABV';
     const labsText = 'Labs';
     let timeouts: NodeJS.Timeout[] = [];
@@ -74,7 +78,7 @@ export default function HeroWithBanner() {
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, []);
+  }, [loadingComplete]);
 
   return (
     <>
@@ -151,13 +155,10 @@ export default function HeroWithBanner() {
                   {showJABVCursor && <span className="animate-pulse">|</span>}
                 </span>
                 {typewriterJABV.length === 4 && (
-                  <>
-                    <span className="text-white"> </span>
-                    <span style={{ color: '#C82222' }}>
-                      {typewriterLabs}
-                      {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
-                    </span>
-                  </>
+                  <span style={{ color: '#C82222' }}>
+                    {typewriterLabs}
+                    {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                  </span>
                 )}
               </span>
             </h1>
