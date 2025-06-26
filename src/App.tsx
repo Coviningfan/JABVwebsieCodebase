@@ -31,7 +31,7 @@ function LoginScreen() {
           margin: '0 0 16px 0',
           letterSpacing: '-0.025em'
         }}>
-          <span style={{ color: '#dc2626' }}>JABV</span>Labs
+          <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
         </h1>
         <p style={{ 
           color: '#a1a1aa', 
@@ -258,7 +258,7 @@ function LoginScreen() {
           </button>
 
           {/* Forgot Password */}
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ textAlign: 'center' }}>
             <a href="#" style={{
               color: '#a1a1aa',
               fontSize: '14px',
@@ -267,68 +267,6 @@ function LoginScreen() {
               Forgot your password?
             </a>
           </div>
-
-          {/* Divider */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '24px'
-          }}>
-            <div style={{
-              flex: 1,
-              height: '1px',
-              background: 'rgba(63, 63, 70, 0.4)'
-            }}></div>
-            <span style={{
-              padding: '0 16px',
-              color: '#71717a',
-              fontSize: '14px'
-            }}>
-              New to JABV Labs?
-            </span>
-            <div style={{
-              flex: 1,
-              height: '1px',
-              background: 'rgba(63, 63, 70, 0.4)'
-            }}></div>
-          </div>
-
-          {/* Create Account Button */}
-          <button
-            type="button"
-            style={{
-              width: '100%',
-              background: 'transparent',
-              color: '#a1a1aa',
-              padding: '14px 24px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '500',
-              border: '1px solid rgba(63, 63, 70, 0.8)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.borderColor = 'rgba(113, 113, 122, 0.8)';
-              e.target.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.borderColor = 'rgba(63, 63, 70, 0.8)';
-              e.target.style.color = '#a1a1aa';
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <line x1="19" y1="8" x2="19" y2="14"/>
-              <line x1="22" y1="11" x2="16" y2="11"/>
-            </svg>
-            Create Account
-          </button>
         </form>
       </div>
 
@@ -766,7 +704,9 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                 }}>
                   <span style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>J</span>
                 </div>
-                <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>JABV Labs</h1>
+                <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                  <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
+                </h1>
               </div>
               
               <nav style={{ marginTop: '20px', flex: 1, padding: '0 12px' }}>
@@ -921,7 +861,9 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
               }}>
                 <span style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>J</span>
               </div>
-              <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>JABV Labs</h1>
+              <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
+              </h1>
             </div>
             
             <nav style={{ marginTop: '20px', flex: 1, padding: '0 12px' }}>
@@ -1040,7 +982,8 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #1f2937 0%, #111827 50%, #1f2937 100%)'
+      background: '#000000',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
@@ -1050,48 +993,102 @@ function AppLayout({ children }: { children: React.ReactNode }) {
         flexDirection: 'column',
         flex: 1
       }}>
+        {/* Top Navigation Bar */}
         <div style={{
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          display: window.innerWidth < 768 ? 'block' : 'none',
-          padding: '4px 12px',
-          background: 'rgba(31, 41, 55, 0.8)',
-          backdropFilter: 'blur(8px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+          padding: '16px 24px',
+          background: '#000000',
+          borderBottom: '1px solid rgba(63, 63, 70, 0.4)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         }}>
-          <button
-            type="button"
-            style={{
-              height: '48px',
-              width: '48px',
-              display: 'inline-flex',
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            {window.innerWidth < 768 && (
+              <button
+                type="button"
+                style={{
+                  height: '40px',
+                  width: '40px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '8px',
+                  color: '#a1a1aa',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onClick={() => setSidebarOpen(true)}
+                onMouseEnter={(e) => {
+                  e.target.style.color = 'white';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#a1a1aa';
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <line x1="3" y1="12" x2="21" y2="12"/>
+                  <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+              </button>
+            )}
+            
+            {/* Breadcrumb */}
+            <nav style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <a href="/dashboard" style={{
+                color: '#a1a1aa',
+                fontSize: '14px',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                Dashboard
+              </a>
+            </nav>
+          </div>
+          
+          {/* User Menu */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{
+              display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
+              gap: '8px',
+              background: 'rgba(24, 24, 27, 0.8)',
+              border: '1px solid rgba(63, 63, 70, 0.4)',
               borderRadius: '8px',
-              color: '#d1d5db',
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
-            onClick={() => setSidebarOpen(true)}
-            onMouseEnter={(e) => {
-              e.target.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = '#d1d5db';
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <line x1="3" y1="12" x2="21" y2="12"/>
-              <line x1="3" y1="18" x2="21" y2="18"/>
-            </svg>
-          </button>
+              padding: '8px 12px',
+              cursor: 'pointer'
+            }}>
+              <div style={{
+                width: '32px',
+                height: '32px',
+                background: '#dc2626',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <span style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>U</span>
+              </div>
+              <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>User</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" strokeWidth="1.5">
+                <polyline points="6,9 12,15 18,9"/>
+              </svg>
+            </div>
+          </div>
         </div>
         
-        <main style={{ flex: 1 }}>
+        <main style={{ flex: 1, padding: '24px' }}>
           {children}
         </main>
       </div>
