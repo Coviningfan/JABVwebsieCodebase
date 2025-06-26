@@ -29,8 +29,14 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
 
   // Complete typewriter effect sequence
   useEffect(() => {
-    if (loadingComplete !== true || typewriterStarted) return;
+    console.log('Typewriter useEffect triggered:', { loadingComplete, typewriterStarted });
     
+    if (loadingComplete !== true || typewriterStarted) {
+      console.log('Typewriter effect skipped - conditions not met');
+      return;
+    }
+    
+    console.log('Starting typewriter animation sequence...');
     setTypewriterStarted(true);
     
     const taglineText = 'Build Your Future with';
@@ -178,18 +184,18 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
             <h1 className="font-bold mb-6 leading-tight text-white">
               <div className="text-4xl md:text-5xl mb-4">
                 <span className="text-white">
-                  {typewriterTagline || (!typewriterStarted ? 'Build Your Future with' : '')}
+                  {typewriterStarted ? typewriterTagline : 'Build Your Future with'}
                   {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
               </div>
               {(taglineComplete || !typewriterStarted) && (
                 <div className="text-5xl md:text-7xl">
                   <span className="text-white">
-                    {typewriterJABV || (!typewriterStarted ? 'JABV' : '')}
+                    {typewriterStarted ? typewriterJABV : 'JABV'}
                     {showJABVCursor && <span className="animate-pulse">|</span>}
                   </span>
                   <span style={{ color: '#C82222' }}>
-                    {typewriterLabs || (!typewriterStarted ? 'Labs' : '')}
+                    {typewriterStarted ? typewriterLabs : 'Labs'}
                     {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
                   </span>
                 </div>
