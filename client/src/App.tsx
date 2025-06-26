@@ -43,6 +43,12 @@ function App() {
   useEffect(() => {
     // Add ElevenLabs widget when loading is complete
     if (loadingComplete || hasShownLoading) {
+      // Create widget element
+      const widgetDiv = document.createElement("elevenlabs-convai");
+      widgetDiv.setAttribute("agent-id", "your-agent-id"); // You'll need to provide this
+      document.body.appendChild(widgetDiv);
+
+      // Load the script
       const script = document.createElement("script");
       script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
       script.async = true;
@@ -52,6 +58,9 @@ function App() {
       return () => {
         if (document.body.contains(script)) {
           document.body.removeChild(script);
+        }
+        if (document.body.contains(widgetDiv)) {
+          document.body.removeChild(widgetDiv);
         }
       };
     }
