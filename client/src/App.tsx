@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -24,11 +25,26 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
+    script.async = true;
+    script.type = "text/javascript";
+    document.body.appendChild(script);
+
+    // Cleanup on unmount
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Router />
+        {/* ElevenLabs Agent Widget */}
+        <elevenlabs-convai agent-id="agent_01jynfyb8neqkby2q4esd71ybw"></elevenlabs-convai>
       </TooltipProvider>
     </QueryClientProvider>
   );
