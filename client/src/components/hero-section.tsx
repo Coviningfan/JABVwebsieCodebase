@@ -2,28 +2,96 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
+  // Generate unique render ID to track component lifecycle
+  const renderTimestamp = Date.now();
+  const renderIdRef = useRef(`render-${renderTimestamp}-${Math.random().toString(36).substr(2, 5)}`);
+  const renderCountRef = useRef(0);
+  const lastLoadingCompleteRef = useRef(loadingComplete);
+  
   // Use refs to persist animation state across re-renders and hot reloads
   const animationStartedRef = useRef(false);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const componentMountedRef = useRef(false);
   
-  console.log('🔄 HeroWithBanner rendering:', { 
+  renderCountRef.current += 1;
+  
+  // Detect prop changes
+  const propChanged = lastLoadingCompleteRef.current !== loadingComplete;
+  if (propChanged) {
+    console.log(`🔥 PROP CHANGE DETECTED [${renderIdRef.current}]:`, {
+      from: lastLoadingCompleteRef.current,
+      to: loadingComplete,
+      renderCount: renderCountRef.current
+    });
+    lastLoadingCompleteRef.current = loadingComplete;
+  }
+  
+  console.log(`🔄 [${renderIdRef.current}] COMPONENT RENDER #${renderCountRef.current}:`, { 
     loadingComplete, 
-    animationStarted: animationStartedRef.current 
+    animationStarted: animationStartedRef.current,
+    activeTimeouts: timeoutsRef.current.length,
+    propChanged,
+    componentMounted: componentMountedRef.current,
+    timestamp: renderTimestamp
   });
   
   // Single state object to reduce re-renders
-  const [animationState, setAnimationState] = useState({
-    isVisible: false,
-    showBanner: false,
-    typewriterTagline: '',
-    typewriterJABV: '',
-    typewriterLabs: '',
-    showTaglineCursor: false,
-    showJABVCursor: false,
-    showLabsCursor: false,
-    taglineComplete: false,
-    typewriterStarted: false,
-    animationComplete: false
+  const [animationState, setAnimationState] = useState(() => {
+    const initialState = {
+      isVisible: false,
+      showBanner: false,
+      typewriterTagline: '',
+      typewriterJABV: '',
+      typewriterLabs: '',
+      showTaglineCursor: false,
+      showJABVCursor: false,
+      showLabsCursor: false,
+      taglineComplete: false,
+      typewriterStarted: false,
+      animationComplete: false
+    };
+    console.log(`📍 [${renderIdRef.current}] STATE INITIALIZING:`, initialState);
+    return initialState;
+  });
+
+  // Track state changes obsessively with manual comparison to avoid TypeScript issues
+  const prevStateRef = useRef(animationState);
+  useEffect(() => {
+    const prev = prevStateRef.current;
+    const curr = animationState;
+    const changes: Record<string, any> = {};
+    
+    // Manual comparison for each field
+    if (prev.isVisible !== curr.isVisible) changes.isVisible = { from: prev.isVisible, to: curr.isVisible };
+    if (prev.showBanner !== curr.showBanner) changes.showBanner = { from: prev.showBanner, to: curr.showBanner };
+    if (prev.typewriterTagline !== curr.typewriterTagline) changes.typewriterTagline = { from: prev.typewriterTagline, to: curr.typewriterTagline };
+    if (prev.typewriterJABV !== curr.typewriterJABV) changes.typewriterJABV = { from: prev.typewriterJABV, to: curr.typewriterJABV };
+    if (prev.typewriterLabs !== curr.typewriterLabs) changes.typewriterLabs = { from: prev.typewriterLabs, to: curr.typewriterLabs };
+    if (prev.showTaglineCursor !== curr.showTaglineCursor) changes.showTaglineCursor = { from: prev.showTaglineCursor, to: curr.showTaglineCursor };
+    if (prev.showJABVCursor !== curr.showJABVCursor) changes.showJABVCursor = { from: prev.showJABVCursor, to: curr.showJABVCursor };
+    if (prev.showLabsCursor !== curr.showLabsCursor) changes.showLabsCursor = { from: prev.showLabsCursor, to: curr.showLabsCursor };
+    if (prev.taglineComplete !== curr.taglineComplete) changes.taglineComplete = { from: prev.taglineComplete, to: curr.taglineComplete };
+    if (prev.typewriterStarted !== curr.typewriterStarted) changes.typewriterStarted = { from: prev.typewriterStarted, to: curr.typewriterStarted };
+    if (prev.animationComplete !== curr.animationComplete) changes.animationComplete = { from: prev.animationComplete, to: curr.animationComplete };
+    
+    if (Object.keys(changes).length > 0) {
+      console.log(`🔀 [${renderIdRef.current}] STATE CHANGES:`, changes);
+      console.log(`📊 [${renderIdRef.current}] FULL STATE:`, animationState);
+      
+      // Track specific changes that might cause visual refresh
+      if (changes.typewriterTagline || changes.typewriterJABV || changes.typewriterLabs) {
+        console.log(`💥 [${renderIdRef.current}] TEXT CHANGE DETECTED - RE-RENDER TRIGGERED!`);
+        console.log(`⚡ [${renderIdRef.current}] DOM WILL UPDATE - POTENTIAL VISUAL FLICKER!`);
+      }
+      if (changes.isVisible) {
+        console.log(`👀 [${renderIdRef.current}] VISIBILITY CHANGE - LAYOUT SHIFT INCOMING!`);
+      }
+      if (changes.taglineComplete) {
+        console.log(`🎯 [${renderIdRef.current}] TAGLINE COMPLETE - SECOND LINE WILL APPEAR!`);
+      }
+    }
+    
+    prevStateRef.current = { ...animationState };
   });
 
   // Destructure for easier access
@@ -58,33 +126,47 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
   };
 
   useEffect(() => {
-    console.log('🎯 Setting up visibility animations');
+    if (!componentMountedRef.current) {
+      console.log(`🚀 [${renderIdRef.current}] COMPONENT MOUNTED - Setting up visibility animations`);
+      componentMountedRef.current = true;
+    } else {
+      console.log(`⚠️ [${renderIdRef.current}] Visibility useEffect triggered but component already mounted`);
+    }
+    
+    console.log(`🎯 [${renderIdRef.current}] Setting isVisible: true`);
     setAnimationState(prev => ({ ...prev, isVisible: true }));
+    
     const delay = setTimeout(() => {
-      console.log('🎯 Showing banner');
+      console.log(`🎯 [${renderIdRef.current}] Setting showBanner: true`);
       setAnimationState(prev => ({ ...prev, showBanner: true }));
     }, 1400);
-    return () => clearTimeout(delay);
+    return () => {
+      console.log(`🧹 [${renderIdRef.current}] Visibility useEffect cleanup`);
+      clearTimeout(delay);
+    };
   }, []);
 
   // Complete typewriter effect sequence
   useEffect(() => {
-    console.log('Typewriter useEffect triggered:', { 
+    const effectId = `effect-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+    console.log(`🔬 [${renderIdRef.current}][${effectId}] TYPEWRITER EFFECT TRIGGERED:`, { 
       loadingComplete, 
-      animationStarted: animationStartedRef.current
+      animationStarted: animationStartedRef.current,
+      renderCount: renderCountRef.current
     });
     
     if (loadingComplete !== true) {
-      console.log('Skipped: loadingComplete is not true');
+      console.log(`❌ [${renderIdRef.current}][${effectId}] SKIPPED: loadingComplete is not true (${loadingComplete})`);
       return;
     }
     
     if (animationStartedRef.current) {
-      console.log('Skipped: animation already started');
+      console.log(`❌ [${renderIdRef.current}][${effectId}] SKIPPED: animation already started`);
       return;
     }
     
-    console.log('✅ CONDITIONS MET - Starting typewriter animation sequence...');
+    console.log(`✅ [${renderIdRef.current}][${effectId}] CONDITIONS MET - Starting typewriter animation sequence...`);
+    console.log(`🎬 [${renderIdRef.current}][${effectId}] ANIMATION START - MOMENT OF POTENTIAL VISUAL REFRESH!`);
     animationStartedRef.current = true;
     
     const taglineText = 'Build Your Future with';
@@ -103,8 +185,10 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       const typeTagline = () => {
         if (taglineIndex < taglineText.length) {
           const currentText = taglineText.substring(0, taglineIndex + 1);
-          console.log(`Typing tagline: "${currentText}"`);
+          console.log(`📝 [${renderIdRef.current}][${effectId}] Typing tagline: "${currentText}"`);
+          console.log(`🔄 [${renderIdRef.current}][${effectId}] ABOUT TO UPDATE STATE - DOM CHANGE INCOMING!`);
           setAnimationState(prev => ({ ...prev, typewriterTagline: currentText }));
+          console.log(`✅ [${renderIdRef.current}][${effectId}] STATE UPDATE DISPATCHED - COMPONENT WILL RE-RENDER!`);
           taglineIndex++;
           const timeout = setTimeout(typeTagline, 60 + Math.random() * 30);
           timeoutsRef.current.push(timeout);
