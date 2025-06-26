@@ -6,7 +6,7 @@ import { AboutSection } from '@/components/about-section';
 import { Footer } from '@/components/footer';
 import { FadeInSection } from '@/components/fade-in-section';
 
-export default function Home({ loadingComplete = true }: { loadingComplete?: boolean }) {
+export default function Home({ loadingComplete }: { loadingComplete?: boolean }) {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />

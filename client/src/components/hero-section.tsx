@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 
-export default function HeroWithBanner({ loadingComplete = true }: { loadingComplete?: boolean }) {
+export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [typewriterJABV, setTypewriterJABV] = useState('');
@@ -25,8 +25,14 @@ export default function HeroWithBanner({ loadingComplete = true }: { loadingComp
 
   // Watch for loading completion to start typewriter
   useEffect(() => {
-    if (loadingComplete) {
+    if (loadingComplete === true) {
       setShouldStartTypewriter(true);
+    } else if (loadingComplete === undefined) {
+      // If no loading screen (cached session), start typewriter after component mounts
+      const fallbackTimer = setTimeout(() => {
+        setShouldStartTypewriter(true);
+      }, 1500);
+      return () => clearTimeout(fallbackTimer);
     }
   }, [loadingComplete]);
 
@@ -84,7 +90,7 @@ export default function HeroWithBanner({ loadingComplete = true }: { loadingComp
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, []);
+  }, [shouldStartTypewriter]);
 
   return (
     <>

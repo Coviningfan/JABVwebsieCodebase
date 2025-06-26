@@ -70,26 +70,42 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-12 min-h-[400px] flex items-center justify-center">
-              <div className="text-center">
+              <div className="text-center w-full">
                 <div className="mb-8">
-                  <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center mb-6 shadow-2xl">
-                    <span className="text-4xl font-bold text-white">JL</span>
-                  </div>
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-4">JABV Labs</h3>
-                <p className="text-gray-300 text-lg mb-6">Innovation Through Code</p>
-                <div className="flex justify-center space-x-6 text-sm text-gray-400">
-                  <div className="flex items-center">
-                    <i className="fas fa-mobile-alt mr-2 text-red-500"></i>
-                    Mobile Apps
-                  </div>
-                  <div className="flex items-center">
-                    <i className="fas fa-globe mr-2 text-red-500"></i>
-                    Web Development
-                  </div>
-                  <div className="flex items-center">
-                    <i className="fas fa-code mr-2 text-red-500"></i>
-                    Custom Solutions
+                  <h3 className="text-4xl font-bold text-white mb-6">JABV Labs</h3>
+                  <p className="text-gray-300 text-lg mb-8">Innovation Through Code</p>
+                  
+                  {/* Progress bars showing expertise */}
+                  <div className="space-y-6 max-w-md mx-auto">
+                    <div>
+                      <div className="flex justify-between text-sm text-gray-400 mb-2">
+                        <span>Mobile Development</span>
+                        <span>95%</span>
+                      </div>
+                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[95%] animate-fill-right"></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm text-gray-400 mb-2">
+                        <span>Web Development</span>
+                        <span>98%</span>
+                      </div>
+                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[98%] animate-fill-right"></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm text-gray-400 mb-2">
+                        <span>Custom Solutions</span>
+                        <span>92%</span>
+                      </div>
+                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[92%] animate-fill-right"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
