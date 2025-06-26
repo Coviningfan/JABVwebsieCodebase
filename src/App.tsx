@@ -311,6 +311,79 @@ function LoginScreen() {
   );
 }
 
+// Enhanced MetricsCard Component
+function MetricsCard({ title, value, icon, color = 'primary' }) {
+  const getColorStyles = (colorType) => {
+    switch (colorType) {
+      case 'primary':
+        return { iconBg: 'rgba(239, 68, 68, 0.1)', iconColor: '#ef4444' };
+      case 'success':
+        return { iconBg: 'rgba(34, 197, 94, 0.1)', iconColor: '#22c55e' };
+      case 'warning':
+        return { iconBg: 'rgba(251, 146, 60, 0.1)', iconColor: '#fb923c' };
+      case 'info':
+        return { iconBg: 'rgba(59, 130, 246, 0.1)', iconColor: '#3b82f6' };
+      default:
+        return { iconBg: 'rgba(239, 68, 68, 0.1)', iconColor: '#ef4444' };
+    }
+  };
+
+  const colorStyles = getColorStyles(color);
+
+  return (
+    <div style={{
+      background: 'rgba(24, 24, 27, 0.8)',
+      border: '1px solid rgba(63, 63, 70, 0.4)',
+      borderRadius: '12px',
+      padding: '24px',
+      transition: 'all 0.2s ease',
+      cursor: 'default'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = 'translateY(-2px)';
+      e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = 'translateY(0)';
+      e.currentTarget.style.boxShadow = 'none';
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <p style={{ 
+            color: '#a1a1aa', 
+            fontSize: '14px', 
+            fontWeight: '500',
+            margin: '0 0 8px 0' 
+          }}>
+            {title}
+          </p>
+          <p style={{ 
+            color: 'white', 
+            fontSize: '32px', 
+            fontWeight: '700', 
+            margin: 0 
+          }}>
+            {value}
+          </p>
+        </div>
+        <div style={{
+          width: '48px',
+          height: '48px',
+          background: colorStyles.iconBg,
+          borderRadius: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{ color: colorStyles.iconColor }}>
+            {icon}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Dashboard() {
   return (
     <div>
@@ -333,101 +406,50 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Enhanced Stats Cards using MetricsCard component */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '24px',
         marginBottom: '32px'
       }}>
-        {/* Total Projects */}
-        <div style={{
-          background: 'rgba(24, 24, 27, 0.8)',
-          border: '1px solid rgba(63, 63, 70, 0.4)',
-          borderRadius: '12px',
-          padding: '24px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Total Projects</p>
-              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>4</p>
-            </div>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              background: 'rgba(239, 68, 68, 0.1)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14,2 14,8 20,8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10,9 9,9 8,9"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Projects */}
-        <div style={{
-          background: 'rgba(24, 24, 27, 0.8)',
-          border: '1px solid rgba(63, 63, 70, 0.4)',
-          borderRadius: '12px',
-          padding: '24px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Active Projects</p>
-              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>2</p>
-            </div>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              background: 'rgba(251, 146, 60, 0.1)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12,6 12,12 16,14"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        {/* Completed Projects */}
-        <div style={{
-          background: 'rgba(24, 24, 27, 0.8)',
-          border: '1px solid rgba(63, 63, 70, 0.4)',
-          borderRadius: '12px',
-          padding: '24px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <p style={{ color: '#a1a1aa', fontSize: '14px', margin: '0 0 8px 0' }}>Completed Projects</p>
-              <p style={{ color: 'white', fontSize: '32px', fontWeight: '700', margin: 0 }}>1</p>
-            </div>
-            <div style={{
-              width: '48px',
-              height: '48px',
-              background: 'rgba(34, 197, 94, 0.1)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-            </div>
-          </div>
-        </div>
+        <MetricsCard
+          title="Total Projects"
+          value="4"
+          color="primary"
+          icon={
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14,2 14,8 20,8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10,9 9,9 8,9"/>
+            </svg>
+          }
+        />
+        
+        <MetricsCard
+          title="Active Projects"
+          value="2"
+          color="warning"
+          icon={
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+          }
+        />
+        
+        <MetricsCard
+          title="Completed Projects"
+          value="1"
+          color="success"
+          icon={
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="20,6 9,17 4,12"/>
+            </svg>
+          }
+        />
       </div>
 
       {/* Projects and Activity Row */}
@@ -468,23 +490,45 @@ function Dashboard() {
               background: 'rgba(24, 24, 27, 0.8)',
               border: '1px solid rgba(63, 63, 70, 0.4)',
               borderRadius: '12px',
-              padding: '20px'
+              padding: '20px',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.borderColor = '#dc2626';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(220, 38, 38, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
             }}>
               <div style={{ marginBottom: '16px' }}>
                 <div style={{
-                  display: 'inline-block',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
                   background: '#dc2626',
                   color: 'white',
                   fontSize: '12px',
+                  fontWeight: '500',
                   padding: '4px 8px',
                   borderRadius: '12px',
                   marginBottom: '12px'
-                }}>In Progress</div>
+                }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                  </svg>
+                  In Progress
+                </div>
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: '600',
                   color: 'white',
-                  margin: '0 0 4px 0'
+                  margin: '0 0 4px 0',
+                  transition: 'color 0.2s ease'
                 }}>E-commerce Platform Redesign</h3>
                 <p style={{
                   color: '#a1a1aa',
@@ -512,13 +556,15 @@ function Dashboard() {
                   width: '100%',
                   height: '6px',
                   background: 'rgba(63, 63, 70, 0.4)',
-                  borderRadius: '3px'
+                  borderRadius: '3px',
+                  overflow: 'hidden'
                 }}>
                   <div style={{
                     width: '75%',
                     height: '100%',
-                    background: '#dc2626',
-                    borderRadius: '3px'
+                    background: 'linear-gradient(90deg, #dc2626 0%, #ef4444 100%)',
+                    borderRadius: '3px',
+                    transition: 'width 0.5s ease'
                   }}></div>
                 </div>
               </div>
@@ -529,8 +575,22 @@ function Dashboard() {
                 fontSize: '12px',
                 color: '#a1a1aa'
               }}>
-                <span>📅 Jan 14, 2024</span>
-                <span>🎯 Mar 29, 2024</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  <span>Jan 14, 2024</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polygon points="10,8 16,12 10,16 10,8"/>
+                  </svg>
+                  <span>Mar 29, 2024</span>
+                </div>
               </div>
             </div>
 
@@ -779,18 +839,35 @@ function Dashboard() {
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Activity Item 1 */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '12px',
+                padding: '12px',
+                borderRadius: '8px',
+                transition: 'background-color 0.2s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}>
                 <div style={{
                   width: '32px',
                   height: '32px',
-                  background: '#dc2626',
+                  background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0
+                  flexShrink: 0,
+                  boxShadow: '0 2px 8px rgba(220, 38, 38, 0.3)'
                 }}>
-                  <span style={{ color: 'white', fontSize: '12px' }}>N</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{
@@ -802,29 +879,58 @@ function Dashboard() {
                   <p style={{
                     color: '#a1a1aa',
                     fontSize: '13px',
-                    margin: '0 0 4px 0'
+                    margin: '0 0 4px 0',
+                    lineHeight: '1.4'
                   }}>Updated on E-commerce Platform Redesign progress</p>
                   <p style={{
-                    color: '#a1a1aa',
+                    color: '#71717a',
                     fontSize: '12px',
                     margin: 0
                   }}>2 hours ago</p>
                 </div>
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#dc2626',
+                  borderRadius: '50%',
+                  marginTop: '8px'
+                }}></div>
               </div>
 
               {/* Activity Item 2 */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '12px',
+                padding: '12px',
+                borderRadius: '8px',
+                transition: 'background-color 0.2s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}>
                 <div style={{
                   width: '32px',
                   height: '32px',
-                  background: '#f59e0b',
+                  background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0
+                  flexShrink: 0,
+                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.3)'
                 }}>
-                  <span style={{ color: 'white', fontSize: '12px' }}>D</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10,9 9,9 8,9"/>
+                  </svg>
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{
@@ -836,10 +942,11 @@ function Dashboard() {
                   <p style={{
                     color: '#a1a1aa',
                     fontSize: '13px',
-                    margin: '0 0 4px 0'
+                    margin: '0 0 4px 0',
+                    lineHeight: '1.4'
                   }}>Mobile App Development wireframes available</p>
                   <p style={{
-                    color: '#a1a1aa',
+                    color: '#71717a',
                     fontSize: '12px',
                     margin: 0
                   }}>1 day ago</p>
@@ -847,18 +954,35 @@ function Dashboard() {
               </div>
 
               {/* Activity Item 3 */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '12px',
+                padding: '12px',
+                borderRadius: '8px',
+                transition: 'background-color 0.2s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}>
                 <div style={{
                   width: '32px',
                   height: '32px',
-                  background: '#22c55e',
+                  background: 'linear-gradient(135deg, #22c55e 0%, #34d399 100%)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0
+                  flexShrink: 0,
+                  boxShadow: '0 2px 8px rgba(34, 197, 94, 0.3)'
                 }}>
-                  <span style={{ color: 'white', fontSize: '12px' }}>P</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <polyline points="20,6 9,17 4,12"/>
+                  </svg>
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{
@@ -870,10 +994,11 @@ function Dashboard() {
                   <p style={{
                     color: '#a1a1aa',
                     fontSize: '13px',
-                    margin: '0 0 4px 0'
+                    margin: '0 0 4px 0',
+                    lineHeight: '1.4'
                   }}>Database Migration marked as completed</p>
                   <p style={{
-                    color: '#a1a1aa',
+                    color: '#71717a',
                     fontSize: '12px',
                     margin: 0
                   }}>3 days ago</p>
