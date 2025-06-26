@@ -14,31 +14,15 @@ import WebsiteRedesigns from "@/pages/services/website-redesigns";
 import NotFound from "@/pages/not-found";
 
 function Router({ loadingComplete }: { loadingComplete: boolean }) {
-  const [location] = useLocation();
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [prevLocation, setPrevLocation] = useState(location);
-
-  useEffect(() => {
-    if (location !== prevLocation) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setPrevLocation(location);
-        setIsTransitioning(false);
-      }, 300);
-    }
-  }, [location, prevLocation]);
-
   return (
-    <PageTransition isLoading={isTransitioning}>
-      <Switch>
-        <Route path="/" component={() => <Home loadingComplete={loadingComplete} />} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/services/mobile-app-development" component={MobileAppDevelopment} />
-        <Route path="/services/interactive-websites" component={InteractiveWebsites} />
-        <Route path="/services/website-redesigns" component={WebsiteRedesigns} />
-        <Route component={NotFound} />
-      </Switch>
-    </PageTransition>
+    <Switch>
+      <Route path="/" component={() => <Home loadingComplete={loadingComplete} />} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/services/mobile-app-development" component={MobileAppDevelopment} />
+      <Route path="/services/interactive-websites" component={InteractiveWebsites} />
+      <Route path="/services/website-redesigns" component={WebsiteRedesigns} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
