@@ -148,6 +148,13 @@ Changelog:
   - Sequential typing animation: "Build Your Future with" → pause → "JABVLabs" with proper colors
   - Animation runs perfectly smooth without any visual refresh or jarring effects
   - Replaced complex stateful hero-section component with clean, minimal implementation
+- June 26, 2025. Implemented dedicated branch strategy for client portal deployment:
+  - Created "ThePortal" branch for independent client portal deployment
+  - Structured portal as standalone React application with Supabase authentication
+  - Configured portal for deployment to portal.jabvlabs.com domain
+  - Portal features: login-first experience, project management, invoice tracking, support tickets
+  - Branch separation enables independent development cycles and deployment processes
+  - Portal ready for Render.com deployment from ThePortal branch root directory
 ```
 
 ## User Preferences

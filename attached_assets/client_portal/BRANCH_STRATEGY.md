@@ -4,7 +4,7 @@
 
 ### Main Repository: JABVwebsieCodebase
 - **main** - Main JABV Labs website
-- **portal** - Client portal (portal.jabvlabs.com)
+- **ThePortal** - Client portal (portal.jabvlabs.com)
 
 ## Benefits of Separate Portal Branch
 
@@ -27,7 +27,7 @@
 
 ### 1. Create Portal Branch
 ```bash
-git checkout -b portal
+git checkout -b ThePortal
 ```
 
 ### 2. Move Portal Files to Root
@@ -61,7 +61,7 @@ portal branch/
 ### Render.com Settings for Portal Branch
 ```
 Repository: JABVwebsieCodebase
-Branch: portal
+Branch: ThePortal
 Root Directory: (empty)
 Build Command: npm install && npm run build
 Start Command: npm run serve
@@ -88,19 +88,20 @@ Environment: Static Site
 ## Commands to Execute
 
 ```bash
-# Create and switch to portal branch
-git checkout -b portal
+# Switch to ThePortal branch
+git checkout ThePortal
 
 # Move portal files to root
 mv attached_assets/client_portal/* .
+mv attached_assets/client_portal/.* . 2>/dev/null || true
 rm -rf attached_assets/
 
 # Commit the restructure
 git add .
-git commit -m "Move portal to dedicated branch"
+git commit -m "Move portal to dedicated branch root"
 
-# Push portal branch
-git push origin portal
+# Push ThePortal branch
+git push origin ThePortal
 ```
 
 This strategy provides much cleaner organization and deployment for your client portal.
