@@ -1,0 +1,40 @@
+==> Cloning from https://github.com/Coviningfan/JABVwebsieCodebase
+==> Checking out commit 382ba5f3092a7e450caff717e1fd00adb8596608 in branch ThePortal
+==> Downloading cache...
+==> Transferred 574MB in 9s. Extraction took 11s.
+==> Using Node.js version 22.16.0 (default)
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Using Bun version 1.1.0 (default)
+==> Docs on specifying a Bun version: https://render.com/docs/bun-version
+==> Running build command 'npm install && npm run build'...
+up to date, audited 465 packages in 1s
+66 packages are looking for funding
+  run `npm fund` for details
+4 vulnerabilities (1 low, 2 moderate, 1 high)
+To address issues that do not require attention, run:
+  npm audit fix
+To address all issues, run:
+  npm audit fix --force
+Run `npm audit` for details.
+> client_portal@0.1.0 build
+> vite build --sourcemap
+vite v5.0.0 building for production...
+transforming...
+✓ 14 modules transformed.
+[vite]: Rollup failed to resolve import "components/ScrollToTop" from "/opt/render/project/src/src/Routes.jsx".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+error during build:
+Error: [vite]: Rollup failed to resolve import "components/ScrollToTop" from "/opt/render/project/src/src/Routes.jsx".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+    at viteWarn (file:///opt/render/project/src/node_modules/vite/dist/node/chunks/dep-T98iZFpD.js:65213:27)
+    at onwarn (file:///opt/render/project/src/node_modules/@vitejs/plugin-react/dist/index.mjs:282:9)
+    at onRollupWarning (file:///opt/render/project/src/node_modules/vite/dist/node/chunks/dep-T98iZFpD.js:65238:9)
+    at onwarn (file:///opt/render/project/src/node_modules/vite/dist/node/chunks/dep-T98iZFpD.js:64958:13)
+    at file:///opt/render/project/src/node_modules/rollup/dist/es/shared/node-entry.js:20786:13
+    at Object.logger [as onLog] (file:///opt/render/project/src/node_modules/rollup/dist/es/shared/node-entry.js:22651:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///opt/render/project/src/node_modules/rollup/dist/es/shared/node-entry.js:21398:26)
+    at file:///opt/render/project/src/node_modules/rollup/dist/es/shared/node-entry.js:21356:26

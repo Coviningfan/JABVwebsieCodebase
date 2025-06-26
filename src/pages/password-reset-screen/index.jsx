@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Icon from 'components/AppIcon';
+import Icon from '../components/AppIcon';
 import { useAuth } from '../../contexts/AuthContext';
 
 const PasswordResetScreen = () => {

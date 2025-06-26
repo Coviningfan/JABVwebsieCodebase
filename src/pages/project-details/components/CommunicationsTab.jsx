@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Icon from 'components/AppIcon';
-import Image from 'components/AppImage';
+import Icon from '../components/AppIcon';
+import Image from '../components/AppImage';
 
 const CommunicationsTab = ({ projectId }) => {
   const [newMessage, setNewMessage] = useState('');

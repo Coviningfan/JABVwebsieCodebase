@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
-import ScrollToTop from "components/ScrollToTop";
-import ErrorBoundary from "components/ErrorBoundary";
-import Header from "components/ui/Header";
-import LoginScreen from "pages/login-screen";
-import RegistrationScreen from "pages/registration-screen";
-import PasswordResetScreen from "pages/password-reset-screen";
-import Dashboard from "pages/dashboard";
-import ProjectDetails from "pages/project-details";
-import Settings from "pages/settings";
+import ScrollToTop from "./components/ScrollToTop";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Header from "./components/ui/Header";
+import LoginScreen from "./pages/login-screen";
+import RegistrationScreen from "./pages/registration-screen";
+import PasswordResetScreen from "./pages/password-reset-screen";
+import Dashboard from "./pages/dashboard";
+import ProjectDetails from "./pages/project-details";
+import Settings from "./pages/settings";
 
 const Routes = () => {
   return (
