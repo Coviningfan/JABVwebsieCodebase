@@ -165,100 +165,96 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
       return;
     }
     
-    console.log(`✅ [${renderIdRef.current}][${effectId}] CONDITIONS MET - Starting typewriter animation sequence...`);
-    console.log(`🎬 [${renderIdRef.current}][${effectId}] ANIMATION START - MOMENT OF POTENTIAL VISUAL REFRESH!`);
+    console.log(`✅ [${renderIdRef.current}][${effectId}] CONDITIONS MET - Starting PURE DOM typewriter animation...`);
+    console.log(`🎬 [${renderIdRef.current}][${effectId}] USING DIRECT DOM MANIPULATION - NO RE-RENDERS!`);
     animationStartedRef.current = true;
     
-    const taglineText = 'Build Your Future with';
-    const jabvText = 'JABV';
-    const labsText = 'Labs';
-    
-    console.log('Setting up typewriter delays and animations...');
-    
-    // Start typewriter sequence with smooth transition timing
+    // Start typewriter sequence with pure DOM manipulation (no React state updates)
     const startDelay = setTimeout(() => {
-      console.log('🎯 Starting tagline typing animation');
-      setAnimationState(prev => ({ ...prev, showTaglineCursor: true }));
+      console.log(`🎯 [${renderIdRef.current}][${effectId}] Starting DOM-based typewriter animation`);
       
-      // Step 1: Type the tagline "Build Your Future with"
+      const taglineEl = document.getElementById('typewriter-tagline');
+      const taglineCursor = document.getElementById('tagline-cursor');
+      const jabvLabsEl = document.getElementById('typewriter-jabv-labs');
+      const jabvEl = document.getElementById('typewriter-jabv');
+      const jabvCursor = document.getElementById('jabv-cursor');
+      const labsEl = document.getElementById('typewriter-labs');
+      const labsCursor = document.getElementById('labs-cursor');
+      
+      if (!taglineEl || !jabvLabsEl || !jabvEl || !labsEl) {
+        console.error('❌ Required DOM elements not found for typewriter animation');
+        return;
+      }
+      
+      // Step 1: Clear text and show tagline with cursor
+      taglineEl.textContent = '';
+      if (taglineCursor) taglineCursor.style.display = 'inline';
+      
+      const taglineText = 'Build Your Future with';
       let taglineIndex = 0;
+      
       const typeTagline = () => {
         if (taglineIndex < taglineText.length) {
           const currentText = taglineText.substring(0, taglineIndex + 1);
-          console.log(`📝 [${renderIdRef.current}][${effectId}] Typing tagline: "${currentText}"`);
-          console.log(`🔄 [${renderIdRef.current}][${effectId}] ABOUT TO UPDATE STATE - DOM CHANGE INCOMING!`);
-          setAnimationState(prev => ({ ...prev, typewriterTagline: currentText }));
-          console.log(`✅ [${renderIdRef.current}][${effectId}] STATE UPDATE DISPATCHED - COMPONENT WILL RE-RENDER!`);
+          console.log(`📝 [${renderIdRef.current}][${effectId}] DOM UPDATE: "${currentText}" (NO RE-RENDER)`);
+          taglineEl.textContent = currentText;
           taglineIndex++;
           const timeout = setTimeout(typeTagline, 60 + Math.random() * 30);
           timeoutsRef.current.push(timeout);
         } else {
-          console.log(`✅ Tagline complete: "${taglineText}"`);
-          // Tagline complete, brief pause then hide cursor
+          console.log(`✅ [${renderIdRef.current}][${effectId}] Tagline complete - transitioning to JABV Labs`);
+          // Hide tagline cursor and show second line
+          if (taglineCursor) taglineCursor.style.display = 'none';
+          jabvLabsEl.style.opacity = '1';
+          
           setTimeout(() => {
-            setAnimationState(prev => ({ 
-              ...prev, 
-              showTaglineCursor: false, 
-              taglineComplete: true 
-            }));
-            console.log('🎯 Starting JABV typing animation');
+            // Clear JABV and Labs text, show JABV cursor
+            jabvEl.textContent = '';
+            labsEl.textContent = '';
+            if (jabvCursor) jabvCursor.style.display = 'inline';
             
-            // Step 2: Brief pause (100ms) then start "JABV Labs"
-            setTimeout(() => {
-              setAnimationState(prev => ({ ...prev, showJABVCursor: true }));
-              
-              // Type "JABV" character by character
-              let jabvIndex = 0;
-              const typeJABV = () => {
-                if (jabvIndex < jabvText.length) {
-                  const currentText = jabvText.substring(0, jabvIndex + 1);
-                  console.log(`Typing JABV: "${currentText}"`);
-                  setAnimationState(prev => ({ ...prev, typewriterJABV: currentText }));
-                  jabvIndex++;
-                  const timeout = setTimeout(typeJABV, 80 + Math.random() * 40);
-                  timeoutsRef.current.push(timeout);
-                } else {
-                  console.log(`✅ JABV complete: "${jabvText}"`);
-                  // JABV complete, transition to Labs immediately
-                  setTimeout(() => {
-                    setAnimationState(prev => ({ 
-                      ...prev, 
-                      showJABVCursor: false, 
-                      showLabsCursor: true 
-                    }));
-                    console.log('🎯 Starting Labs typing animation');
-                    
-                    // Type "Labs" character by character
-                    let labsIndex = 0;
-                    const typeLabs = () => {
-                      if (labsIndex < labsText.length) {
-                        const currentText = labsText.substring(0, labsIndex + 1);
-                        console.log(`Typing Labs: "${currentText}"`);
-                        setAnimationState(prev => ({ ...prev, typewriterLabs: currentText }));
-                        labsIndex++;
-                        const timeout = setTimeout(typeLabs, 80 + Math.random() * 40);
-                        timeoutsRef.current.push(timeout);
-                      } else {
-                        console.log(`✅ Labs complete: "${labsText}"`);
-                        console.log('🎉 ENTIRE TYPEWRITER SEQUENCE COMPLETE!');
-                        // Labs complete, hide cursor after 2 seconds
-                        setTimeout(() => {
-                          setAnimationState(prev => ({ 
-                            ...prev, 
-                            showLabsCursor: false, 
-                            animationComplete: true 
-                          }));
-                          console.log('Final cursor hidden, animation complete');
-                        }, 2000);
-                      }
-                    };
-                    typeLabs();
-                  }, 50);
-                }
-              };
-              
-              typeJABV();
-            }, 100);
+            const jabvText = 'JABV';
+            let jabvIndex = 0;
+            
+            const typeJABV = () => {
+              if (jabvIndex < jabvText.length) {
+                const currentText = jabvText.substring(0, jabvIndex + 1);
+                console.log(`📝 [${renderIdRef.current}][${effectId}] DOM UPDATE JABV: "${currentText}" (NO RE-RENDER)`);
+                jabvEl.textContent = currentText;
+                jabvIndex++;
+                const timeout = setTimeout(typeJABV, 80 + Math.random() * 40);
+                timeoutsRef.current.push(timeout);
+              } else {
+                console.log(`✅ [${renderIdRef.current}][${effectId}] JABV complete - starting Labs`);
+                // Hide JABV cursor, show Labs cursor
+                if (jabvCursor) jabvCursor.style.display = 'none';
+                if (labsCursor) labsCursor.style.display = 'inline';
+                
+                const labsText = 'Labs';
+                let labsIndex = 0;
+                
+                const typeLabs = () => {
+                  if (labsIndex < labsText.length) {
+                    const currentText = labsText.substring(0, labsIndex + 1);
+                    console.log(`📝 [${renderIdRef.current}][${effectId}] DOM UPDATE Labs: "${currentText}" (NO RE-RENDER)`);
+                    labsEl.textContent = currentText;
+                    labsIndex++;
+                    const timeout = setTimeout(typeLabs, 80 + Math.random() * 40);
+                    timeoutsRef.current.push(timeout);
+                  } else {
+                    console.log(`🎉 [${renderIdRef.current}][${effectId}] ENTIRE ANIMATION COMPLETE - NO RE-RENDERS OCCURRED!`);
+                    // Hide cursor after 2 seconds
+                    setTimeout(() => {
+                      if (labsCursor) labsCursor.style.display = 'none';
+                      console.log(`✅ [${renderIdRef.current}][${effectId}] Final cursor hidden - animation complete`);
+                    }, 2000);
+                  }
+                };
+                typeLabs();
+              }
+            };
+            
+            setTimeout(typeJABV, 100);
           }, 200);
         }
       };
@@ -345,19 +341,24 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="font-bold mb-6 leading-tight text-white min-h-[200px] flex flex-col justify-center">
               <div className="text-4xl md:text-5xl mb-4 min-h-[60px] flex items-center justify-center">
-                <span className="text-white transition-opacity duration-300">
-                  {animationStartedRef.current ? typewriterTagline : ''}
-                  {showTaglineCursor && <span className="animate-pulse">|</span>}
+                <span 
+                  id="typewriter-tagline"
+                  className="text-white transition-opacity duration-300"
+                  style={{ opacity: loadingComplete ? 1 : 0 }}
+                >
+                  Build Your Future with<span id="tagline-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
                 </span>
               </div>
-              <div className={`text-5xl md:text-7xl min-h-[80px] flex items-center justify-center transition-opacity duration-300 ${taglineComplete ? 'opacity-100' : 'opacity-0'}`}>
+              <div 
+                id="typewriter-jabv-labs" 
+                className="text-5xl md:text-7xl min-h-[80px] flex items-center justify-center transition-opacity duration-300"
+                style={{ opacity: 0 }}
+              >
                 <span className="text-white">
-                  {typewriterJABV}
-                  {showJABVCursor && <span className="animate-pulse">|</span>}
+                  <span id="typewriter-jabv">JABV</span><span id="jabv-cursor" className="animate-pulse" style={{ display: 'none' }}>|</span>
                 </span>
                 <span style={{ color: '#C82222' }}>
-                  {typewriterLabs}
-                  {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                  <span id="typewriter-labs">Labs</span><span id="labs-cursor" className="animate-pulse" style={{ color: '#C82222', display: 'none' }}>|</span>
                 </span>
               </div>
             </h1>
