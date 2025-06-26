@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import Icon from '../components/AppIcon';
+import Icon from '../../components/AppIcon';
 
-import Breadcrumb from '../components/ui/Breadcrumb';
+import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectHeader from './components/ProjectHeader';
 import OverviewTab from './components/OverviewTab';
 import CommunicationsTab from './components/CommunicationsTab';
