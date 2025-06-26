@@ -26,40 +26,54 @@ export default function HeroWithBanner() {
   useEffect(() => {
     const jabvText = 'JABV';
     const labsText = 'Labs';
+    let timeouts: NodeJS.Timeout[] = [];
     
     // Start typewriter after hero becomes visible
     const startDelay = setTimeout(() => {
       setShowJABVCursor(true);
       
-      // Type "JABV" first
-      jabvText.split('').forEach((char, index) => {
-        setTimeout(() => {
-          setTypewriterJABV(prev => prev + char);
-        }, index * 100);
-      });
-      
-      // After "JABV" is complete, hide cursor and start "Labs"
-      setTimeout(() => {
-        setShowJABVCursor(false);
-        setShowLabsCursor(true);
-        
-        // Start typing "Labs" after 400ms delay
-        setTimeout(() => {
-          labsText.split('').forEach((char, index) => {
-            setTimeout(() => {
-              setTypewriterLabs(prev => prev + char);
-            }, index * 100);
-          });
-          
-          // Hide "Labs" cursor after completion
+      // Type "JABV" character by character with smoother timing
+      let jabvIndex = 0;
+      const typeJABV = () => {
+        if (jabvIndex < jabvText.length) {
+          setTypewriterJABV(jabvText.substring(0, jabvIndex + 1));
+          jabvIndex++;
+          timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40)); // 80-120ms variance for natural feel
+        } else {
+          // JABV complete, transition to Labs
           setTimeout(() => {
-            setShowLabsCursor(false);
-          }, labsText.length * 100 + 500);
-        }, 400);
-      }, jabvText.length * 100 + 200);
-    }, 800); // Sync with hero fade-in
+            setShowJABVCursor(false);
+            setShowLabsCursor(true);
+            
+            // Start typing "Labs" after 400ms delay
+            setTimeout(() => {
+              let labsIndex = 0;
+              const typeLabs = () => {
+                if (labsIndex < labsText.length) {
+                  setTypewriterLabs(labsText.substring(0, labsIndex + 1));
+                  labsIndex++;
+                  timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
+                } else {
+                  // Labs complete, hide cursor after brief pause
+                  setTimeout(() => {
+                    setShowLabsCursor(false);
+                  }, 800);
+                }
+              };
+              typeLabs();
+            }, 400);
+          }, 150);
+        }
+      };
+      
+      typeJABV();
+    }, 1000); // Sync with hero fade-in
     
-    return () => clearTimeout(startDelay);
+    timeouts.push(startDelay);
+    
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
   }, []);
 
   return (
@@ -160,9 +174,9 @@ export default function HeroWithBanner() {
                 {typewriterJABV.length === 4 && (
                   <>
                     <span className="text-white"> </span>
-                    <span className="bg-gradient-to-r from-red-500 via-red-400 to-red-600 bg-clip-text text-transparent">
+                    <span style={{ color: '#C82222' }}>
                       {typewriterLabs}
-                      {showLabsCursor && <span className="animate-pulse text-red-500">|</span>}
+                      {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
                     </span>
                   </>
                 )}
