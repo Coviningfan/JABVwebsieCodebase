@@ -117,19 +117,22 @@ export function PortfolioCarousel() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Work</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Some of the services we offer
+            Examples of what we can build for your business
           </p>
         </div>
 
         <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="flex overflow-x-auto scrollbar-hide space-x-8 pb-8 pt-6 scroll-smooth px-6 md:px-4"
+            onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             {portfolioItems.map((item, index) => (
               <div 
                 key={item.id} 
-                className={`portfolio-item bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative`}
+                className={`portfolio-item flex-none w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative min-h-[480px] flex flex-col`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon section with dynamic colors */}
@@ -146,14 +149,14 @@ export function PortfolioCarousel() {
                   </div>
                 </div>
                 
-                <div className="p-6 md:p-8 relative z-10 bg-black/20 backdrop-blur-sm">
+                <div className="p-6 md:p-8 relative z-10 bg-black/20 backdrop-blur-sm flex-grow flex flex-col">
                   {/* Title with better contrast */}
                   <h3 className="text-xl md:text-2xl font-bold mb-3 text-white">
                     {item.title}
                   </h3>
                   
                   {/* Description with high contrast */}
-                  <p className="text-gray-200 leading-relaxed mb-4 text-base md:text-lg">
+                  <p className="text-gray-200 leading-relaxed mb-4 text-base md:text-lg flex-grow">
                     {item.description}
                   </p>
                   
@@ -165,7 +168,7 @@ export function PortfolioCarousel() {
                   </div>
                   
                   {/* Tech stack with improved contrast */}
-                  <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                  <div className="flex flex-wrap gap-2 justify-center mt-auto">
                     {item.tech.map((tech, techIndex) => (
                       <span 
                         key={techIndex}
@@ -175,18 +178,24 @@ export function PortfolioCarousel() {
                       </span>
                     ))}
                   </div>
-                  
-                  {/* CTA Button */}
-                  <button className={`w-full bg-gradient-to-r ${item.color} text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg group-hover:shadow-xl`}>
-                    <span className="flex items-center justify-center gap-2">
-                      Explore Project
-                      <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300"></i>
-                    </span>
-                  </button>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Carousel Controls */}
+          <button 
+            onClick={handlePrevious}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+          >
+            <i className="fas fa-chevron-left"></i>
+          </button>
+          <button 
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+          >
+            <i className="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     </section>
