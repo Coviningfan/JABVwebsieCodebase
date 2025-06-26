@@ -78,58 +78,37 @@ export default function HeroWithBanner() {
 
   return (
     <>
-      {/* Top fixed container */}
-      <div className="fixed top-0 left-0 right-0 z-50">
-        {/* Customer banner */}
-        {showBanner && (
-          <div className="bg-black text-white shadow-md animate-slide-down">
-            <div className="flex items-center justify-between px-4 py-2">
-              <div className="flex items-center gap-2">
-                <span className="text-sm md:text-base font-light">Already a customer?</span>
-                <a
-                  href="https://portal.jabvlabs.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
-                >
-                  Login to your portal
-                </a>
-              </div>
-              <button
-                onClick={() => setShowBanner(false)}
-                className="text-gray-400 hover:text-red-500"
-                aria-label="Close banner"
+      {/* Customer banner */}
+      {showBanner && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-black text-white shadow-md animate-slide-down">
+          <div className="flex items-center justify-center px-4 py-2 relative">
+            <div className="flex items-center gap-2">
+              <span className="text-sm md:text-base font-light">Already a customer?</span>
+              <a
+                href="https://portal.jabvlabs.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-1.5 rounded-full font-medium text-xs text-white bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition duration-200 shadow-sm hover:shadow-md"
               >
-                <X className="w-4 h-4" />
-              </button>
+                Login to your portal
+              </a>
             </div>
-          </div>
-        )}
-
-        {/* Persistent Nav Bar */}
-        <div className="bg-black shadow-md border-t border-white/10">
-          <div className="flex justify-center items-center gap-6 py-3 text-sm md:text-base text-white uppercase font-medium tracking-wide">
-            <button onClick={() => scrollToSection('home')} className="hover:text-red-400 transition">
-              Home
-            </button>
-            <button onClick={() => scrollToSection('services')} className="hover:text-red-400 transition">
-              Services
-            </button>
-            <button onClick={() => scrollToSection('about')} className="hover:text-red-400 transition">
-              About
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="hover:text-red-400 transition">
-              Contact
+            <button
+              onClick={() => setShowBanner(false)}
+              className="absolute right-4 text-gray-400 hover:text-red-500"
+              aria-label="Close banner"
+            >
+              <X className="w-4 h-4" />
             </button>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Hero Section */}
       <section
         id="home"
         className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900"
-        style={{ paddingTop: showBanner ? '112px' : '56px' }}
+        style={{ paddingTop: showBanner ? '120px' : '80px' }}
       >
         {/* Background & overlay */}
         <div className="absolute inset-0 z-0">
