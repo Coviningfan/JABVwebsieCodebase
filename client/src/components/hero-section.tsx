@@ -4,10 +4,13 @@ import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [typewriterTagline, setTypewriterTagline] = useState('');
   const [typewriterJABV, setTypewriterJABV] = useState('');
   const [typewriterLabs, setTypewriterLabs] = useState('');
+  const [showTaglineCursor, setShowTaglineCursor] = useState(false);
   const [showJABVCursor, setShowJABVCursor] = useState(false);
   const [showLabsCursor, setShowLabsCursor] = useState(false);
+  const [taglineComplete, setTaglineComplete] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -22,55 +25,77 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
     return () => clearTimeout(delay);
   }, []);
 
-  // Typewriter effect for JABV Labs
+  // Complete typewriter effect sequence
   useEffect(() => {
     // Wait for loading to complete, then start typewriter
     const shouldStart = loadingComplete || loadingComplete === undefined;
     if (!shouldStart) return;
     
+    const taglineText = 'Build Your Future with';
     const jabvText = 'JABV';
     const labsText = 'Labs';
     let timeouts: NodeJS.Timeout[] = [];
     
-    // Start typewriter after loading is complete
+    // Start typewriter sequence after component is ready
     const startDelay = setTimeout(() => {
-      setShowJABVCursor(true);
+      setShowTaglineCursor(true);
       
-      // Type "JABV" character by character with smoother timing
-      let jabvIndex = 0;
-      const typeJABV = () => {
-        if (jabvIndex < jabvText.length) {
-          setTypewriterJABV(jabvText.substring(0, jabvIndex + 1));
-          jabvIndex++;
-          timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40)); // 80-120ms variance for natural feel
+      // Step 1: Type the tagline "Build Your Future with"
+      let taglineIndex = 0;
+      const typeTagline = () => {
+        if (taglineIndex < taglineText.length) {
+          setTypewriterTagline(taglineText.substring(0, taglineIndex + 1));
+          taglineIndex++;
+          timeouts.push(setTimeout(typeTagline, 60 + Math.random() * 30)); // Slightly faster for tagline
         } else {
-          // JABV complete, transition to Labs
+          // Tagline complete, brief pause then hide cursor
           setTimeout(() => {
-            setShowJABVCursor(false);
-            setShowLabsCursor(true);
+            setShowTaglineCursor(false);
+            setTaglineComplete(true);
             
-            // Start typing "Labs" after 400ms delay
+            // Step 2: Brief pause (100ms) then start "JABV Labs"
             setTimeout(() => {
-              let labsIndex = 0;
-              const typeLabs = () => {
-                if (labsIndex < labsText.length) {
-                  setTypewriterLabs(labsText.substring(0, labsIndex + 1));
-                  labsIndex++;
-                  timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
+              setShowJABVCursor(true);
+              
+              // Type "JABV" character by character
+              let jabvIndex = 0;
+              const typeJABV = () => {
+                if (jabvIndex < jabvText.length) {
+                  setTypewriterJABV(jabvText.substring(0, jabvIndex + 1));
+                  jabvIndex++;
+                  timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40));
                 } else {
-                  // Labs complete, hide cursor after 2 seconds
+                  // JABV complete, transition to Labs immediately
                   setTimeout(() => {
-                    setShowLabsCursor(false);
-                  }, 2000);
+                    setShowJABVCursor(false);
+                    setShowLabsCursor(true);
+                    
+                    // Type "Labs" character by character
+                    let labsIndex = 0;
+                    const typeLabs = () => {
+                      if (labsIndex < labsText.length) {
+                        setTypewriterLabs(labsText.substring(0, labsIndex + 1));
+                        labsIndex++;
+                        timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
+                      } else {
+                        // Labs complete, hide cursor after 2 seconds
+                        setTimeout(() => {
+                          setShowLabsCursor(false);
+                        }, 2000);
+                      }
+                    };
+                    typeLabs();
+                  }, 50); // Very brief transition between JABV and Labs
                 }
               };
-              typeLabs();
-            }, 400);
-          }, 150);
+              
+              typeJABV();
+            }, 100); // 100ms pause after tagline
+          }, 200); // Brief pause after tagline completion
         }
       };
       
-      typeJABV();
+      typeTagline();
     }, 1000); // Sync with hero fade-in
     
     timeouts.push(startDelay);
@@ -147,20 +172,27 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-              <span className="block">Build Your Future with</span>
-              <span className="block min-h-[1.2em]">
+            <h1 className="font-bold mb-6 leading-tight text-white">
+              <div className="text-4xl md:text-5xl mb-4">
                 <span className="text-white">
-                  {typewriterJABV}
-                  {showJABVCursor && <span className="animate-pulse">|</span>}
+                  {typewriterTagline}
+                  {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
-                {typewriterJABV.length === 4 && (
-                  <span style={{ color: '#C82222' }}>
-                    {typewriterLabs}
-                    {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+              </div>
+              {taglineComplete && (
+                <div className="text-5xl md:text-7xl">
+                  <span className="text-white">
+                    {typewriterJABV}
+                    {showJABVCursor && <span className="animate-pulse">|</span>}
                   </span>
-                )}
-              </span>
+                  {typewriterJABV.length === 4 && (
+                    <span style={{ color: '#C82222' }}>
+                      {typewriterLabs}
+                      {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
+                    </span>
+                  )}
+                </div>
+              )}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
