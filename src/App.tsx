@@ -8,6 +8,7 @@ import { SupportPage } from './SupportPage.jsx';
 import { TasksPage } from './TasksPage.jsx';
 import { KnowledgeBasePage } from './KnowledgeBasePage.jsx';
 import { NotificationsCenter } from './NotificationsCenter.jsx';
+import { OptimizedDashboard } from './OptimizedDashboard.jsx';
 import { Router, Route, Switch, Link, useLocation } from 'wouter';
 
 function LoginScreen() {
@@ -40,7 +41,7 @@ function LoginScreen() {
           margin: '0 0 16px 0',
           letterSpacing: '-0.025em'
         }}>
-          <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
+          <span style={{ color: 'white' }}>JABV</span><span style={{ color: '#dc2626' }}>Labs</span>
         </h1>
         <p style={{ 
           color: '#a1a1aa', 
@@ -1704,7 +1705,7 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                   <span style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>J</span>
                 </div>
                 <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
-                  <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
+                  <span style={{ color: 'white' }}>JABV</span><span style={{ color: '#dc2626' }}>Labs</span>
                 </h1>
               </div>
               
@@ -1860,7 +1861,7 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                 <span style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>J</span>
               </div>
               <h1 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
-                <span style={{ color: '#dc2626' }}>JABV</span><span style={{ color: 'white' }}>Labs</span>
+                <span style={{ color: 'white' }}>JABV</span><span style={{ color: '#dc2626' }}>Labs</span>
               </h1>
             </div>
             
@@ -2120,7 +2121,7 @@ export default function App() {
         <Route path="/dashboard">
           <AppLayout>
             {currentView === 'dashboard' && (
-              <Dashboard onProjectClick={handleProjectClick} />
+              <OptimizedDashboard onProjectClick={handleProjectClick} />
             )}
             {currentView === 'project-details' && selectedProjectId && (
               <ProjectDetails 
