@@ -4,6 +4,10 @@ import { ChevronDown, Phone, Mail, X } from 'lucide-react';
 export default function HeroWithBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [typewriterJABV, setTypewriterJABV] = useState('');
+  const [typewriterLabs, setTypewriterLabs] = useState('');
+  const [showJABVCursor, setShowJABVCursor] = useState(false);
+  const [showLabsCursor, setShowLabsCursor] = useState(false);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -16,6 +20,46 @@ export default function HeroWithBanner() {
     setIsVisible(true);
     const delay = setTimeout(() => setShowBanner(true), 1400);
     return () => clearTimeout(delay);
+  }, []);
+
+  // Typewriter effect for JABV Labs
+  useEffect(() => {
+    const jabvText = 'JABV';
+    const labsText = 'Labs';
+    
+    // Start typewriter after hero becomes visible
+    const startDelay = setTimeout(() => {
+      setShowJABVCursor(true);
+      
+      // Type "JABV" first
+      jabvText.split('').forEach((char, index) => {
+        setTimeout(() => {
+          setTypewriterJABV(prev => prev + char);
+        }, index * 100);
+      });
+      
+      // After "JABV" is complete, hide cursor and start "Labs"
+      setTimeout(() => {
+        setShowJABVCursor(false);
+        setShowLabsCursor(true);
+        
+        // Start typing "Labs" after 400ms delay
+        setTimeout(() => {
+          labsText.split('').forEach((char, index) => {
+            setTimeout(() => {
+              setTypewriterLabs(prev => prev + char);
+            }, index * 100);
+          });
+          
+          // Hide "Labs" cursor after completion
+          setTimeout(() => {
+            setShowLabsCursor(false);
+          }, labsText.length * 100 + 500);
+        }, 400);
+      }, jabvText.length * 100 + 200);
+    }, 800); // Sync with hero fade-in
+    
+    return () => clearTimeout(startDelay);
   }, []);
 
   return (
@@ -108,8 +152,20 @@ export default function HeroWithBanner() {
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
               <span className="block">Build Your Future with</span>
-              <span className="block bg-gradient-to-r from-red-500 via-red-400 to-red-600 bg-clip-text text-transparent">
-                JABV Labs
+              <span className="block min-h-[1.2em]">
+                <span className="text-white">
+                  {typewriterJABV}
+                  {showJABVCursor && <span className="animate-pulse">|</span>}
+                </span>
+                {typewriterJABV.length === 4 && (
+                  <>
+                    <span className="text-white"> </span>
+                    <span className="bg-gradient-to-r from-red-500 via-red-400 to-red-600 bg-clip-text text-transparent">
+                      {typewriterLabs}
+                      {showLabsCursor && <span className="animate-pulse text-red-500">|</span>}
+                    </span>
+                  </>
+                )}
               </span>
             </h1>
 
