@@ -69,40 +69,30 @@ export function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-8 flex items-center justify-center min-h-[400px]">
-              <svg viewBox="0 0 400 300" className="w-full h-full max-w-md">
-                {/* Background */}
-                <rect width="400" height="300" fill="url(#bgGradient)" />
-                
-                {/* Circuit board pattern */}
-                <g opacity="0.3">
-                  <path d="M50 50 L350 50" stroke="#C82222" strokeWidth="2" />
-                  <path d="M50 50 L50 250" stroke="#C82222" strokeWidth="2" />
-                  <path d="M350 50 L350 250" stroke="#C82222" strokeWidth="2" />
-                  <path d="M50 250 L350 250" stroke="#C82222" strokeWidth="2" />
-                  <path d="M50 150 L350 150" stroke="#C82222" strokeWidth="1" opacity="0.5" />
-                  <path d="M200 50 L200 250" stroke="#C82222" strokeWidth="1" opacity="0.5" />
-                </g>
-                
-                {/* Code symbols */}
-                <g fill="#C82222" opacity="0.6">
-                  <text x="100" y="100" fontSize="24" fontFamily="monospace">&lt;/&gt;</text>
-                  <text x="300" y="100" fontSize="24" fontFamily="monospace">{}</text>
-                  <text x="100" y="200" fontSize="24" fontFamily="monospace">[]</text>
-                  <text x="300" y="200" fontSize="24" fontFamily="monospace">()</text>
-                </g>
-                
-                {/* Central logo area */}
-                <circle cx="200" cy="150" r="40" fill="rgba(200, 34, 34, 0.2)" stroke="#C82222" strokeWidth="2" />
-                <text x="200" y="160" fontSize="20" fontFamily="bold" textAnchor="middle" fill="white">JABV</text>
-                
-                <defs>
-                  <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#1a1a1a" />
-                    <stop offset="100%" stopColor="#0a0a0a" />
-                  </linearGradient>
-                </defs>
-              </svg>
+            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-12 min-h-[400px] flex items-center justify-center">
+              <div className="text-center">
+                <div className="mb-8">
+                  <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center mb-6 shadow-2xl">
+                    <span className="text-4xl font-bold text-white">JL</span>
+                  </div>
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">JABV Labs</h3>
+                <p className="text-gray-300 text-lg mb-6">Innovation Through Code</p>
+                <div className="flex justify-center space-x-6 text-sm text-gray-400">
+                  <div className="flex items-center">
+                    <i className="fas fa-mobile-alt mr-2 text-red-500"></i>
+                    Mobile Apps
+                  </div>
+                  <div className="flex items-center">
+                    <i className="fas fa-globe mr-2 text-red-500"></i>
+                    Web Development
+                  </div>
+                  <div className="flex items-center">
+                    <i className="fas fa-code mr-2 text-red-500"></i>
+                    Custom Solutions
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div>

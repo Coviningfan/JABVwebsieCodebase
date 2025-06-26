@@ -134,6 +134,11 @@ Changelog:
   - Enhanced CSS animations with shimmer, fade-in, slide-in, and scale effects
   - Applied staggered animations across all sections of home and service pages
   - Integrated initial loading screen with variable progress simulation
+  - Fixed loading sequence: progress bar → loading screen fade out → typewriter starts
+  - Implemented session-based caching (loading only shows on page refresh)
+  - Fixed "JABVLabs" typewriter to display without spacing, proper 2s cursor blink
+  - Enhanced navigation bar z-index to stay visible during loading
+  - Replaced broken image with custom brand-focused graphic in About section
 ```
 
 ## User Preferences

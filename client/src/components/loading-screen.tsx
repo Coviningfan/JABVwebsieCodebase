@@ -29,14 +29,14 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
             clearInterval(interval);
             setIsComplete(true);
             
-            // Start fade out after progress is complete
+            // Wait briefly after progress completes, then start fade out
             setTimeout(() => {
               setFadeOut(true);
-              // Call onComplete after fade starts
+              // Call onComplete after fade animation completes
               setTimeout(() => {
                 onComplete?.();
-              }, 500); // Half second into the fade
-            }, 500); // Wait half second after loading completes
+              }, 1000); // Wait for full fade out duration
+            }, 800); // Brief pause after loading bar reaches 100%
             
             return 100;
           }

@@ -67,12 +67,16 @@ function App() {
   const handleLoadingComplete = () => {
     // Mark that loading has been shown in this session
     sessionStorage.setItem('hasLoadedOnce', 'true');
-    setLoadingComplete(true);
     
-    // Give a moment for the loading screen fade out, then hide it completely
+    // Set loading complete first to start typewriter
+    setTimeout(() => {
+      setLoadingComplete(true);
+    }, 100);
+    
+    // Hide loading screen after fade completes
     setTimeout(() => {
       setIsInitialLoading(false);
-    }, 1000); // 1 second for a nice fade out
+    }, 200);
   };
 
   return (
