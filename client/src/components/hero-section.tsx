@@ -233,18 +233,18 @@ export default function HeroWithBanner({ loadingComplete }: { loadingComplete?: 
             <h1 className="font-bold mb-6 leading-tight text-white">
               <div className="text-4xl md:text-5xl mb-4">
                 <span className="text-white">
-                  {animationStartedRef.current ? typewriterTagline : 'Build Your Future with'}
+                  {animationStartedRef.current ? typewriterTagline : ''}
                   {showTaglineCursor && <span className="animate-pulse">|</span>}
                 </span>
               </div>
-              {(taglineComplete || !animationStartedRef.current) && (
+              {taglineComplete && (
                 <div className="text-5xl md:text-7xl">
                   <span className="text-white">
-                    {animationStartedRef.current ? typewriterJABV : 'JABV'}
+                    {typewriterJABV}
                     {showJABVCursor && <span className="animate-pulse">|</span>}
                   </span>
                   <span style={{ color: '#C82222' }}>
-                    {animationStartedRef.current ? typewriterLabs : 'Labs'}
+                    {typewriterLabs}
                     {showLabsCursor && <span className="animate-pulse" style={{ color: '#C82222' }}>|</span>}
                   </span>
                 </div>
