@@ -17,20 +17,84 @@ CREATE TABLE IF NOT EXISTS user_profiles (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Create projects table
-CREATE TABLE IF NOT EXISTS projects (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  title TEXT NOT NULL,
-  description TEXT,
-  status TEXT DEFAULT 'active',
-  progress INTEGER DEFAULT 0,
-  client_id UUID REFERENCES user_profiles(id),
-  start_date DATE,
-  end_date DATE,
-  budget DECIMAL(10,2),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+-- Create projects table (or alter existing)
+DO $$ 
+BEGIN
+  -- Create table if it doesn't exist
+  CREATE TABLE IF NOT EXISTS projects (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    description TEXT,
+    status TEXT DEFAULT 'active',
+    progress INTEGER DEFAULT 0,
+    client_id UUID,
+    start_date DATE,
+    end_date DATE,
+    budget DECIMAL(10,2),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  );
+  
+  -- Add foreign key constraint if it doesn't exist
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_constraints 
+    WHERE constraint_name = 'projects_client_id_fkey'
+  ) THEN
+    ALTER TABLE projects ADD CONSTRAINT projects_client_id_fkey 
+    FOREIGN KEY (client_id) REFERENCES user_profiles(id);
+  END IF;
+  
+  -- Add missing columns if they don't exist
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'name') THEN
+    ALTER TABLE projects ADD COLUMN name TEXT;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'description') THEN
+    ALTER TABLE projects ADD COLUMN description TEXT;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'status') THEN
+    ALTER TABLE projects ADD COLUMN status TEXT DEFAULT 'active';
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'progress') THEN
+    ALTER TABLE projects ADD COLUMN progress INTEGER DEFAULT 0;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'client_id') THEN
+    ALTER TABLE projects ADD COLUMN client_id UUID;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'start_date') THEN
+    ALTER TABLE projects ADD COLUMN start_date DATE;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'end_date') THEN
+    ALTER TABLE projects ADD COLUMN end_date DATE;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'budget') THEN
+    ALTER TABLE projects ADD COLUMN budget DECIMAL(10,2);
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'created_at') THEN
+    ALTER TABLE projects ADD COLUMN created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                 WHERE table_name = 'projects' AND column_name = 'updated_at') THEN
+    ALTER TABLE projects ADD COLUMN updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+  END IF;
+END $$;
 
 -- Create project_messages table
 CREATE TABLE IF NOT EXISTS project_messages (
@@ -176,7 +240,7 @@ INSERT INTO user_profiles (id, email, full_name, company, role) VALUES
   ('550e8400-e29b-41d4-a716-446655440001', 'sarah@example.com', 'Sarah Johnson', 'Design Studio', 'client')
 ON CONFLICT (email) DO NOTHING;
 
-INSERT INTO projects (id, title, description, status, progress, client_id, start_date, end_date, budget) VALUES
+INSERT INTO projects (id, name, description, status, progress, client_id, start_date, end_date, budget) VALUES
   ('660e8400-e29b-41d4-a716-446655440000', 'Website Redesign', 'Complete website overhaul with modern design', 'active', 75, '550e8400-e29b-41d4-a716-446655440000', '2024-01-15', '2024-06-15', 25000.00),
   ('660e8400-e29b-41d4-a716-446655440001', 'Mobile App Development', 'iOS and Android app development', 'active', 45, '550e8400-e29b-41d4-a716-446655440001', '2024-02-01', '2024-08-01', 45000.00),
   ('660e8400-e29b-41d4-a716-446655440002', 'Brand Identity', 'Logo and brand guidelines development', 'completed', 100, '550e8400-e29b-41d4-a716-446655440000', '2023-11-01', '2024-01-01', 8000.00)
