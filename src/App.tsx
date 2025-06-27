@@ -93,19 +93,7 @@ function LoginScreen() {
         padding: '40px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
       }}>
-        {/* Test Account Setup Banner */}
-        <div style={{
-          backgroundColor: 'rgba(245, 158, 11, 0.1)',
-          border: '1px solid rgba(245, 158, 11, 0.3)',
-          borderRadius: '8px',
-          padding: '16px',
-          marginBottom: '24px',
-          textAlign: 'center'
-        }}>
-          <p style={{ color: '#10B981', fontSize: '14px', margin: '0 0 8px 0', fontWeight: '500' }}>Working Login:</p>
-          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>john.doe@company.com</p>
-          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>ClientPortal123</p>
-        </div>
+
 
         <div style={{ marginBottom: '32px' }}>
           <h2 style={{

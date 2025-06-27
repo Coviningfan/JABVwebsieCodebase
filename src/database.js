@@ -57,15 +57,12 @@ export const db = {
   async getProjects(userId) {
     const { data, error } = await supabase
       .from('projects')
-      .select(`
-        *,
-        project_members!inner(user_id)
-      `)
-      .eq('project_members.user_id', userId)
+      .select('*')
+      .eq('client_id', userId)
       .order('created_at', { ascending: false });
     
     if (error) throw error;
-    return data;
+    return data || [];
   },
 
   async getProject(id) {
