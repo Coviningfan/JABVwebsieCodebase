@@ -112,17 +112,17 @@ export const db = {
   async getRecentActivity(userId, limit = 20) {
     const { data, error } = await supabase
       .from('activity_log')
-      .select(`
-        *,
-        projects(name),
-        users(name)
-      `)
+      .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(limit);
     
-    if (error) throw error;
-    return data;
+    if (error) {
+      // If activity_log table doesn't exist, return empty array
+      console.log('Activity log not available:', error);
+      return [];
+    }
+    return data || [];
   },
 
   async logActivity(userId, projectId, activityType, description) {

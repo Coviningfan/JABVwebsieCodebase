@@ -26,6 +26,12 @@ class DataService {
     }
   }
 
+  // Force refresh user context when user changes
+  async refreshUserContext() {
+    this.currentUserId = null;
+    await this.init();
+  }
+
   // Get current user
   async getCurrentUser() {
     if (!this.currentUserId) {
@@ -46,19 +52,31 @@ class DataService {
   }
 
   // Get user projects
-  async getUserProjects(userId = this.currentUserId) {
-    if (!userId) return [];
+  async getUserProjects(userId = null) {
+    // Always get fresh user ID from auth service
+    const actualUserId = userId || await this.getFreshUserId();
+    if (!actualUserId) return [];
     
     if (this.demoMode) {
-      return demoProjects.filter(project => project.client_id === userId);
+      return demoProjects.filter(project => project.client_id === actualUserId);
     }
     
     try {
-      return await db.getProjects(userId);
+      return await db.getProjects(actualUserId);
     } catch (error) {
       console.error('Error getting user projects:', error);
       return [];
     }
+  }
+
+  // Get fresh user ID from auth service
+  async getFreshUserId() {
+    const user = await authService.getCurrentUser();
+    if (user && user.id) {
+      this.currentUserId = user.id;
+      return user.id;
+    }
+    return null;
   }
 
   // Get project stats
@@ -74,10 +92,13 @@ class DataService {
   }
 
   // Get recent activity
-  getRecentActivity(userId = this.currentUserId, limit = 10) {
+  async getRecentActivity(userId = null, limit = 10) {
+    const actualUserId = userId || await this.getFreshUserId();
+    if (!actualUserId) return [];
+    
     if (this.demoMode) {
       return demoActivity
-        .filter(activity => activity.user_id === userId)
+        .filter(activity => activity.user_id === actualUserId)
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, limit)
         .map(activity => ({
@@ -86,22 +107,12 @@ class DataService {
         }));
     }
 
-    return this.data.activity_log
-      .filter(activity => activity.user_id === userId || 
-        this.getUserProjects(userId).some(p => p.id === activity.project_id))
-      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      .slice(0, limit)
-      .map(activity => {
-        const project = this.data.projects.find(p => p.id === activity.project_id);
-        const user = this.data.users.find(u => u.id === activity.user_id);
-        
-        return {
-          ...activity,
-          project_name: project?.name,
-          user_name: user?.name,
-          time_ago: this.getTimeAgo(activity.created_at)
-        };
-      });
+    try {
+      return await db.getRecentActivity(actualUserId, limit);
+    } catch (error) {
+      console.error('Error getting recent activity:', error);
+      return [];
+    }
   }
 
   // Get project messages

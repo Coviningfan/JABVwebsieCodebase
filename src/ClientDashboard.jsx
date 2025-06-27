@@ -330,63 +330,112 @@ function ActivityItem({ activity }) {
 }
 
 export function ClientDashboard({ onProjectClick, onNavigate }) {
+  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
   const [dashboardData, setDashboardData] = useState({
     metrics: {
-      activeProjects: 3,
-      pendingTasks: 8,
-      unreadMessages: 2,
-      upcomingDeadlines: 1
+      activeProjects: 0,
+      pendingTasks: 0,
+      unreadMessages: 0,
+      upcomingDeadlines: 0
     },
-    projects: [
-      {
-        id: 1,
-        name: 'Website Redesign',
-        description: 'Complete overhaul of company website with modern design and improved user experience',
-        status: 'In Progress',
-        dueDate: 'Jan 15, 2025',
-        completedTasks: 12,
-        totalTasks: 18
-      },
-      {
-        id: 2,
-        name: 'Mobile App Development',
-        description: 'Native iOS and Android app for customer engagement and service management',
-        status: 'Active',
-        dueDate: 'Feb 28, 2025',
-        completedTasks: 5,
-        totalTasks: 24
-      },
-      {
-        id: 3,
-        name: 'Brand Identity Package',
-        description: 'Logo design, brand guidelines, and marketing materials for product launch',
-        status: 'Review',
-        dueDate: 'Dec 30, 2024',
-        completedTasks: 8,
-        totalTasks: 10
-      }
-    ],
-    recentActivity: [
-      {
-        type: 'task_completed',
-        title: 'Homepage design approved',
-        description: 'Website Redesign project milestone completed',
-        time: '2 hours ago'
-      },
-      {
-        type: 'message_received',
-        title: 'New message from project team',
-        description: 'Update on mobile app wireframe progress',
-        time: '4 hours ago'
-      },
-      {
-        type: 'file_uploaded',
-        title: 'Brand guidelines uploaded',
-        description: 'Final brand identity documents are ready for review',
-        time: '1 day ago'
-      }
-    ]
+    projects: [],
+    recentActivity: []
   });
+
+  useEffect(() => {
+    loadDashboardData();
+  }, []);
+
+  const loadDashboardData = async () => {
+    try {
+      setLoading(true);
+      
+      // Get fresh user data
+      await dataService.refreshUserContext();
+      const user = await dataService.getCurrentUser();
+      
+      if (user) {
+        setCurrentUser(user);
+        
+        // Get user's projects
+        const projects = await dataService.getUserProjects(user.id);
+        
+        // Get recent activity
+        const recentActivity = await dataService.getRecentActivity(user.id, 5);
+        
+        // Calculate metrics
+        const activeProjects = projects.filter(p => 
+          p.status === 'Active' || p.status === 'In Progress'
+        ).length;
+        
+        // Update dashboard data
+        setDashboardData({
+          metrics: {
+            activeProjects,
+            pendingTasks: 0, // Would come from tasks table
+            unreadMessages: 0, // Would come from messages table
+            upcomingDeadlines: projects.filter(p => {
+              const dueDate = new Date(p.end_date);
+              const today = new Date();
+              const daysDiff = (dueDate - today) / (1000 * 60 * 60 * 24);
+              return daysDiff > 0 && daysDiff < 7;
+            }).length
+          },
+          projects: projects.map(p => ({
+            id: p.id,
+            name: p.project_name,
+            description: p.description || 'No description available',
+            status: p.status || 'Active',
+            dueDate: p.end_date ? new Date(p.end_date).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric', 
+              year: 'numeric' 
+            }) : 'Not set',
+            completedTasks: 0,
+            totalTasks: 0
+          })),
+          recentActivity: recentActivity.map(activity => ({
+            type: activity.activity_type || 'update',
+            title: activity.description || 'Activity update',
+            description: activity.description || '',
+            time: dataService.getTimeAgo(activity.created_at)
+          }))
+        });
+      }
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div style={{ 
+        padding: '32px', 
+        maxWidth: '1400px', 
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '400px'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            border: '3px solid rgba(220, 38, 38, 0.2)',
+            borderTopColor: '#dc2626',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 16px'
+          }} />
+          <p style={{ color: '#a1a1aa' }}>Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: '32px', maxWidth: '1400px', margin: '0 auto' }}>
@@ -398,7 +447,7 @@ export function ClientDashboard({ onProjectClick, onNavigate }) {
           color: 'white',
           margin: '0 0 8px 0'
         }}>
-          Welcome Back
+          Welcome Back{currentUser?.full_name ? `, ${currentUser.full_name}` : ''}
         </h1>
         <p style={{
           color: '#a1a1aa',

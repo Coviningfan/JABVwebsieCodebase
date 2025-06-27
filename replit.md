@@ -147,6 +147,7 @@ The JABV Labs Client Portal is a modern React-based web application that provide
 - June 27, 2025. Identified working authentication credentials (john.doe@company.com / ClientPortal123) and added auto-profile creation for seamless user onboarding
 - June 27, 2025. Fixed database query to use direct client_id relationship instead of project_members table for proper data isolation
 - June 27, 2025. Removed redundant "working login" message from login screen per user request, keeping only demo login option
+- June 27, 2025. Critical authentication issue discovered: all users see John Doe's profile when logging in, indicating session isolation failure - implementing fixes to ensure proper user context switching
 
 ## User Preferences
 

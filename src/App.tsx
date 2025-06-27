@@ -39,6 +39,8 @@ function LoginScreen() {
       
       if (result.success) {
         console.log('Authentication successful');
+        // Refresh dataService to ensure correct user context
+        await dataService.refreshUserContext();
         window.location.href = '/dashboard';
       } else {
         setError(result.error || 'Login failed');
