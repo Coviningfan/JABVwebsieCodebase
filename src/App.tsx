@@ -105,6 +105,20 @@ function LoginScreen() {
         padding: '40px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
       }}>
+        {/* Demo Credentials Banner */}
+        <div style={{
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          border: '1px solid rgba(59, 130, 246, 0.3)',
+          borderRadius: '8px',
+          padding: '16px',
+          marginBottom: '24px',
+          textAlign: 'center'
+        }}>
+          <p style={{ color: '#93C5FD', fontSize: '14px', margin: '0 0 8px 0', fontWeight: '500' }}>Demo Login:</p>
+          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>demo@jabvlabs.com</p>
+          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>demo123</p>
+        </div>
+
         <div style={{ marginBottom: '32px' }}>
           <h2 style={{
             fontSize: '28px',

@@ -1,15 +1,22 @@
 import { db } from './database.js';
 import { authService } from './authService.js';
+import { demoProjects, demoTasks, demoMessages, demoActivity, demoUser } from './demoData.js';
 
-// Real database operations using Supabase
+// Database operations with demo mode support
 class DataService {
   constructor() {
     this.currentUserId = null;
+    this.demoMode = true; // Enable demo mode
     this.init();
   }
 
   async init() {
     try {
+      if (this.demoMode) {
+        this.currentUserId = demoUser.id;
+        return;
+      }
+      
       const user = await authService.getCurrentUser();
       if (user && user.profile) {
         this.currentUserId = user.id;
@@ -42,6 +49,10 @@ class DataService {
   async getUserProjects(userId = this.currentUserId) {
     if (!userId) return [];
     
+    if (this.demoMode) {
+      return demoProjects.filter(project => project.client_id === userId);
+    }
+    
     try {
       return await db.getProjects(userId);
     } catch (error) {
@@ -64,6 +75,17 @@ class DataService {
 
   // Get recent activity
   getRecentActivity(userId = this.currentUserId, limit = 10) {
+    if (this.demoMode) {
+      return demoActivity
+        .filter(activity => activity.user_id === userId)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, limit)
+        .map(activity => ({
+          ...activity,
+          time_ago: this.getTimeAgo(activity.created_at)
+        }));
+    }
+
     return this.data.activity_log
       .filter(activity => activity.user_id === userId || 
         this.getUserProjects(userId).some(p => p.id === activity.project_id))
@@ -84,6 +106,16 @@ class DataService {
 
   // Get project messages
   getProjectMessages(projectId) {
+    if (this.demoMode) {
+      return demoMessages
+        .filter(message => message.project_id === projectId)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .map(message => ({
+          ...message,
+          time_ago: this.getTimeAgo(message.created_at)
+        }));
+    }
+
     return this.data.project_messages
       .filter(message => message.project_id === projectId)
       .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))

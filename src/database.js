@@ -1,8 +1,29 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Direct Supabase configuration
-const supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6ZmNlZnZ1c2p6ZHpzZW9rZGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ3MzQ0MDMsImV4cCI6MjA1MDMxMDQwM30.BqJd4nSNPmhKUz2GE5F-9vQpxkv6YR8aXQLa9G_GIrU';
+// Extract project reference from environment variables
+const rawUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY;
+
+// Convert PostgreSQL URL to Supabase HTTP URL
+let supabaseUrl;
+if (rawUrl && rawUrl.includes('supabase.com')) {
+  // Extract project reference from the URL
+  const match = rawUrl.match(/([a-z0-9]+)\.pooler\.supabase\.com/);
+  if (match) {
+    const projectRef = match[1].split('.')[0];
+    supabaseUrl = `https://${projectRef}.supabase.co`;
+  } else {
+    // Fallback to qzfcefvusjzdzseokdla project
+    supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
+  }
+} else {
+  supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
+}
+
+console.log('Supabase URL configured:', supabaseUrl);
+console.log('Supabase Key loaded:', supabaseKey ? 'Yes' : 'No');
+
+// Remove automatic test to avoid initialization issues
 
 // Create Supabase client
 export const supabase = createClient(supabaseUrl, supabaseKey);

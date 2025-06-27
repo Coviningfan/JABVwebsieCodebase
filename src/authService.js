@@ -1,9 +1,11 @@
 import { supabase } from './database.js';
+import { demoUser } from './demoData.js';
 
 class AuthService {
   constructor() {
     this.currentUser = null;
     this.isAuthenticated = false;
+    this.demoMode = true; // Enable demo mode for immediate testing
   }
 
   async signUp(email, password, userData) {
@@ -42,6 +44,19 @@ class AuthService {
   }
 
   async signIn(email, password) {
+    // Demo mode for immediate testing
+    if (this.demoMode) {
+      if (email === 'demo@jabvlabs.com' && password === 'demo123') {
+        this.currentUser = demoUser;
+        this.isAuthenticated = true;
+        console.log('Demo authentication successful');
+        return { success: true, user: demoUser };
+      } else {
+        return { success: false, error: 'Demo credentials: demo@jabvlabs.com / demo123' };
+      }
+    }
+
+    // Real Supabase authentication
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
