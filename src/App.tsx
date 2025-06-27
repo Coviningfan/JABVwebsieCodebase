@@ -1687,16 +1687,6 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
         </svg>
       )
-    },
-    { 
-      name: 'Settings', 
-      href: '/settings', 
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
-        </svg>
-      )
     }
   ];
 
@@ -1854,7 +1844,11 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                     justifyContent: 'center',
                     marginRight: '12px'
                   }}>
-                    <span style={{ color: 'white', fontWeight: '500', fontSize: '14px' }}>JD</span>
+                    <span style={{ color: 'white', fontWeight: '500', fontSize: '14px' }}>
+                      {dataService.getCurrentUser()?.full_name ? 
+                        dataService.getCurrentUser().full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 
+                        'U'}
+                    </span>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: '14px', fontWeight: '500', color: 'white', margin: 0 }}>
@@ -2063,6 +2057,8 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [showProfileSettings, setShowProfileSettings] = useState(false);
 
   return (
     <div style={{
@@ -2143,17 +2139,29 @@ function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
           
           {/* User Menu */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(24, 24, 27, 0.8)',
-              border: '1px solid rgba(63, 63, 70, 0.4)',
-              borderRadius: '8px',
-              padding: '8px 12px',
-              cursor: 'pointer'
-            }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', position: 'relative' }}>
+            <div 
+              onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(24, 24, 27, 0.8)',
+                border: '1px solid rgba(63, 63, 70, 0.4)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(24, 24, 27, 1)';
+                e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(24, 24, 27, 0.8)';
+                e.currentTarget.style.borderColor = 'rgba(63, 63, 70, 0.4)';
+              }}
+            >
               <div style={{
                 width: '32px',
                 height: '32px',
@@ -2161,11 +2169,115 @@ function AppLayout({ children }: { children: React.ReactNode }) {
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                overflow: 'hidden'
               }}>
-                <span style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>U</span>
+                {dataService.getCurrentUser()?.profile_picture_url ? (
+                  <img 
+                    src={dataService.getCurrentUser().profile_picture_url} 
+                    alt="Profile" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <span style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>
+                    {dataService.getCurrentUser()?.full_name ? 
+                      dataService.getCurrentUser().full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 
+                      'U'}
+                  </span>
+                )}
               </div>
             </div>
+            
+            {/* Profile Dropdown */}
+            {profileDropdownOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                right: 0,
+                marginTop: '8px',
+                background: '#18181b',
+                border: '1px solid rgba(63, 63, 70, 0.4)',
+                borderRadius: '8px',
+                padding: '8px',
+                minWidth: '200px',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                zIndex: 50
+              }}>
+                <div style={{ padding: '8px 12px', borderBottom: '1px solid rgba(63, 63, 70, 0.4)' }}>
+                  <p style={{ margin: 0, color: 'white', fontWeight: '500', fontSize: '14px' }}>
+                    {dataService.getCurrentUser()?.full_name || 'User'}
+                  </p>
+                  <p style={{ margin: 0, color: '#9ca3af', fontSize: '12px' }}>
+                    {dataService.getCurrentUser()?.email || 'Loading...'}
+                  </p>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    setShowProfileSettings(true);
+                    setProfileDropdownOpen(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px',
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#e5e7eb',
+                    cursor: 'pointer',
+                    borderRadius: '6px',
+                    textAlign: 'left',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(63, 63, 70, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                  }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6m0 6v6m6-12h6M6 12H0m16.24-4.24l-4.24 4.24m-8 0L1.76 7.76m12.48 8.48l4.24 4.24m-8 0l-4.24 4.24"/>
+                  </svg>
+                  Profile Settings
+                </button>
+                
+                <button
+                  onClick={async () => {
+                    await authService.signOut();
+                    window.location.href = '/';
+                  }}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px',
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#ef4444',
+                    cursor: 'pointer',
+                    borderRadius: '6px',
+                    textAlign: 'left',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                  }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M15 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H15M10 17L15 12M15 12L10 7M15 12H3"/>
+                  </svg>
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         </div>
         
