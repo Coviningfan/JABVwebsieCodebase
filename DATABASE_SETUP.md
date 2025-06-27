@@ -8,7 +8,7 @@
 
 2. **Run the Migration**
    - Click "New query" button
-   - Copy ALL the contents from `supabase/migrations/001_initial_schema.sql`
+   - Copy ALL the contents from `supabase/migrations/002_new_initial_schema.sql`
    - Paste it into the SQL Editor
    - Click "Run" button
 

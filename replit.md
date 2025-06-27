@@ -142,6 +142,7 @@ The JABV Labs Client Portal is a modern React-based web application that provide
 - June 27, 2025. Updated database schema to match user's actual Supabase structure: `clients` table with columns (id, full_name, company_name, phone, email, created_at)
 - June 27, 2025. Removed automatic database setup using non-existent `exec_sql` function - database tables must be created manually via Supabase SQL Editor
 - June 27, 2025. Created comprehensive SQL migration file (supabase/migrations/001_initial_schema.sql) that works with existing `clients` table structure
+- June 27, 2025. Fixed "user_profiles does not exist" error by creating new migration file (002_new_initial_schema.sql) with all references correctly pointing to `clients` table
 
 ## User Preferences
 
