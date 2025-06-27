@@ -73,9 +73,37 @@ class AuthService {
 
       if (profileError) {
         console.error('Profile fetch error:', profileError);
+        // Auto-create profile if user exists in auth but not in clients table
+        if (profileError.code === 'PGRST116') {
+          const userData = {
+            id: data.user.id,
+            email: data.user.email,
+            full_name: data.user.user_metadata?.full_name || data.user.email.split('@')[0],
+            company_name: data.user.user_metadata?.company_name || '',
+            phone: data.user.user_metadata?.phone || '',
+            created_at: new Date().toISOString()
+          };
+
+          const { data: newProfile, error: createError } = await supabase
+            .from('clients')
+            .insert(userData)
+            .select()
+            .single();
+
+          if (createError) {
+            console.error('Profile creation error:', createError);
+            return { success: false, error: 'Failed to create user profile' };
+          }
+
+          console.log('Profile created successfully:', newProfile);
+          this.currentUser = { ...data.user, profile: newProfile };
+        } else {
+          return { success: false, error: 'Failed to fetch user profile' };
+        }
+      } else {
+        this.currentUser = { ...data.user, profile };
       }
 
-      this.currentUser = { ...data.user, profile };
       this.isAuthenticated = true;
 
       return { success: true, user: this.currentUser };
