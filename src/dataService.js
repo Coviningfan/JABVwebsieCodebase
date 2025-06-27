@@ -6,7 +6,7 @@ import { demoProjects, demoTasks, demoMessages, demoActivity, demoUser } from '.
 class DataService {
   constructor() {
     this.currentUserId = null;
-    this.demoMode = true; // Enable demo mode
+    this.demoMode = false; // Switch to production mode
     this.init();
   }
 
