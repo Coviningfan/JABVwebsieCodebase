@@ -102,9 +102,9 @@ function LoginScreen() {
           marginBottom: '24px',
           textAlign: 'center'
         }}>
-          <p style={{ color: '#F59E0B', fontSize: '14px', margin: '0 0 8px 0', fontWeight: '500' }}>Test Login:</p>
-          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>john@example.com</p>
-          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>password123</p>
+          <p style={{ color: '#10B981', fontSize: '14px', margin: '0 0 8px 0', fontWeight: '500' }}>Working Login:</p>
+          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>john.doe@company.com</p>
+          <p style={{ color: 'white', fontSize: '14px', fontFamily: 'monospace', margin: '2px 0' }}>ClientPortal123</p>
         </div>
 
         <div style={{ marginBottom: '32px' }}>
