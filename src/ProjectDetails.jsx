@@ -10,8 +10,12 @@ export function ProjectDetails({ projectId, onBack }) {
 
   useEffect(() => {
     if (projectId) {
-      const projectData = dataService.getUserProjects().find(p => p.id === projectId);
-      setProject(projectData);
+      const loadProject = async () => {
+        const projects = await dataService.getUserProjects();
+        const projectData = projects.find(p => p.id === projectId);
+        setProject(projectData);
+      };
+      loadProject();
       
       // Load project files
       setFiles([

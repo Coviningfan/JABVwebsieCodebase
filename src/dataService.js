@@ -62,8 +62,8 @@ class DataService {
   }
 
   // Get project stats
-  getProjectStats(userId = this.currentUserId) {
-    const projects = this.getUserProjects(userId);
+  async getProjectStats(userId = this.currentUserId) {
+    const projects = await this.getUserProjects(userId);
     
     return {
       total: projects.length,
