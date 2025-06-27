@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 -- Create projects table
 CREATE TABLE IF NOT EXISTS projects (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name TEXT NOT NULL,
+  title TEXT NOT NULL,
   description TEXT,
   status TEXT DEFAULT 'active',
   progress INTEGER DEFAULT 0,
@@ -176,7 +176,7 @@ INSERT INTO user_profiles (id, email, full_name, company, role) VALUES
   ('550e8400-e29b-41d4-a716-446655440001', 'sarah@example.com', 'Sarah Johnson', 'Design Studio', 'client')
 ON CONFLICT (email) DO NOTHING;
 
-INSERT INTO projects (id, name, description, status, progress, client_id, start_date, end_date, budget) VALUES
+INSERT INTO projects (id, title, description, status, progress, client_id, start_date, end_date, budget) VALUES
   ('660e8400-e29b-41d4-a716-446655440000', 'Website Redesign', 'Complete website overhaul with modern design', 'active', 75, '550e8400-e29b-41d4-a716-446655440000', '2024-01-15', '2024-06-15', 25000.00),
   ('660e8400-e29b-41d4-a716-446655440001', 'Mobile App Development', 'iOS and Android app development', 'active', 45, '550e8400-e29b-41d4-a716-446655440001', '2024-02-01', '2024-08-01', 45000.00),
   ('660e8400-e29b-41d4-a716-446655440002', 'Brand Identity', 'Logo and brand guidelines development', 'completed', 100, '550e8400-e29b-41d4-a716-446655440000', '2023-11-01', '2024-01-01', 8000.00)
