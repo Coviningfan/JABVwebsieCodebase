@@ -4,8 +4,8 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Create user_profiles table
-CREATE TABLE IF NOT EXISTS user_profiles (
+-- Create clients table (or use existing)
+CREATE TABLE IF NOT EXISTS clients (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email TEXT UNIQUE NOT NULL,
   full_name TEXT NOT NULL,
@@ -41,7 +41,7 @@ BEGIN
     WHERE constraint_name = 'projects_client_id_fkey'
   ) THEN
     ALTER TABLE projects ADD CONSTRAINT projects_client_id_fkey 
-    FOREIGN KEY (client_id) REFERENCES user_profiles(id);
+    FOREIGN KEY (client_id) REFERENCES clients(id);
   END IF;
   
   -- Add missing columns if they don't exist
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 -- Create activity_log table
 CREATE TABLE IF NOT EXISTS activity_log (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES user_profiles(id),
+  user_id UUID REFERENCES clients(id),
   project_id UUID REFERENCES projects(id),
   activity_type TEXT NOT NULL,
   description TEXT NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS activity_log (
 -- Create support_tickets table
 CREATE TABLE IF NOT EXISTS support_tickets (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES user_profiles(id),
+  user_id UUID REFERENCES clients(id),
   project_id UUID REFERENCES projects(id),
   subject TEXT NOT NULL,
   description TEXT NOT NULL,
@@ -235,7 +235,7 @@ CREATE POLICY "Users can view their invoices" ON invoices
   FOR SELECT USING (auth.uid()::text = client_id::text);
 
 -- Insert sample data
-INSERT INTO user_profiles (id, email, full_name, company, role) VALUES
+INSERT INTO clients (id, email, full_name, company, role) VALUES
   ('550e8400-e29b-41d4-a716-446655440000', 'john@example.com', 'John Smith', 'Tech Corp', 'client'),
   ('550e8400-e29b-41d4-a716-446655440001', 'sarah@example.com', 'Sarah Johnson', 'Design Studio', 'client')
 ON CONFLICT (email) DO NOTHING;
