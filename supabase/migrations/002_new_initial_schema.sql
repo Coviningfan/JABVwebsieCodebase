@@ -278,3 +278,8 @@ CREATE TRIGGER update_support_tickets_updated_at BEFORE UPDATE ON support_ticket
 
 CREATE TRIGGER update_invoices_updated_at BEFORE UPDATE ON invoices
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+-- Correct foreign key by adding the required data in the users table.
+INSERT INTO users (id, full_name, email) VALUES
+  ('550e8400-e29b-41d4-a716-446655440000', 'John Smith', 'john@example.com'),
+  ('550e8400-e29b-41d4-a716-446655440001', 'Sarah Johnson', 'sarah@example.com')
+ON CONFLICT (id) DO NOTHING;

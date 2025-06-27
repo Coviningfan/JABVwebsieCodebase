@@ -5,7 +5,7 @@ class AuthService {
   constructor() {
     this.currentUser = null;
     this.isAuthenticated = false;
-    this.demoMode = true; // Enable demo mode for immediate testing
+    this.demoMode = false; // Production mode - use real Supabase authentication
   }
 
   async signUp(email, password, userData) {
