@@ -1857,8 +1857,12 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                     <span style={{ color: 'white', fontWeight: '500', fontSize: '14px' }}>JD</span>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: '14px', fontWeight: '500', color: 'white', margin: 0 }}>John Doe</p>
-                    <p style={{ fontSize: '12px', color: '#9ca3af', margin: 0 }}>john.doe@company.com</p>
+                    <p style={{ fontSize: '14px', fontWeight: '500', color: 'white', margin: 0 }}>
+                      {dataService.getCurrentUser()?.full_name || 'User'}
+                    </p>
+                    <p style={{ fontSize: '12px', color: '#9ca3af', margin: 0 }}>
+                      {dataService.getCurrentUser()?.email || 'Loading...'}
+                    </p>
                   </div>
                 </div>
                 <button
@@ -1886,7 +1890,11 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boo
                     e.target.style.color = '#d1d5db';
                   }}
                 >
-                  <span style={{ marginRight: '12px' }}>↪️</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '12px' }}>
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                  </svg>
                   Sign Out
                 </button>
               </div>
@@ -2157,10 +2165,6 @@ function AppLayout({ children }: { children: React.ReactNode }) {
               }}>
                 <span style={{ color: 'white', fontSize: '14px', fontWeight: '600' }}>U</span>
               </div>
-              <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>User</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" strokeWidth="1.5">
-                <polyline points="6,9 12,15 18,9"/>
-              </svg>
             </div>
           </div>
         </div>
