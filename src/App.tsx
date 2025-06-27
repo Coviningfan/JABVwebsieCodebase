@@ -23,22 +23,10 @@ function LoginScreen() {
 
   // Initialize database on component mount
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        console.log('Setting up database tables...');
-        await setupDatabase();
-        console.log('Seeding database with sample data...');
-        await seedDatabase();
-        console.log('Database initialization complete');
-      } catch (error) {
-        console.error('Database initialization failed:', error);
-        // Continue anyway - tables might already exist
-      } finally {
-        setIsInitializing(false);
-      }
-    };
-
-    initializeApp();
+    // Database setup should be done manually via Supabase SQL Editor
+    // using the migration file at supabase/migrations/001_initial_schema.sql
+    console.log('Please run the SQL migration in Supabase SQL Editor');
+    setIsInitializing(false);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {

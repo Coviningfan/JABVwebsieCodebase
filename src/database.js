@@ -33,7 +33,7 @@ export const db = {
   // Users
   async getUser(id) {
     const { data, error } = await supabase
-      .from('users')
+      .from('clients')
       .select('*')
       .eq('id', id)
       .single();
@@ -44,7 +44,7 @@ export const db = {
 
   async getUserByEmail(email) {
     const { data, error } = await supabase
-      .from('users')
+      .from('clients')
       .select('*')
       .eq('email', email)
       .single();

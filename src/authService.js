@@ -23,13 +23,12 @@ class AuthService {
       // Create user profile
       if (data.user) {
         const { error: profileError } = await supabase
-          .from('users')
+          .from('clients')
           .insert({
             id: data.user.id,
             email,
             full_name: userData.full_name,
-            role: userData.role || 'client',
-            company: userData.company,
+            company_name: userData.company,
             phone: userData.phone
           });
 
@@ -67,7 +66,7 @@ class AuthService {
 
       // Get user profile
       const { data: profile, error: profileError } = await supabase
-        .from('users')
+        .from('clients')
         .select('*')
         .eq('id', data.user.id)
         .single();
@@ -108,7 +107,7 @@ class AuthService {
       if (user) {
         // Get user profile
         const { data: profile, error: profileError } = await supabase
-          .from('users')
+          .from('clients')
           .select('*')
           .eq('id', user.id)
           .single();

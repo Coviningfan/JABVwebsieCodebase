@@ -7,14 +7,11 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Create clients table (or use existing)
 CREATE TABLE IF NOT EXISTS clients (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  email TEXT UNIQUE NOT NULL,
   full_name TEXT NOT NULL,
-  company TEXT,
-  role TEXT DEFAULT 'client',
-  avatar_url TEXT,
+  company_name TEXT,
   phone TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  email TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Create projects table (or alter existing)
@@ -235,10 +232,10 @@ CREATE POLICY "Users can view their invoices" ON invoices
   FOR SELECT USING (auth.uid()::text = client_id::text);
 
 -- Insert sample data
-INSERT INTO clients (id, email, full_name, company, role) VALUES
-  ('550e8400-e29b-41d4-a716-446655440000', 'john@example.com', 'John Smith', 'Tech Corp', 'client'),
-  ('550e8400-e29b-41d4-a716-446655440001', 'sarah@example.com', 'Sarah Johnson', 'Design Studio', 'client')
-ON CONFLICT (email) DO NOTHING;
+INSERT INTO clients (id, full_name, company_name, phone, email) VALUES
+  ('550e8400-e29b-41d4-a716-446655440000', 'John Smith', 'Tech Corp', '555-0100', 'john@example.com'),
+  ('550e8400-e29b-41d4-a716-446655440001', 'Sarah Johnson', 'Design Studio', '555-0101', 'sarah@example.com')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO projects (id, project_name, description, status, progress, client_id, start_date, end_date, budget) VALUES
   ('660e8400-e29b-41d4-a716-446655440000', 'Website Redesign', 'Complete website overhaul with modern design', 'active', 75, '550e8400-e29b-41d4-a716-446655440000', '2024-01-15', '2024-06-15', 25000.00),
