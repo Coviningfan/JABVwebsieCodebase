@@ -1,26 +1,53 @@
-import { sampleData } from './initDatabase.js';
+import { db } from './database.js';
+import { authService } from './authService.js';
 
-// Simulate database operations with the sample data
+// Real database operations using Supabase
 class DataService {
   constructor() {
-    this.data = sampleData;
-    this.currentUserId = '550e8400-e29b-41d4-a716-446655440001'; // John Doe
+    this.currentUserId = null;
+    this.init();
+  }
+
+  async init() {
+    try {
+      const user = await authService.getCurrentUser();
+      if (user && user.profile) {
+        this.currentUserId = user.id;
+      }
+    } catch (error) {
+      console.error('DataService initialization failed:', error);
+    }
   }
 
   // Get current user
-  getCurrentUser() {
-    return this.data.users.find(user => user.id === this.currentUserId);
+  async getCurrentUser() {
+    if (!this.currentUserId) {
+      const user = await authService.getCurrentUser();
+      if (user && user.profile) {
+        this.currentUserId = user.id;
+        return user.profile;
+      }
+      return null;
+    }
+    
+    try {
+      return await db.getUser(this.currentUserId);
+    } catch (error) {
+      console.error('Error getting current user:', error);
+      return null;
+    }
   }
 
   // Get user projects
-  getUserProjects(userId = this.currentUserId) {
-    const userProjectIds = this.data.project_members
-      .filter(member => member.user_id === userId)
-      .map(member => member.project_id);
+  async getUserProjects(userId = this.currentUserId) {
+    if (!userId) return [];
     
-    return this.data.projects.filter(project => 
-      userProjectIds.includes(project.id)
-    );
+    try {
+      return await db.getProjects(userId);
+    } catch (error) {
+      console.error('Error getting user projects:', error);
+      return [];
+    }
   }
 
   // Get project stats

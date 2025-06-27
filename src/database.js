@@ -1,28 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Extract Supabase URL and key from DATABASE_URL
-const databaseUrl = import.meta.env.VITE_DATABASE_URL || process.env.DATABASE_URL;
-
-// Parse the DATABASE_URL to extract components
-let supabaseUrl, supabaseKey;
-
-if (databaseUrl) {
-  try {
-    const url = new URL(databaseUrl);
-    const host = url.hostname;
-    
-    // Extract project reference from hostname (e.g., abc123.supabase.co)
-    const projectRef = host.split('.')[0];
-    
-    supabaseUrl = `https://${projectRef}.supabase.co`;
-    
-    // For development, we'll use a placeholder for the anon key
-    // In production, this should be provided separately
-    supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6ZmNlZnZ1c2p6ZHpzZW9rZGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ3MzQ0MDMsImV4cCI6MjA1MDMxMDQwM30.placeholder';
-  } catch (error) {
-    console.error('Error parsing DATABASE_URL:', error);
-  }
-}
+// Direct Supabase configuration
+const supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6ZmNlZnZ1c2p6ZHpzZW9rZGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ3MzQ0MDMsImV4cCI6MjA1MDMxMDQwM30.BqJd4nSNPmhKUz2GE5F-9vQpxkv6YR8aXQLa9G_GIrU';
 
 // Create Supabase client
 export const supabase = createClient(supabaseUrl, supabaseKey);

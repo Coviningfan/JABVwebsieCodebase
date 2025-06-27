@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { dataService } from './dataService.js';
+import { authService } from './authService.js';
+import { setupDatabase, seedDatabase } from './setupDatabase.js';
 import { MessageCenter } from './MessageCenter.jsx';
 import { ProjectDetails } from './ProjectDetails.jsx';
 import { InvoicePage } from './InvoicePage.jsx';
@@ -15,10 +17,50 @@ function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [isInitializing, setIsInitializing] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Initialize database on component mount
+  useEffect(() => {
+    const initializeApp = async () => {
+      try {
+        console.log('Setting up database tables...');
+        await setupDatabase();
+        console.log('Seeding database with sample data...');
+        await seedDatabase();
+        console.log('Database initialization complete');
+      } catch (error) {
+        console.error('Database initialization failed:', error);
+        // Continue anyway - tables might already exist
+      } finally {
+        setIsInitializing(false);
+      }
+    };
+
+    initializeApp();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = '/dashboard';
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const result = await authService.signIn(email, password);
+      
+      if (result.success) {
+        console.log('Authentication successful');
+        window.location.href = '/dashboard';
+      } else {
+        setError(result.error || 'Login failed');
+      }
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
+      console.error('Login error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -230,41 +272,85 @@ function LoginScreen() {
             </div>
           </div>
 
+          {/* Error Display */}
+          {error && (
+            <div style={{
+              background: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              borderRadius: '8px',
+              padding: '12px',
+              marginBottom: '20px',
+              color: '#ef4444',
+              fontSize: '14px',
+              textAlign: 'center'
+            }}>
+              {error}
+            </div>
+          )}
+
+          {/* Loading Display */}
+          {isInitializing && (
+            <div style={{
+              background: 'rgba(59, 130, 246, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              borderRadius: '8px',
+              padding: '12px',
+              marginBottom: '20px',
+              color: '#3b82f6',
+              fontSize: '14px',
+              textAlign: 'center'
+            }}>
+              Setting up database... Please wait.
+            </div>
+          )}
+
           {/* Sign In Button */}
           <button
             type="submit"
+            disabled={isLoading || isInitializing}
             style={{
               width: '100%',
-              background: '#dc2626',
+              background: (isLoading || isInitializing) ? '#6b7280' : '#dc2626',
               color: 'white',
               padding: '14px 24px',
               borderRadius: '8px',
               fontSize: '16px',
               fontWeight: '600',
               border: 'none',
-              cursor: 'pointer',
+              cursor: (isLoading || isInitializing) ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s ease',
               marginBottom: '24px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px'
+              gap: '8px',
+              opacity: (isLoading || isInitializing) ? 0.7 : 1
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = '#b91c1c';
-              e.target.style.transform = 'translateY(-1px)';
+              if (!isLoading && !isInitializing) {
+                e.target.style.background = '#b91c1c';
+                e.target.style.transform = 'translateY(-1px)';
+              }
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = '#dc2626';
-              e.target.style.transform = 'translateY(0)';
+              if (!isLoading && !isInitializing) {
+                e.target.style.background = '#dc2626';
+                e.target.style.transform = 'translateY(0)';
+              }
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-              <polyline points="10,17 15,12 10,7"/>
-              <line x1="15" y1="12" x2="3" y2="12"/>
-            </svg>
-            Sign In
+            {isLoading ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ animation: 'spin 1s linear infinite' }}>
+                <path d="M21 12a9 9 0 11-6.219-8.56"/>
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10,17 15,12 10,7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+            )}
+            {isLoading ? 'Signing In...' : 'Sign In'}
           </button>
 
           {/* Forgot Password */}
