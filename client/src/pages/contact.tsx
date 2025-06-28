@@ -12,7 +12,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
-import { initializeWebhookListener } from '../../elevenlabs-redirect-to-form'; // Corregida la ruta
+import { initializeWebhookListener } from '../elevenlabs-redirect-to-form'; // Corregida la ruta
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
