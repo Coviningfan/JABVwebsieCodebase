@@ -7,7 +7,7 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 export default defineConfig({
   plugins: [
     react({
-      include: ["**/*.ts", "**/*.tsx"], // Procesar .ts y .tsx en todas las carpetas
+      include: ["**/*.ts", "**/*.tsx", "**/*.js"], // Procesar .ts, .tsx y .js
     }),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
