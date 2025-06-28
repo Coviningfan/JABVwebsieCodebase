@@ -61,7 +61,7 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-relaxed">
               Let's Build
               <span className="gradient-text block mt-2">Something Amazing</span>
             </h1>
