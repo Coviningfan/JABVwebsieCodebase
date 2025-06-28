@@ -1,18 +1,18 @@
-// client/elevenlabs-redirect-to-form/index.ts
+// client/elevenlabs-redirect-to-form.ts
 import { Conversation } from '@11labs/client';
 
-// Función para manejar la respuesta del webhook
+// Function to handle the webhook response
 export const handleWebhookResponse = (response: any) => {
   if (response.redirect_url) {
-    window.location.href = response.redirect_url; // Redirige a https://jabvlabs.com/contact
+    window.location.href = response.redirect_url; // Redirects to https://jabvlabs.com/contact
   }
 };
 
-// Inicializa el listener para el webhook
+// Initialize the webhook listener
 export const initializeWebhookListener = async () => {
   try {
     const conversation = await Conversation.startSession({
-      agentId: 'agent_01jynfyb8neqkby2q4esd71ybw', // Tu agentId
+      agentId: 'agent_01jynfyb8neqkby2q4esd71ybw', // Provided Agent ID
       clientTools: {
         Redirect_To_Contact_Form: async () => {
           handleWebhookResponse({ redirect_url: 'https://jabvlabs.com/contact' });
