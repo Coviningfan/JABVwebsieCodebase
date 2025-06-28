@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// client/src/contact.tsx
+import { useState, useEffect } from 'react'; // Añadido useEffect
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -12,6 +13,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
+import { initializeWebhookListener } from '../elevenlabs-redirect-to-form'; // Añadida importación
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -51,6 +53,11 @@ export default function Contact() {
   const onSubmit = (data: InsertContact) => {
     contactMutation.mutate(data);
   };
+
+  // Initialize ElevenLabs webhook listener
+  useEffect(() => {
+    initializeWebhookListener(); // Start the webhook listener
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white">
