@@ -1,0 +1,26 @@
+// client/elevenlabs-redirect-to-form/index.ts
+import { Conversation } from '@11labs/client';
+
+// Función para manejar la respuesta del webhook
+export const handleWebhookResponse = (response: any) => {
+  if (response.redirect_url) {
+    window.location.href = response.redirect_url; // Redirige a https://jabvlabs.com/contact
+  }
+};
+
+// Inicializa el listener para el webhook
+export const initializeWebhookListener = async () => {
+  try {
+    const conversation = await Conversation.startSession({
+      agentId: import.meta.env.VITE_ELEVENLABS_AGENT_ID, // Usa variable de entorno
+      clientTools: {
+        Redirect_To_Contact_Form: async () => {
+          handleWebhookResponse({ redirect_url: 'https://jabvlabs.com/contact' });
+          return 'Redirect initiated';
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Error initializing ElevenLabs conversation:', error);
+  }
+};
