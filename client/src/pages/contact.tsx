@@ -19,11 +19,13 @@ export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
   const { toast } = useToast();
 
+  // Add phone field to the form
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
     defaultValues: {
       name: '',
       email: '',
+      phone: '',  // Added this line
       projectType: '',
       message: '',
     },
@@ -138,6 +140,25 @@ export default function Contact() {
                             <Input 
                               type="email"
                               placeholder="john@example.com" 
+                              className="bg-black/50 border-gray-600/50 text-white placeholder-gray-500 focus:border-red-500 focus:ring-red-500/20 rounded-xl h-12 backdrop-blur-sm"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-300 text-sm font-medium">Phone Number (Optional)</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="tel"
+                              placeholder="+1 (775) 555-0123" 
                               className="bg-black/50 border-gray-600/50 text-white placeholder-gray-500 focus:border-red-500 focus:ring-red-500/20 rounded-xl h-12 backdrop-blur-sm"
                               {...field} 
                             />
