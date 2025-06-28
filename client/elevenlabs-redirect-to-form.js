@@ -1,8 +1,8 @@
-// client/elevenlabs-redirect-to-form.ts
+// client/elevenlabs-redirect-to-form.js
 import { Conversation } from '@11labs/client';
 
 // Function to handle the webhook response
-export const handleWebhookResponse = (response: any) => {
+export const handleWebhookResponse = (response) => {
   if (response.redirect_url) {
     window.location.href = response.redirect_url; // Redirects to https://jabvlabs.com/contact
   }
