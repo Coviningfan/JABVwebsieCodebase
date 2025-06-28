@@ -1,210 +1,170 @@
-const programmingLanguages = [
-  { icon: "fab fa-js-square", name: "JavaScript", color: "text-yellow-400" },
-  { icon: "fab fa-python", name: "Python", color: "text-blue-400" },
-  { icon: "fab fa-java", name: "Java", color: "text-orange-500" },
-  { icon: "fab fa-swift", name: "Swift", color: "text-orange-400" },
-  { icon: "fab fa-android", name: "Kotlin", color: "text-purple-400" },
-  { icon: "fab fa-react", name: "TypeScript", color: "text-blue-500" },
-  { icon: "fas fa-code", name: "C++", color: "text-indigo-400" },
-  { icon: "fab fa-rust", name: "Rust", color: "text-orange-600" },
-  { icon: "fab fa-golang", name: "Go", color: "text-cyan-400" },
-  { icon: "fas fa-hashtag", name: "C#", color: "text-purple-500" },
-  { icon: "fab fa-php", name: "PHP", color: "text-indigo-500" },
-  { icon: "fab fa-r-project", name: "R", color: "text-blue-600" }
-];
-
-const frameworks = [
-  { icon: "fab fa-react", name: "React", color: "text-cyan-400" },
-  { icon: "fab fa-node-js", name: "Node.js", color: "text-green-400" },
-  { icon: "fab fa-vuejs", name: "Vue.js", color: "text-green-500" },
-  { icon: "fas fa-mobile-alt", name: "React Native", color: "text-blue-400" },
-  { icon: "fas fa-layer-group", name: "Next.js", color: "text-gray-300" },
-  { icon: "fas fa-fire", name: "Express.js", color: "text-yellow-500" }
-];
-
-const cloudPlatforms = [
-  { icon: "fab fa-aws", name: "AWS", color: "text-orange-400" },
-  { icon: "fab fa-google", name: "Google Cloud", color: "text-blue-400" },
-  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-600" },
-  { icon: "fas fa-server", name: "Vercel", color: "text-gray-300" },
-  { icon: "fas fa-cloud", name: "Netlify", color: "text-green-400" },
-  { icon: "fab fa-digital-ocean", name: "DigitalOcean", color: "text-blue-500" }
-];
-
-const cloudTech = [
-  { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" },
-  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
-  { icon: "fab fa-google", name: "Firebase", color: "text-yellow-500" },
-  { icon: "fas fa-database", name: "Supabase", color: "text-green-400" },
-  { icon: "fas fa-server", name: "PostgreSQL", color: "text-blue-600" },
-  { icon: "fas fa-cloud", name: "DynamoDB", color: "text-orange-400" }
-];
-
-const mlTech = [
-  { icon: "fas fa-brain", name: "TensorFlow", color: "text-orange-400" },
-  { icon: "fas fa-robot", name: "PyTorch", color: "text-red-500" },
-  { icon: "fas fa-chart-line", name: "Scikit-learn", color: "text-blue-400" },
-  { icon: "fas fa-cogs", name: "Keras", color: "text-red-400" },
-  { icon: "fas fa-network-wired", name: "TensorFlow.js", color: "text-yellow-400" },
-  { icon: "fas fa-microchip", name: "SageMaker", color: "text-orange-500" }
-];
-
-const techStack = [
-  { category: "Languages", items: programmingLanguages },
-  { category: "Frameworks", items: frameworks },
-  { category: "Cloud & DevOps", items: cloudPlatforms },
-  { category: "AI & Machine Learning", items: mlTech }
-];
+import React from 'react';
 
 export function AboutSection() {
+  const languages = [
+    { icon: "fab fa-js-square", name: "JavaScript", color: "text-yellow-400" },
+    { icon: "fab fa-html5", name: "HTML5", color: "text-orange-500" },
+    { icon: "fab fa-css3-alt", name: "CSS3", color: "text-blue-500" },
+    { icon: "fab fa-python", name: "Python", color: "text-green-400" },
+    { icon: "fab fa-swift", name: "Swift", color: "text-orange-400" },
+    { icon: "fab fa-java", name: "Java", color: "text-red-500" },
+    { icon: "fas fa-code", name: "TypeScript", color: "text-blue-400" },
+    { icon: "fas fa-code", name: "Kotlin", color: "text-purple-500" }
+  ];
+
+  const frameworks = [
+    { icon: "fab fa-react", name: "React", color: "text-blue-400" },
+    { icon: "fab fa-node-js", name: "Node.js", color: "text-green-500" },
+    { icon: "fas fa-layer-group", name: "Next.js", color: "text-gray-300" },
+    { icon: "fab fa-angular", name: "Angular", color: "text-red-500" },
+    { icon: "fab fa-vuejs", name: "Vue.js", color: "text-green-400" },
+    { icon: "fas fa-mobile-alt", name: "React Native", color: "text-blue-300" },
+    { icon: "fab fa-laravel", name: "Laravel", color: "text-red-400" },
+    { icon: "fas fa-code", name: "Express.js", color: "text-gray-400" }
+  ];
+
+  const cloudTech = [
+    { icon: "fab fa-aws", name: "AWS", color: "text-orange-400" },
+    { icon: "fab fa-google", name: "Google Cloud", color: "text-blue-400" },
+    { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
+    { icon: "fas fa-database", name: "PostgreSQL", color: "text-blue-600" },
+    { icon: "fas fa-database", name: "MongoDB", color: "text-green-500" },
+    { icon: "fab fa-docker", name: "Docker", color: "text-blue-400" },
+    { icon: "fas fa-cubes", name: "Kubernetes", color: "text-blue-300" },
+    { icon: "fas fa-fire", name: "Firebase", color: "text-yellow-500" }
+  ];
+
+  const mlTech = [
+    { icon: "fas fa-brain", name: "TensorFlow", color: "text-orange-500" },
+    { icon: "fas fa-robot", name: "PyTorch", color: "text-red-500" },
+    { icon: "fas fa-chart-line", name: "Scikit-learn", color: "text-blue-400" },
+    { icon: "fas fa-eye", name: "OpenCV", color: "text-green-400" },
+    { icon: "fas fa-microphone", name: "NLP", color: "text-purple-400" },
+    { icon: "fas fa-network-wired", name: "Neural Networks", color: "text-pink-400" },
+    { icon: "fas fa-cogs", name: "AutoML", color: "text-yellow-400" },
+    { icon: "fas fa-cloud", name: "MLOps", color: "text-indigo-400" }
+  ];
+
   return (
-    <section id="about" className="py-20 bg-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 bg-black relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-900/5 via-transparent to-blue-900/5"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">About JABV Labs</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Our Story
+          </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Innovation-driven development from the heart of Nevada
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-black p-8">
-              <div className="grid grid-cols-2 gap-6 h-80">
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-20">
+          {/* Left Side - Visual Cards */}
+          <div className="order-2 lg:order-1">
+            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-black p-6 md:p-8">
+              <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {/* ROI focused illustration */}
-                <div className="bg-gradient-to-br from-red-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-chart-line text-white text-2xl"></i>
+                <div className="bg-gradient-to-br from-red-600/20 to-black/40 rounded-xl p-4 md:p-6 flex flex-col justify-center items-center min-h-[140px] md:min-h-[160px]">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 md:mb-4">
+                    <i className="fas fa-chart-line text-white text-lg md:text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Proven ROI</h4>
-                  <p className="text-gray-400 text-sm text-center">Digital solutions that increase revenue</p>
+                  <h4 className="text-base md:text-lg font-bold text-white mb-1 md:mb-2 text-center">Proven ROI</h4>
+                  <p className="text-gray-400 text-xs md:text-sm text-center leading-tight">Digital solutions that increase revenue</p>
                 </div>
                 
                 {/* Speed to market illustration */}
-                <div className="bg-gradient-to-br from-blue-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-rocket text-white text-2xl"></i>
+                <div className="bg-gradient-to-br from-blue-600/20 to-black/40 rounded-xl p-4 md:p-6 flex flex-col justify-center items-center min-h-[140px] md:min-h-[160px]">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-600 rounded-full flex items-center justify-center mb-3 md:mb-4">
+                    <i className="fas fa-rocket text-white text-lg md:text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Fast Delivery</h4>
-                  <p className="text-gray-400 text-sm text-center">Launch faster than competitors</p>
+                  <h4 className="text-base md:text-lg font-bold text-white mb-1 md:mb-2 text-center">Fast Delivery</h4>
+                  <p className="text-gray-400 text-xs md:text-sm text-center leading-tight">Launch faster than competitors</p>
                 </div>
-                
-                {/* Custom development illustration */}
-                <div className="bg-gradient-to-br from-green-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-shield-alt text-white text-2xl"></i>
+
+                {/* Security illustration */}
+                <div className="bg-gradient-to-br from-green-600/20 to-black/40 rounded-xl p-4 md:p-6 flex flex-col justify-center items-center min-h-[140px] md:min-h-[160px]">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-green-600 rounded-full flex items-center justify-center mb-3 md:mb-4">
+                    <i className="fas fa-shield-alt text-white text-lg md:text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Future-Proof</h4>
-                  <p className="text-gray-400 text-sm text-center">Scalable solutions that grow with you</p>
+                  <h4 className="text-base md:text-lg font-bold text-white mb-1 md:mb-2 text-center">Future-Proof</h4>
+                  <p className="text-gray-400 text-xs md:text-sm text-center leading-tight">Scalable technology that grows with you</p>
                 </div>
-                
-                {/* Customer satisfaction illustration */}
-                <div className="bg-gradient-to-br from-purple-600/20 to-black/40 rounded-xl p-6 flex flex-col justify-center items-center">
-                  <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-4">
-                    <i className="fas fa-handshake text-white text-2xl"></i>
+
+                {/* Partnership illustration */}
+                <div className="bg-gradient-to-br from-purple-600/20 to-black/40 rounded-xl p-4 md:p-6 flex flex-col justify-center items-center min-h-[140px] md:min-h-[160px]">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-purple-600 rounded-full flex items-center justify-center mb-3 md:mb-4">
+                    <i className="fas fa-handshake text-white text-lg md:text-2xl"></i>
                   </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Partnership</h4>
-                  <p className="text-gray-400 text-sm text-center">Long-term success relationships</p>
+                  <h4 className="text-base md:text-lg font-bold text-white mb-1 md:mb-2 text-center">Partnership</h4>
+                  <p className="text-gray-400 text-xs md:text-sm text-center leading-tight">Long-term strategic success</p>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            <h3 className="text-3xl font-bold mb-6">Our Story</h3>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Founded in Reno, Nevada, JABV Labs emerged from a passion for creating digital solutions that make a real impact. We believe that great technology should be both powerful and intuitive, solving complex problems with elegant simplicity.
-            </p>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. We specialize in custom-built solutions from the ground up - no templates, no shortcuts, just pure innovation tailored to your business needs.
-            </p>
-            <p className="text-gray-300 mb-8 leading-relaxed">
-              Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results. We believe in crafting premium digital experiences that stand apart from cookie-cutter solutions.
-            </p>
 
-            {/* Location Highlight */}
-            <div className="bg-black/50 p-6 rounded-xl mb-8">
-              <div className="flex items-center mb-3">
-                <i className="fas fa-map-marker-alt text-red-600 text-xl mr-3"></i>
-                <h4 className="text-xl font-semibold">Based in Reno, Nevada</h4>
+          {/* Right Side - Story Text */}
+          <div className="order-1 lg:order-2 space-y-6">
+            <div className="space-y-4">
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                Founded in Reno, Nevada, JABV Labs emerged from a passion for creating digital solutions that make a real impact. We believe that great technology should be both powerful and intuitive, solving complex problems with elegant simplicity.
+              </p>
+              
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. We specialize in custom-built solutions from the ground up - no templates, no shortcuts, just pure innovation tailored to your business needs.
+              </p>
+              
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                Located in Reno, Nevada, we serve clients nationwide, building lasting partnerships and delivering exceptional results. We're not just developers; we're your strategic technology partners committed to your long-term success.
+              </p>
+            </div>
+
+            {/* Stats or Additional Info */}
+            <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-700">
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-red-500 mb-1">100%</div>
+                <div className="text-sm text-gray-400">Custom Built</div>
               </div>
-              <p className="text-gray-400">Serving clients nationwide from the heart of the Sierra Nevada region</p>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-blue-500 mb-1">24/7</div>
+                <div className="text-sm text-gray-400">Support</div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Mission Statement */}
-        <div className="mt-20 text-center">
-          <div className="bg-gradient-to-r from-red-600/20 to-transparent p-12 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold mb-6">Our Mission</h3>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              "Delivering innovative digital solutions that empower businesses to thrive in the digital age. We combine cutting-edge technology with human-centered design to create applications and websites that don't just function—they inspire. Every solution is custom-built, never templated."
-            </p>
-          </div>
+        {/* Tech Stack Section */}
+        <div className="text-center mb-16">
+          <h3 className="text-3xl md:text-4xl font-bold mb-4">
+            Our <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">Tech Stack</span>
+          </h3>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+            We leverage cutting-edge technologies and frameworks to build scalable, efficient, and future-proof solutions
+          </p>
         </div>
 
-        {/* Comprehensive Tech Stack */}
-        <div className="mt-20">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
-            <p className="text-gray-400 mb-8">Comprehensive expertise across the full technology spectrum</p>
-            <button 
-              id="tech-stack-btn"
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
-              onClick={() => {
-                const techSection = document.getElementById('tech-carousels');
-                const chevron = document.querySelector('#tech-stack-btn i') as HTMLElement;
-                if (techSection && chevron) {
-                  const isHidden = techSection.style.display === 'none' || !techSection.style.display;
-                  chevron.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
-                  chevron.style.transition = 'transform 0.3s ease';
-                  
-                  if (isHidden) {
-                    // Show with fade-in
-                    techSection.style.display = 'block';
-                    techSection.style.opacity = '0';
-                    techSection.style.transform = 'translateY(-20px)';
-                    setTimeout(() => {
-                      techSection.style.opacity = '1';
-                      techSection.style.transform = 'translateY(0)';
-                      techSection.style.transition = 'all 0.5s ease-out';
-                    }, 50);
-                  } else {
-                    // Hide with fade-out
-                    techSection.style.opacity = '0';
-                    techSection.style.transform = 'translateY(-20px)';
-                    techSection.style.transition = 'all 0.3s ease-in';
-                    setTimeout(() => {
-                      techSection.style.display = 'none';
-                    }, 300);
-                  }
-                }
-              }}
-            >
-              <span className="flex items-center gap-2">
-                View Our Tech Stack
-                <i className="fas fa-chevron-down transition-transform duration-300"></i>
-              </span>
-            </button>
-          </div>
-
-          <div id="tech-carousels" style={{ display: 'none' }}>
-            {/* Programming Languages Carousel */}
-            <div className="mb-16">
-              <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
-              <div className="relative overflow-hidden">
-                <div className="flex animate-scroll-right space-x-6">
-                  {[...programmingLanguages, ...programmingLanguages, ...programmingLanguages].map((tech, index) => (
-                    <div 
-                      key={`lang-${index}`}
-                      className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                    >
-                      <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                      <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                    </div>
-                  ))}
-                </div>
+        {/* Tech Stack Carousels */}
+        <div className="space-y-16">
+          {/* Programming Languages Carousel */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-right space-x-6">
+                {[...languages, ...languages, ...languages].map((tech, index) => (
+                  <div 
+                    key={`lang-${index}`}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
           {/* Frameworks & Libraries Carousel */}
           <div className="mb-16">
@@ -242,26 +202,46 @@ export function AboutSection() {
             </div>
           </div>
 
-            {/* Machine Learning & AI Carousel */}
-            <div className="mb-16">
-              <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
-              <div className="relative overflow-hidden">
-                <div className="flex animate-scroll-left space-x-6">
-                  {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
-                    <div 
-                      key={`ml-${index}`}
-                      className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
-                    >
-                      <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
-                      <p className="text-xs font-medium text-gray-300">{tech.name}</p>
-                    </div>
-                  ))}
-                </div>
+          {/* Machine Learning & AI Carousel */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
+            <div className="relative overflow-hidden">
+              <div className="flex animate-scroll-left space-x-6">
+                {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
+                  <div 
+                    key={`ml-${index}`}
+                    className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
+                  >
+                    <i className={`${tech.icon} text-2xl ${tech.color} mb-2 block`}></i>
+                    <p className="text-xs font-medium text-gray-300">{tech.name}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* CSS for animations */}
+      <style jsx>{`
+        @keyframes scroll-right {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(0%); }
+        }
+        
+        @keyframes scroll-left {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-100%); }
+        }
+        
+        .animate-scroll-right {
+          animation: scroll-right 30s linear infinite;
+        }
+        
+        .animate-scroll-left {
+          animation: scroll-left 30s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
