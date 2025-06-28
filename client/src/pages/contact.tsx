@@ -13,7 +13,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
-import { initializeWebhookListener } from '@client/elevenlabs-redirect-to-form'; // Usar alias @client
+import { initializeWebhookListener } from '@client/elevenlabs-redirect-to-form'; // Actualizado para .js
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
