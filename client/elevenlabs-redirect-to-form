@@ -12,7 +12,7 @@ export const handleWebhookResponse = (response: any) => {
 export const initializeWebhookListener = async () => {
   try {
     const conversation = await Conversation.startSession({
-      agentId: import.meta.env.VITE_ELEVENLABS_AGENT_ID, // Usa variable de entorno
+      agentId: 'agent_01jynfyb8neqkby2q4esd71ybw', // Tu agentId
       clientTools: {
         Redirect_To_Contact_Form: async () => {
           handleWebhookResponse({ redirect_url: 'https://jabvlabs.com/contact' });
