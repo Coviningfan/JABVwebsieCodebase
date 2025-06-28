@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // Añadido useEffect
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
-import { initializeWebhookListener } from '../elevenlabs-redirect-to-form'; // Añadida importación
+import { initializeWebhookListener } from '../../elevenlabs-redirect-to-form'; // Corregida la ruta
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -69,7 +69,7 @@ export default function Contact() {
           <div className="animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-relaxed">
               Let's Build
-            <span className="gradient-text block mt-2 pb-3">Something Amazing</span>
+              <span className="gradient-text block mt-2 pb-3">Something Amazing</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Ready to transform your vision into reality? Get in touch with our expert team in Reno, Nevada.
