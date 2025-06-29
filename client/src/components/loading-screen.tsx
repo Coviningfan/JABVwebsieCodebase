@@ -13,9 +13,9 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   const loadingSteps = [
     { text: 'Initializing...', duration: 600 },
     { text: 'Loading assets...', duration: 400 },
-    { text: 'Preparing interface...', duration: 1600 },
+    { text: 'Preparing interface...', duration: 400 },
     { text: 'Almost ready...', duration: 500 },
-    { text: 'Welcome to JABV Labs', duration: 900 }
+    { text: 'Welcome to JABV Labs', duration: 400 }
   ];
 
   useEffect(() => {
