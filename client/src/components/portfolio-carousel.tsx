@@ -183,16 +183,44 @@ export function PortfolioCarousel() {
             ))}
           </div>
 
+          {/* Progress Indicators */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(portfolioItems.length / 2) }).map((_, index) => {
+              const isActive = Math.floor(scrollAmount / (scrollStep * 2)) === index;
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    const newAmount = index * scrollStep * 2;
+                    setScrollAmount(newAmount);
+                    if (carouselRef.current) {
+                      carouselRef.current.scrollTo({
+                        left: newAmount,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-red-600 scale-125 shadow-lg shadow-red-500/50' 
+                      : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              );
+            })}
+          </div>
+
           {/* Carousel Controls */}
           <button 
             onClick={handlePrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
           >
             <i className="fas fa-chevron-left"></i>
           </button>
           <button 
             onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
           >
             <i className="fas fa-chevron-right"></i>
           </button>
