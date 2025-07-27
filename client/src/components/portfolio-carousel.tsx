@@ -61,10 +61,11 @@ export function PortfolioCarousel() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const scrollStep = 320;
+  const [userInteracted, setUserInteracted] = useState(false);
+  const scrollStep = 280;
 
   useEffect(() => {
-    if (isHovered) return;
+    if (isHovered || userInteracted) return;
 
     const interval = setInterval(() => {
       if (carouselRef.current) {
@@ -72,12 +73,15 @@ export function PortfolioCarousel() {
         const maxScroll = container.scrollWidth - container.clientWidth;
         
         setScrollAmount(prev => {
-          if (prev >= maxScroll) {
-            // Reset to beginning smoothly
-            container.scrollTo({ left: 0, behavior: 'smooth' });
+          const newAmount = prev + scrollStep;
+          if (newAmount >= maxScroll) {
+            setTimeout(() => {
+              container.style.scrollBehavior = 'auto';
+              container.scrollTo({ left: 0 });
+              container.style.scrollBehavior = 'smooth';
+            }, 100);
             return 0;
           } else {
-            const newAmount = prev + scrollStep;
             container.scrollTo({ left: newAmount, behavior: 'smooth' });
             return newAmount;
           }
@@ -86,9 +90,10 @@ export function PortfolioCarousel() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, userInteracted]);
 
   const handlePrevious = () => {
+    setUserInteracted(true);
     if (carouselRef.current) {
       const newAmount = Math.max(scrollAmount - scrollStep, 0);
       setScrollAmount(newAmount);
@@ -97,9 +102,11 @@ export function PortfolioCarousel() {
         behavior: 'smooth'
       });
     }
+    setTimeout(() => setUserInteracted(false), 10000);
   };
 
   const handleNext = () => {
+    setUserInteracted(true);
     if (carouselRef.current) {
       const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
       const newAmount = Math.min(scrollAmount + scrollStep, maxScroll);
@@ -109,6 +116,7 @@ export function PortfolioCarousel() {
         behavior: 'smooth'
       });
     }
+    setTimeout(() => setUserInteracted(false), 10000);
   };
 
   return (
@@ -124,7 +132,7 @@ export function PortfolioCarousel() {
         <div className="relative overflow-hidden">
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-8 pb-8 pt-6 scroll-smooth px-6 md:px-4"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 sm:space-x-8 pb-8 pt-6 scroll-smooth px-4 sm:px-6 md:px-4"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -132,7 +140,7 @@ export function PortfolioCarousel() {
             {portfolioItems.map((item, index) => (
               <div 
                 key={item.id} 
-                className={`portfolio-item flex-none w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative min-h-[480px] flex flex-col`}
+                className={`portfolio-item flex-none w-72 sm:w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative min-h-[420px] sm:min-h-[480px] flex flex-col`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon section with dynamic colors */}
@@ -191,6 +199,7 @@ export function PortfolioCarousel() {
                 <button
                   key={index}
                   onClick={() => {
+                    setUserInteracted(true);
                     const newAmount = index * scrollStep * 2;
                     setScrollAmount(newAmount);
                     if (carouselRef.current) {
@@ -199,6 +208,7 @@ export function PortfolioCarousel() {
                         behavior: 'smooth'
                       });
                     }
+                    setTimeout(() => setUserInteracted(false), 10000);
                   }}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     isActive 

@@ -94,18 +94,18 @@ export function ServicesSection() {
     <section ref={sectionRef} id="services" className="py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto">
             Comprehensive digital solutions tailored to your business needs
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <div 
               key={service.id}
               ref={(el) => (cardRefs.current[index] = el)}
-              className={`bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-8 rounded-3xl text-center hover:transform hover:scale-[1.02] transition-all duration-700 cursor-pointer group border border-neutral-700/50 hover:border-red-500/30 shadow-2xl hover:shadow-red-500/10 min-h-[480px] flex flex-col ${
+              className={`bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-6 sm:p-8 rounded-3xl text-center hover:transform hover:scale-[1.05] hover:-translate-y-2 transition-all duration-700 cursor-pointer group border border-neutral-700/50 hover:border-red-500/50 shadow-2xl hover:shadow-red-500/30 hover:shadow-3xl min-h-[420px] sm:min-h-[480px] flex flex-col ${
                 visibleCards.includes(index) 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-8'

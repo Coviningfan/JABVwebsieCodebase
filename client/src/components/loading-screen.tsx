@@ -11,11 +11,11 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
   const [showProgress, setShowProgress] = useState(true);
 
   const loadingSteps = [
-    { text: 'Initializing...', duration: 600 },
-    { text: 'Loading assets...', duration: 400 },
-    { text: 'Preparing interface...', duration: 400 },
-    { text: 'Almost ready...', duration: 500 },
-    { text: 'Welcome to JABV Labs', duration: 400 }
+    { text: 'Initializing...', duration: 200 },
+    { text: 'Loading assets...', duration: 150 },
+    { text: 'Preparing interface...', duration: 150 },
+    { text: 'Almost ready...', duration: 200 },
+    { text: 'Welcome to JABV Labs', duration: 150 }
   ];
 
   useEffect(() => {
@@ -48,8 +48,8 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
                 setShowProgress(false);
                 setTimeout(() => {
                   onComplete?.();
-                }, 300);
-              }, 400);
+                }, 150);
+              }, 200);
             }
           }
         }, 50);

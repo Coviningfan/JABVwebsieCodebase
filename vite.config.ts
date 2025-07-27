@@ -15,6 +15,7 @@ export default defineConfig({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
       "@client": path.resolve(import.meta.dirname, "client"),
     },
+    preserveSymlinks: false,
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
@@ -23,8 +24,8 @@ export default defineConfig({
   },
   server: {
     fs: {
-      strict: true,
-      deny: ["**/.*"],
+      strict: false,
+      allow: [".."],
     },
   },
 });
