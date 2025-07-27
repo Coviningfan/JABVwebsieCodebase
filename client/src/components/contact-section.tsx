@@ -54,16 +54,16 @@ export function ContactSection() {
     <section id="contact" className="py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto">
             Ready to start your next project? Let's discuss how we can help bring your vision to life.
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Form */}
-          <div className="bg-neutral-800 p-8 rounded-2xl">
-            <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
+          <div className="bg-neutral-800 p-6 sm:p-8 rounded-2xl">
+            <h3 className="text-xl sm:text-2xl font-bold mb-6">Send us a message</h3>
             
             {showSuccess ? (
               <div className="p-4 bg-green-500/20 border border-green-500 rounded-xl">
@@ -159,7 +159,7 @@ export function ContactSection() {
                   <Button 
                     type="submit" 
                     disabled={contactMutation.isPending}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-105"
                   >
                     {contactMutation.isPending ? 'Sending...' : 'Send Message'}
                   </Button>
@@ -171,7 +171,7 @@ export function ContactSection() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4">

@@ -152,7 +152,7 @@ export function AboutSection() {
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
             <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-right space-x-6">
+              <div className="flex animate-scroll-right space-x-6" style={{ width: '300%' }}>
                 {[...languages, ...languages, ...languages].map((tech, index) => (
                   <div 
                     key={`lang-${index}`}
@@ -170,7 +170,7 @@ export function AboutSection() {
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Frameworks & Libraries</h4>
             <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-left space-x-6">
+              <div className="flex animate-scroll-left space-x-6" style={{ width: '300%' }}>
                 {[...frameworks, ...frameworks, ...frameworks].map((tech, index) => (
                   <div 
                     key={`framework-${index}`}
@@ -188,7 +188,7 @@ export function AboutSection() {
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Cloud & Database Technologies</h4>
             <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-right space-x-6">
+              <div className="flex animate-scroll-right space-x-6" style={{ width: '300%' }}>
                 {[...cloudTech, ...cloudTech, ...cloudTech].map((tech, index) => (
                   <div 
                     key={`cloud-${index}`}
@@ -206,7 +206,7 @@ export function AboutSection() {
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
             <div className="relative overflow-hidden">
-              <div className="flex animate-scroll-left space-x-6">
+              <div className="flex animate-scroll-left space-x-6" style={{ width: '300%' }}>
                 {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
                   <div 
                     key={`ml-${index}`}
@@ -225,21 +225,21 @@ export function AboutSection() {
       {/* CSS for animations */}
       <style jsx>{`
         @keyframes scroll-right {
-          0% { transform: translateX(-100%); }
+          0% { transform: translateX(-33.333%); }
           100% { transform: translateX(0%); }
         }
         
         @keyframes scroll-left {
           0% { transform: translateX(0%); }
-          100% { transform: translateX(-100%); }
+          100% { transform: translateX(-33.333%); }
         }
         
         .animate-scroll-right {
-          animation: scroll-right 30s linear infinite;
+          animation: scroll-right 15s linear infinite;
         }
         
         .animate-scroll-left {
-          animation: scroll-left 30s linear infinite;
+          animation: scroll-left 15s linear infinite;
         }
       `}</style>
     </section>

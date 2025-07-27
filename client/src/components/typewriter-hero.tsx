@@ -24,7 +24,7 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
     if (!loadingComplete) return;
 
     setIsVisible(true);
-    const delay = setTimeout(() => setShowBanner(true), 1400);
+    const delay = setTimeout(() => setShowBanner(true), 800);
     return () => clearTimeout(delay);
   }, [loadingComplete]);
 
@@ -46,7 +46,7 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
         if (jabvIndex < jabvText.length) {
           setTypewriterJABV(jabvText.substring(0, jabvIndex + 1));
           jabvIndex++;
-          timeouts.push(setTimeout(typeJABV, 80 + Math.random() * 40)); // 80-120ms variance for natural feel
+          timeouts.push(setTimeout(typeJABV, 100)); // Consistent 100ms timing
         } else {
           // JABV complete, transition to Labs
           setTimeout(() => {
@@ -60,7 +60,7 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
                 if (labsIndex < labsText.length) {
                   setTypewriterLabs(labsText.substring(0, labsIndex + 1));
                   labsIndex++;
-                  timeouts.push(setTimeout(typeLabs, 80 + Math.random() * 40));
+                  timeouts.push(setTimeout(typeLabs, 100)); // Consistent 100ms timing
                 } else {
                   // Labs complete, hide cursor after brief pause
                   setTimeout(() => {
@@ -151,7 +151,7 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
               <span className="block">Build Your Future with</span>
               <span className="block min-h-[1.2em]">
                 <span className="text-white">
@@ -170,12 +170,12 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
               Custom mobile apps and websites that drive results. No templates — just premium development tailored to your business.
             </p>
 
             {/* Features */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs md:text-sm">
+            <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs sm:text-sm md:text-sm">
               {[
                 'Tailored Software Solutions',
                 'iOS & Android App Development',
@@ -197,7 +197,7 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
             <div className="flex justify-center items-center mb-8">
               <button
                 onClick={() => scrollToSection('contact')}
-                className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25 min-w-[200px]"
+                className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-red-500/25 min-w-[180px] sm:min-w-[200px]"
               >
                 <span className="flex items-center justify-center gap-2">
                   Get a Quote
