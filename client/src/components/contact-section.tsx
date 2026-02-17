@@ -37,7 +37,7 @@ export function ContactSection() {
         setShowSuccess(false);
       }, 5000);
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -61,7 +61,6 @@ export function ContactSection() {
         </div>
         
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
           <div className="bg-neutral-800 p-8 rounded-2xl">
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
             
@@ -120,7 +119,7 @@ export function ContactSection() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-gray-300">Project Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value ?? ''}>
                           <FormControl>
                             <SelectTrigger className="bg-black border-gray-600 text-white focus:border-red-600 focus:ring-red-600">
                               <SelectValue placeholder="Select a service..." />
@@ -168,37 +167,36 @@ export function ContactSection() {
             )}
           </div>
           
-          {/* Contact Information */}
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
                     <i className="fas fa-phone text-white"></i>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Phone</p>
-                    <a href="tel:+1-775-555-0123" className="text-white hover:text-red-600 transition-colors duration-200 font-medium">
-                      +1 (775) 555-0123
+                    <a href="tel:7758005850" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
+                      (775) 800-5850
                     </a>
                   </div>
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
                     <i className="fas fa-envelope text-white"></i>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Email</p>
-                    <a href="mailto:hello@jabvlabs.com" className="text-white hover:text-red-600 transition-colors duration-200 font-medium">
-                      hello@jabvlabs.com
+                    <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
+                      contact@jabvlabs.com
                     </a>
                   </div>
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
                     <i className="fas fa-map-marker-alt text-white"></i>
                   </div>
                   <div>
@@ -209,7 +207,6 @@ export function ContactSection() {
               </div>
             </div>
             
-            {/* Business Hours */}
             <div className="bg-neutral-800 p-6 rounded-2xl">
               <h4 className="text-xl font-bold mb-4">Business Hours</h4>
               <div className="space-y-2 text-gray-300">
@@ -228,7 +225,6 @@ export function ContactSection() {
               </div>
             </div>
             
-            {/* Response Time */}
             <div className="bg-gradient-to-r from-red-600/20 to-transparent p-6 rounded-2xl">
               <h4 className="text-xl font-bold mb-2">Quick Response Guarantee</h4>
               <p className="text-gray-300">

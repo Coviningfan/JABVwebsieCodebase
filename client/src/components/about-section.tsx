@@ -22,15 +22,6 @@ const frameworks = [
   { icon: "fas fa-fire", name: "Express.js", color: "text-yellow-500" }
 ];
 
-const cloudPlatforms = [
-  { icon: "fab fa-aws", name: "AWS", color: "text-orange-400" },
-  { icon: "fab fa-google", name: "Google Cloud", color: "text-blue-400" },
-  { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-600" },
-  { icon: "fas fa-server", name: "Vercel", color: "text-gray-300" },
-  { icon: "fas fa-cloud", name: "Netlify", color: "text-green-400" },
-  { icon: "fab fa-digital-ocean", name: "DigitalOcean", color: "text-blue-500" }
-];
-
 const cloudTech = [
   { icon: "fab fa-aws", name: "AWS", color: "text-orange-500" },
   { icon: "fab fa-microsoft", name: "Azure", color: "text-blue-500" },
@@ -49,11 +40,31 @@ const mlTech = [
   { icon: "fas fa-microchip", name: "SageMaker", color: "text-orange-500" }
 ];
 
-const techStack = [
-  { category: "Languages", items: programmingLanguages },
-  { category: "Frameworks", items: frameworks },
-  { category: "Cloud & DevOps", items: cloudPlatforms },
-  { category: "AI & Machine Learning", items: mlTech }
+const highlights = [
+  {
+    icon: "fas fa-rocket",
+    value: "50+",
+    label: "Projects Delivered",
+    description: "Apps and websites shipped to production"
+  },
+  {
+    icon: "fas fa-clock",
+    value: "24hr",
+    label: "Response Time",
+    description: "Average inquiry response"
+  },
+  {
+    icon: "fas fa-handshake",
+    value: "100%",
+    label: "Client Satisfaction",
+    description: "On projects completed"
+  },
+  {
+    icon: "fas fa-code-branch",
+    value: "12+",
+    label: "Tech Stacks",
+    description: "Languages and frameworks mastered"
+  }
 ];
 
 export function AboutSection() {
@@ -69,46 +80,15 @@ export function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="rounded-2xl shadow-2xl w-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-12 min-h-[400px] flex items-center justify-center">
-              <div className="text-center w-full">
-                <div className="mb-8">
-                  <h3 className="text-4xl font-bold text-white mb-6">JABV Labs</h3>
-                  <p className="text-gray-300 text-lg mb-8">Innovation Through Code</p>
-                  
-                  {/* Progress bars showing expertise */}
-                  <div className="space-y-6 max-w-md mx-auto">
-                    <div>
-                      <div className="flex justify-between text-sm text-gray-400 mb-2">
-                        <span>Mobile Development</span>
-                        <span>95%</span>
-                      </div>
-                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[95%] animate-fill-right"></div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between text-sm text-gray-400 mb-2">
-                        <span>Web Development</span>
-                        <span>98%</span>
-                      </div>
-                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[98%] animate-fill-right"></div>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between text-sm text-gray-400 mb-2">
-                        <span>Custom Solutions</span>
-                        <span>92%</span>
-                      </div>
-                      <div className="h-2 bg-neutral-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-red-600 to-red-500 w-[92%] animate-fill-right"></div>
-                      </div>
-                    </div>
-                  </div>
+            <div className="grid grid-cols-2 gap-4">
+              {highlights.map((item, idx) => (
+                <div key={idx} className="bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-6 rounded-2xl border border-neutral-700/50 text-center hover:border-red-500/30 transition-all duration-300">
+                  <i className={`${item.icon} text-2xl text-red-500 mb-3 block`}></i>
+                  <div className="text-3xl font-bold text-white mb-1">{item.value}</div>
+                  <div className="text-sm font-semibold text-gray-300 mb-1">{item.label}</div>
+                  <div className="text-xs text-gray-500">{item.description}</div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
           <div>
@@ -120,11 +100,10 @@ export function AboutSection() {
               Our team combines deep technical expertise with a keen understanding of user experience, ensuring every project we deliver not only meets but exceeds our clients' expectations. We specialize in custom-built solutions from the ground up - no templates, no shortcuts, just pure innovation tailored to your business needs.
             </p>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results. We believe in crafting premium digital experiences that stand apart from cookie-cutter solutions.
+              Located in Reno, Nevada, we serve clients nationwide, bringing Silicon Valley innovation with Nevada values - honest work, reliable partnerships, and exceptional results.
             </p>
 
-            {/* Location Highlight */}
-            <div className="bg-black/50 p-6 rounded-xl mb-8">
+            <div className="bg-black/50 p-6 rounded-xl">
               <div className="flex items-center mb-3">
                 <i className="fas fa-map-marker-alt text-red-600 text-xl mr-3"></i>
                 <h4 className="text-xl font-semibold">Based in Reno, Nevada</h4>
@@ -134,30 +113,27 @@ export function AboutSection() {
           </div>
         </div>
 
-        {/* Mission Statement */}
         <div className="mt-20 text-center">
           <div className="bg-gradient-to-r from-red-600/20 to-transparent p-12 rounded-2xl max-w-4xl mx-auto">
             <h3 className="text-3xl font-bold mb-6">Our Mission</h3>
             <p className="text-xl text-gray-300 leading-relaxed">
-              "Delivering innovative digital solutions that empower businesses to thrive in the digital age. We combine cutting-edge technology with human-centered design to create applications and websites that don't just function—they inspire. Every solution is custom-built, never templated."
+              "Delivering innovative digital solutions that empower businesses to thrive in the digital age. We combine cutting-edge technology with human-centered design to create applications and websites that don't just function — they inspire. Every solution is custom-built, never templated."
             </p>
           </div>
         </div>
 
-        {/* Comprehensive Tech Stack */}
         <div className="mt-20">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold mb-4">Technologies We Master</h3>
             <p className="text-gray-400">Comprehensive expertise across the full technology spectrum</p>
           </div>
 
-          {/* Programming Languages Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Programming Languages</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-right space-x-6">
                 {[...programmingLanguages, ...programmingLanguages, ...programmingLanguages].map((tech, index) => (
-                  <div 
+                  <div
                     key={`lang-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
@@ -169,13 +145,12 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Frameworks & Libraries Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Frameworks & Libraries</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-left space-x-6">
                 {[...frameworks, ...frameworks, ...frameworks].map((tech, index) => (
-                  <div 
+                  <div
                     key={`framework-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
@@ -187,13 +162,12 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Cloud & Database Technologies Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Cloud & Database Technologies</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-right space-x-6">
                 {[...cloudTech, ...cloudTech, ...cloudTech].map((tech, index) => (
-                  <div 
+                  <div
                     key={`cloud-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >
@@ -205,13 +179,12 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Machine Learning & AI Carousel */}
           <div className="mb-16">
             <h4 className="text-2xl font-semibold mb-8 text-center text-red-500">Machine Learning & AI</h4>
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll-left space-x-6">
                 {[...mlTech, ...mlTech, ...mlTech].map((tech, index) => (
-                  <div 
+                  <div
                     key={`ml-${index}`}
                     className="flex-shrink-0 w-24 bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl text-center hover:bg-gradient-to-br hover:from-red-600/20 hover:to-black/20 hover:scale-105 transition-all duration-300 cursor-pointer border border-neutral-700/50"
                   >

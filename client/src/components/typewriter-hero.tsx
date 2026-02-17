@@ -1,6 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 
+const PARTICLE_DOTS = Array.from({ length: 20 }, (_, i) => ({
+  left: `${(i * 17 + 13) % 100}%`,
+  top: `${(i * 23 + 7) % 100}%`,
+  delay: `${(i * 0.15) % 3}s`,
+  duration: `${2 + (i * 0.1) % 2}s`,
+}));
+
 interface TypewriterHeroProps {
   loadingComplete?: boolean;
 }
@@ -168,18 +175,11 @@ export default function TypewriterHero({ loadingComplete = false }: TypewriterHe
       >
         {/* Background & overlay */}
         <div className="absolute inset-0 z-0">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {PARTICLE_DOTS.map((p, i) => (
             <div
               key={`bg-dot-${i}`}
               className="absolute w-2 h-2 bg-red-500/20 rounded-full animate-pulse"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 6 + 2}px`,
-                height: `${Math.random() * 6 + 2}px`,
-                animationDelay: `${Math.random() * 20}s`,
-                animationDuration: `${Math.random() * 10 + 15}s`,
-              }}
+              style={{ left: p.left, top: p.top, animationDelay: p.delay, animationDuration: p.duration }}
             />
           ))}
         </div>

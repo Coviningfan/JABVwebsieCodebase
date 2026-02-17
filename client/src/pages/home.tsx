@@ -3,6 +3,7 @@ import TypewriterHero from '@/components/typewriter-hero';
 import { PortfolioCarousel } from '@/components/portfolio-carousel';
 import { ServicesSection } from '@/components/services-section';
 import { AboutSection } from '@/components/about-section';
+import { ContactSection } from '@/components/contact-section';
 import { Footer } from '@/components/footer';
 import { FadeInSection } from '@/components/fade-in-section';
 
@@ -19,6 +20,9 @@ export default function Home({ loadingComplete }: { loadingComplete?: boolean })
       </FadeInSection>
       <FadeInSection direction="up" delay={400}>
         <AboutSection />
+      </FadeInSection>
+      <FadeInSection direction="up" delay={200}>
+        <ContactSection />
       </FadeInSection>
       <FadeInSection direction="fade" delay={500}>
         <Footer />

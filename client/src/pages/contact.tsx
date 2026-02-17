@@ -8,15 +8,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { createClient } from '@supabase/supabase-js';
+import { apiRequest } from '@/lib/queryClient';
 import { insertContactSchema, type InsertContact } from '@shared/schema';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
-
-// Initialize Supabase client
-const supabaseUrl = 'https://qzfcefvusjzdzseokdla.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6ZmNlZnZ1c2p6ZHpzZW9rZGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3MzMzMTAsImV4cCI6MjA2NjMwOTMxMH0.BAUV_j3vGgtJbOI42YueJxbYOI7JNmgV-0ZsKh80dGU';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -34,19 +29,8 @@ export default function Contact() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: InsertContact) => {
-      const { error } = await supabase
-        .from('prospects')
-        .insert([
-          {
-            full_name: data.name,
-            email: data.email,
-            project_type: data.projectType,
-            project_details: data.message,
-          },
-        ]);
-
-      if (error) throw new Error(error.message);
-      return { success: true };
+      const response = await apiRequest('POST', '/api/contact', data);
+      return response.json();
     },
     onSuccess: () => {
       setShowSuccess(true);
@@ -55,10 +39,10 @@ export default function Contact() {
         setShowSuccess(false);
       }, 5000);
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
-        description: error.message,
+        description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
     },
@@ -72,11 +56,16 @@ export default function Contact() {
     <div className="min-h-screen bg-black text-white">
       <Navigation />
 
-      {/* Contact Section */}
-      <section className="py-20 bg-neutral-900">
+      <section className="pt-28 pb-20 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Ready to start your next project? Let's discuss how we can help bring your vision to life.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
             <div className="bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-8 rounded-3xl border border-neutral-700/50 shadow-2xl">
               <h3 className="text-3xl font-bold mb-8">Send us a message</h3>
 
@@ -128,7 +117,7 @@ export default function Contact() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Project Type</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value ?? ''}>
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select a service..." />
@@ -160,14 +149,83 @@ export default function Contact() {
                       )}
                     />
 
-                    <Button type="submit" className="w-full">
-                      Send Message
+                    <Button
+                      type="submit"
+                      disabled={contactMutation.isPending}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                    >
+                      {contactMutation.isPending ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </Form>
               )}
             </div>
-            {/* You can add additional content here, such as contact info or a map */}
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                      <i className="fas fa-phone text-white"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Phone</p>
+                      <a href="tel:7758005850" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
+                        (775) 800-5850
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                      <i className="fas fa-envelope text-white"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Email</p>
+                      <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
+                        contact@jabvlabs.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                      <i className="fas fa-map-marker-alt text-white"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Location</p>
+                      <p className="text-white font-medium">Reno, Nevada, USA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-6 rounded-2xl border border-neutral-700/50">
+                <h4 className="text-xl font-bold mb-4">Business Hours</h4>
+                <div className="space-y-2 text-gray-300">
+                  <div className="flex justify-between">
+                    <span>Monday - Friday</span>
+                    <span>9:00 AM - 6:00 PM PST</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Saturday</span>
+                    <span>10:00 AM - 4:00 PM PST</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday</span>
+                    <span>Closed</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-red-600/20 to-transparent p-6 rounded-2xl border border-red-500/20">
+                <h4 className="text-xl font-bold mb-2">Quick Response Guarantee</h4>
+                <p className="text-gray-300">
+                  We respond to all inquiries within 24 hours. For urgent projects, call us directly for immediate assistance.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -175,4 +233,3 @@ export default function Contact() {
     </div>
   );
 }
-

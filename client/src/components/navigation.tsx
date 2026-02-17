@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSmoothScroll } from '@/hooks/use-smooth-scroll';
 import { useLocation } from 'wouter';
+import { Menu, X } from 'lucide-react';
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,6 @@ export function Navigation() {
 
   const handleNavClick = (sectionId: string) => {
     if (location !== '/') {
-      // If not on home page, navigate to home first
       setLocation('/');
       setTimeout(() => {
         scrollToSection(sectionId);
@@ -44,32 +44,38 @@ export function Navigation() {
               </h1>
             </button>
           </div>
-          
-          {/* Desktop Menu */}
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <button 
+              <button
                 onClick={() => handleNavClick('home')}
                 className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
-              <button 
+              <button
+                onClick={() => handleNavClick('portfolio')}
+                className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
+              >
+                Portfolio
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
+              </button>
+              <button
                 onClick={() => handleNavClick('services')}
                 className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 Services
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
-              <button 
+              <button
                 onClick={() => handleNavClick('about')}
                 className="nav-link text-white hover:text-red-500 transition-all duration-300 px-3 py-2 text-sm font-medium relative group"
               >
                 About
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-red-600 group-hover:w-full transition-all duration-300"></span>
               </button>
-              <button 
+              <button
                 onClick={() => setLocation('/contact')}
                 className="nav-link text-white px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 relative"
                 style={{ backgroundColor: '#C82222' }}
@@ -78,43 +84,47 @@ export function Navigation() {
               </button>
             </div>
           </div>
-          
-          {/* Mobile menu button */}
+
           <div className="md:hidden">
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-white hover:text-red-600 focus:outline-none"
             >
-              <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Mobile Menu */}
+
       {isMenuOpen && (
         <div className="md:hidden bg-black/95 backdrop-blur-md">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <button 
+            <button
               onClick={() => handleNavClick('home')}
               className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
             >
               Home
             </button>
-            <button 
+            <button
+              onClick={() => handleNavClick('portfolio')}
+              className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
+            >
+              Portfolio
+            </button>
+            <button
               onClick={() => handleNavClick('services')}
               className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
             >
               Services
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('about')}
               className="block px-3 py-2 text-base font-medium text-white hover:text-red-600 transition-colors duration-200 w-full text-left"
             >
               About
             </button>
-            <button 
-              onClick={() => setLocation('/contact')}
+            <button
+              onClick={() => { setLocation('/contact'); setIsMenuOpen(false); }}
               className="block px-4 py-2 text-base font-medium text-white rounded-lg transition-colors duration-200 w-full text-left"
               style={{ backgroundColor: '#C82222' }}
             >

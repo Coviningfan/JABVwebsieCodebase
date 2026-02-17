@@ -1,3 +1,4 @@
+import { useLocation } from 'wouter';
 
 const services = [
   {
@@ -42,21 +43,7 @@ const services = [
 ];
 
 export function ServicesSection() {
-  const handleLearnMore = (serviceId: number) => {
-    switch(serviceId) {
-      case 1:
-        window.location.href = '/services/mobile-app-development';
-        break;
-      case 2:
-        window.location.href = '/services/interactive-websites';
-        break;
-      case 3:
-        window.location.href = '/services/website-redesigns';
-        break;
-      default:
-        alert('Service details coming soon! Contact us for more information.');
-    }
-  };
+  const [, setLocation] = useLocation();
 
   return (
     <section id="services" className="py-20 bg-black">
@@ -92,7 +79,7 @@ export function ServicesSection() {
                 ))}
               </ul>
               <button 
-                onClick={() => handleLearnMore(service.id)}
+                onClick={() => setLocation(service.link)}
                 className="bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25"
               >
                 Learn More
