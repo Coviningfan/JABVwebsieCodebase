@@ -20,6 +20,7 @@ export function ContactSection() {
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       projectType: '',
       message: '',
     },
@@ -33,9 +34,7 @@ export function ContactSection() {
     onSuccess: () => {
       setShowSuccess(true);
       form.reset();
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 5000);
+      setTimeout(() => setShowSuccess(false), 5000);
     },
     onError: () => {
       toast({
@@ -59,17 +58,17 @@ export function ContactSection() {
             Ready to start your next project? Let's discuss how we can help bring your vision to life.
           </p>
         </div>
-        
+
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="bg-neutral-800 p-8 rounded-2xl">
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-            
+
             {showSuccess ? (
               <div className="p-4 bg-green-500/20 border border-green-500 rounded-xl">
                 <div className="flex items-center">
                   <i className="fas fa-check-circle text-green-500 text-xl mr-3"></i>
                   <p className="text-green-400 font-medium">
-                    Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
+                    Thank you! Your message has been sent. We'll get back to you within 24 hours.
                   </p>
                 </div>
               </div>
@@ -83,17 +82,17 @@ export function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-gray-300">Full Name</FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="John Doe" 
+                          <Input
+                            placeholder="John Doe"
                             className="bg-black border-gray-600 text-white placeholder-gray-400 focus:border-red-600 focus:ring-red-600"
-                            {...field} 
+                            {...field}
                           />
                         </FormControl>
                         <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="email"
@@ -101,25 +100,44 @@ export function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-gray-300">Email Address</FormLabel>
                         <FormControl>
-                          <Input 
+                          <Input
                             type="email"
-                            placeholder="john@example.com" 
+                            placeholder="john@example.com"
                             className="bg-black border-gray-600 text-white placeholder-gray-400 focus:border-red-600 focus:ring-red-600"
-                            {...field} 
+                            {...field}
                           />
                         </FormControl>
                         <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
-                  
+
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-gray-300">Phone Number (Optional)</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="tel"
+                            placeholder="(775) 555-0123"
+                            className="bg-black border-gray-600 text-white placeholder-gray-400 focus:border-red-600 focus:ring-red-600"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="projectType"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-gray-300">Project Type</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value ?? ''}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="bg-black border-gray-600 text-white focus:border-red-600 focus:ring-red-600">
                               <SelectValue placeholder="Select a service..." />
@@ -136,7 +154,7 @@ export function ContactSection() {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="message"
@@ -144,60 +162,67 @@ export function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-gray-300">Project Details</FormLabel>
                         <FormControl>
-                          <Textarea 
+                          <Textarea
                             placeholder="Tell us about your project, timeline, and goals..."
                             className="bg-black border-gray-600 text-white placeholder-gray-400 focus:border-red-600 focus:ring-red-600 resize-none min-h-[120px]"
-                            {...field} 
+                            {...field}
                           />
                         </FormControl>
                         <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
-                  
-                  <Button 
-                    type="submit" 
+
+                  <Button
+                    type="submit"
                     disabled={contactMutation.isPending}
                     className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105"
                   >
-                    {contactMutation.isPending ? 'Sending...' : 'Send Message'}
+                    {contactMutation.isPending ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Sending...
+                      </div>
+                    ) : (
+                      'Send Message'
+                    )}
                   </Button>
                 </form>
               </Form>
             )}
           </div>
-          
+
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                    <i className="fas fa-phone text-white"></i>
+              <div className="space-y-4">
+                <div className="flex items-center p-4 bg-neutral-800/50 rounded-xl">
+                  <div className="w-12 h-12 bg-red-600/20 rounded-xl flex items-center justify-center mr-4">
+                    <i className="fas fa-phone text-red-500"></i>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Phone</p>
-                    <a href="tel:7758005850" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
-                      (775) 800-5850
+                    <a href="tel:+1-775-800-5850" className="text-white hover:text-red-400 transition-colors font-medium">
+                      +1 (775) 800-5850
                     </a>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                    <i className="fas fa-envelope text-white"></i>
+
+                <div className="flex items-center p-4 bg-neutral-800/50 rounded-xl">
+                  <div className="w-12 h-12 bg-red-600/20 rounded-xl flex items-center justify-center mr-4">
+                    <i className="fas fa-envelope text-red-500"></i>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Email</p>
-                    <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors duration-200 font-medium">
+                    <a href="mailto:contact@jabvlabs.com" className="text-white hover:text-red-400 transition-colors font-medium">
                       contact@jabvlabs.com
                     </a>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                    <i className="fas fa-map-marker-alt text-white"></i>
+
+                <div className="flex items-center p-4 bg-neutral-800/50 rounded-xl">
+                  <div className="w-12 h-12 bg-red-600/20 rounded-xl flex items-center justify-center mr-4">
+                    <i className="fas fa-map-marker-alt text-red-500"></i>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Location</p>
@@ -205,31 +230,6 @@ export function ContactSection() {
                   </div>
                 </div>
               </div>
-            </div>
-            
-            <div className="bg-neutral-800 p-6 rounded-2xl">
-              <h4 className="text-xl font-bold mb-4">Business Hours</h4>
-              <div className="space-y-2 text-gray-300">
-                <div className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM PST</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span>10:00 AM - 4:00 PM PST</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span>Closed</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-red-600/20 to-transparent p-6 rounded-2xl">
-              <h4 className="text-xl font-bold mb-2">Quick Response Guarantee</h4>
-              <p className="text-gray-300">
-                We respond to all inquiries within 24 hours. For urgent projects, call us directly for immediate assistance.
-              </p>
             </div>
           </div>
         </div>

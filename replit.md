@@ -18,7 +18,7 @@ This is a full-stack web application for JABV Labs, a web and mobile app develop
 - **Runtime**: Node.js with Express.js
 - **Language**: TypeScript with ES modules
 - **Database**: PostgreSQL with Drizzle ORM
-- **Database Provider**: Neon Database (serverless PostgreSQL)
+- **Database Provider**: PostgreSQL (Replit built-in, pg driver)
 - **Validation**: Zod schemas for data validation
 - **Development**: Hot module replacement with Vite integration
 
@@ -33,12 +33,12 @@ This is a full-stack web application for JABV Labs, a web and mobile app develop
 
 ### Database Schema
 - **Users Table**: Basic user authentication (id, username, password)
-- **Contacts Table**: Contact form submissions (id, name, email, projectType, message, createdAt)
+- **Contacts Table**: Contact form submissions (id, name, email, phone, projectType, message, createdAt)
 - **Schema Location**: `shared/schema.ts` with Drizzle ORM definitions
 
 ### Storage Layer
 - **Interface**: `IStorage` interface for CRUD operations
-- **Implementation**: `MemStorage` class for in-memory storage (development)
+- **Implementation**: `DatabaseStorage` class using Drizzle ORM with PostgreSQL
 - **Location**: `server/storage.ts`
 
 ### Frontend Pages
@@ -46,7 +46,8 @@ This is a full-stack web application for JABV Labs, a web and mobile app develop
 - **404 Page**: Custom not found page
 
 ### API Structure
-- **Routes**: Defined in `server/routes.ts` (currently empty, ready for implementation)
+- **Routes**: Defined in `server/routes.ts`
+- **Endpoints**: POST `/api/contact` (form submissions), POST `/api/elevenlabs-redirect` (AI agent webhook), GET `/api/health`
 - **Prefix**: All API routes use `/api` prefix
 - **Error Handling**: Global error handling middleware
 
@@ -62,7 +63,7 @@ This is a full-stack web application for JABV Labs, a web and mobile app develop
 ## External Dependencies
 
 ### Core Dependencies
-- **@neondatabase/serverless**: Serverless PostgreSQL driver
+- **pg**: PostgreSQL client driver
 - **drizzle-orm**: Type-safe SQL query builder
 - **@tanstack/react-query**: Server state management
 - **react-hook-form**: Form handling
@@ -148,6 +149,17 @@ Changelog:
   - Sequential typing animation: "Build Your Future with" → pause → "JABVLabs" with proper colors
   - Animation runs perfectly smooth without any visual refresh or jarring effects
   - Replaced complex stateful hero-section component with clean, minimal implementation
+- February 21, 2026. Major component and backend overhaul:
+  - Switched from MemStorage to DatabaseStorage with real PostgreSQL persistence
+  - Added phone field to contacts schema and contact form
+  - Replaced DOM-manipulation typewriter with React state-based hero section
+  - Simplified about section: 3 value cards + collapsible tech stack (12 key technologies)
+  - Clean services section rewrite with feature tags
+  - Removed loading screen entirely for instant page load
+  - Added ElevenLabs AI agent widget (Jax) integration
+  - Added /api/elevenlabs-redirect and /api/health endpoints
+  - Deleted unused files: typewriter-hero.tsx, loading-screen.tsx
+  - Switched from @neondatabase/serverless to pg driver for Replit PostgreSQL
 ```
 
 ## User Preferences
