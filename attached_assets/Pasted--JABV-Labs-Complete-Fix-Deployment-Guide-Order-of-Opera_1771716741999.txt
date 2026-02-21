@@ -1,0 +1,76 @@
+# JABV Labs — Complete Fix Deployment Guide
+
+## Order of Operations
+
+### Step 1: Supabase Dashboard (5 min)
+1. Go to **SQL Editor** → paste and run `supabase-sql/run-in-dashboard.sql`
+   - This creates the missing `user_profiles` table (stops 404 spam)
+   - Ensures `contacts` table has the `phone` column
+
+2. Go to **Edge Functions** → `redirect-to-contact`
+   - Replace code with `supabase-edge-functions/redirect-to-contact.ts`
+   - Go to Settings → **Turn OFF "Enforce JWT Verification"**
+
+3. Go to **Edge Functions** → Create New → name: `contact-info`
+   - Paste code from `supabase-edge-functions/contact-info.ts`
+   - Go to Settings → **Turn OFF "Enforce JWT Verification"**
+
+### Step 2: ElevenLabs Dashboard (5 min)
+1. Open your agent → Tools
+2. Replace `Redirect_To_Contact_Form` JSON config (see `elevenlabs/INSTRUCTIONS.md`)
+   - Remove ALL request_headers (no more auth)
+3. Replace `Contact_Info_Form` JSON config (see `elevenlabs/INSTRUCTIONS.md`)
+   - Remove ALL request_headers (no more auth)
+
+### Step 3: GitHub Repo (10 min)
+Replace these files in your repo:
+
+```
+shared/schema.ts              ← adds phone to DB table, fixes duplicate type
+server/storage.ts             ← replaces MemStorage with real PostgreSQL
+server/routes.ts              ← simplified, stores to DB directly
+client/src/App.tsx             ← removes loading screen, cleaner ElevenLabs init
+client/src/pages/home.tsx      ← removes loadingComplete prop
+client/src/components/hero-section.tsx      ← React-based typewriter (no DOM hacks)
+client/src/components/about-section.tsx     ← React toggle, trimmed tech list
+client/src/components/services-section.tsx  ← clean rewrite (was unicode-corrupted)
+client/src/components/contact-section.tsx   ← adds phone field
+```
+
+**DELETE these files** (no longer needed):
+```
+server/supabase-service.ts     ← was a proxy to broken edge functions
+client/src/components/typewriter-hero.tsx  ← duplicate, unused
+client/src/components/loading-screen.tsx   ← removed loading screen
+```
+
+### Step 4: Push to GitHub
+Render auto-deploys on push. After deploy:
+
+### Step 5: Run DB Migration
+```bash
+npm run db:push
+```
+This pushes the updated schema (with phone field) to your Neon database.
+
+### Step 6: Test
+1. Visit jabvlabs.com — should load instantly (no loading screen)
+2. Submit contact form — should save to DB (check Supabase Table Editor → contacts)
+3. Talk to JAX → ask to be redirected → should work without 401/422
+4. Talk to JAX → give contact info → should save to DB
+
+## What Changed and Why
+
+| Problem | Fix |
+|---------|-----|
+| 2s loading screen on portfolio site | Removed entirely |
+| Typewriter uses document.getElementById | Rewritten with React useState |
+| Tech toggle uses DOM manipulation | Rewritten with React useState |
+| 40+ tech items overwhelming visitors | Trimmed to 12 key technologies |
+| MemStorage loses data on restart | DatabaseStorage with Drizzle ORM |
+| user_profiles 404 spam (90+ errors) | Created the missing table |
+| ElevenLabs 401 on redirect | Disabled JWT verification on edge function |
+| contact-form/contact-info 404 | Created the edge functions |
+| Contact form missing phone field | Added to schema, DB, and UI |
+| services-section.tsx unicode corruption | Clean rewrite |
+| supabase-service.ts proxying broken endpoints | Removed, routes go direct to DB |

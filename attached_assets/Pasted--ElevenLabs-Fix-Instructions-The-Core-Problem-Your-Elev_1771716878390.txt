@@ -1,0 +1,116 @@
+# ElevenLabs Fix Instructions
+
+## The Core Problem
+Your ElevenLabs tools are calling Supabase edge functions that either:
+- Don't exist (contact-form, contact-info → 404)
+- Require auth that ElevenLabs can't provide correctly (redirect-to-contact → 401)
+
+## Solution: Two-Part Fix
+
+### Part 1: Update the Supabase Edge Function
+In Supabase Dashboard → Edge Functions → `redirect-to-contact`:
+- Replace the code with `redirect-to-contact.ts` from this fixes folder
+- **CRITICAL**: In the Edge Function settings, set **Enforce JWT Verification** to **OFF**
+  (This is the toggle in Supabase Dashboard → Edge Functions → redirect-to-contact → Settings)
+  This is why you keep getting 401 — Supabase auto-rejects requests without valid JWT.
+
+### Part 2: Create `contact-info` Edge Function  
+In Supabase Dashboard → Edge Functions → Create New → name it `contact-info`:
+Paste the code from `contact-info-edge-function.ts` in this folder.
+Also set **Enforce JWT Verification** to **OFF**.
+
+### Part 3: Update ElevenLabs Tool Configs
+
+#### Redirect_To_Contact_Form — SIMPLIFIED (no auth headers)
+```json
+{
+  "type": "webhook",
+  "name": "Redirect_To_Contact_Form",
+  "description": "Redirects users to the JABV Labs contact form when they want to get in touch.",
+  "api_schema": {
+    "url": "https://qzfcefvusjzdzseokdla.supabase.co/functions/v1/redirect-to-contact",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Trigger redirect to contact form.",
+      "required": false,
+      "properties": [
+        {
+          "id": "action",
+          "type": "string",
+          "description": "",
+          "dynamic_variable": "",
+          "constant_value": "redirect-contact",
+          "required": true,
+          "value_type": "constant"
+        }
+      ]
+    },
+    "request_headers": []
+  },
+  "response_timeout_secs": 5
+}
+```
+
+#### Contact_Info_Form — SIMPLIFIED (no auth headers)
+```json
+{
+  "type": "webhook",
+  "name": "Contact_Info_Form",
+  "description": "Collects contact data from users and stores it.",
+  "api_schema": {
+    "url": "https://qzfcefvusjzdzseokdla.supabase.co/functions/v1/contact-info",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Contact data collected by Jax.",
+      "required": false,
+      "properties": [
+        {
+          "id": "name",
+          "type": "string",
+          "description": "User's full name",
+          "required": true,
+          "value_type": "llm_prompt"
+        },
+        {
+          "id": "email",
+          "type": "string",
+          "description": "User's email address",
+          "required": true,
+          "value_type": "llm_prompt"
+        },
+        {
+          "id": "phone",
+          "type": "string",
+          "description": "User's phone number",
+          "required": false,
+          "value_type": "llm_prompt"
+        },
+        {
+          "id": "message",
+          "type": "string",
+          "description": "Project details or query",
+          "required": true,
+          "value_type": "llm_prompt"
+        }
+      ]
+    },
+    "request_headers": []
+  },
+  "response_timeout_secs": 10
+}
+```
+
+## Why This Works
+- Removing auth headers from ElevenLabs config eliminates the secret_id mismatch problem
+- Disabling JWT verification on the edge functions lets ElevenLabs call them without auth tokens
+- The edge functions are simple passthrough — they accept data and return success
+- Security note: These endpoints only accept/return JSON and don't expose sensitive data. 
+  If you want auth later, use a simple API key in a custom header, not Supabase JWT.
