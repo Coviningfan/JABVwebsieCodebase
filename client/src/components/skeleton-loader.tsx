@@ -8,38 +8,51 @@ interface SkeletonLoaderProps {
 
 export function SkeletonLoader({ 
   className = '', 
-  variant = 'rectangular',
-  width = '100%',
-  height = '20px',
-  lines = 1
+  variant = 'text', 
+  width = '100%', 
+  height = '1rem',
+  lines = 1 
 }: SkeletonLoaderProps) {
-  const baseClasses = 'animate-pulse bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 bg-[length:200%_100%]';
-  
+  const baseClasses = 'animate-pulse bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 bg-[length:200%_100%] animate-shimmer';
+
   const getVariantClasses = () => {
     switch (variant) {
-      case 'text':
-        return 'rounded h-4';
       case 'circular':
-        return 'rounded-full aspect-square';
+        return 'rounded-full';
       case 'rectangular':
-        return 'rounded';
+        return 'rounded-md';
       case 'card':
-        return 'rounded-xl';
+        return 'rounded-lg';
+      case 'text':
       default:
         return 'rounded';
     }
   };
 
-  if (variant === 'text' && lines > 1) {
+  if (variant === 'card') {
+    return (
+      <div className={`${baseClasses} ${getVariantClasses()} p-6 ${className}`} style={{ width, height }}>
+        <div className="space-y-4">
+          <div className="h-4 bg-gray-600 rounded w-3/4"></div>
+          <div className="space-y-2">
+            <div className="h-3 bg-gray-600 rounded"></div>
+            <div className="h-3 bg-gray-600 rounded w-5/6"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (lines > 1) {
     return (
       <div className={`space-y-2 ${className}`}>
-        {Array.from({ length: lines }).map((_, i) => (
+        {Array.from({ length: lines }).map((_, index) => (
           <div
-            key={i}
+            key={index}
             className={`${baseClasses} ${getVariantClasses()}`}
-            style={{
-              width: i === lines - 1 ? '80%' : width,
-              height: height
+            style={{ 
+              width: index === lines - 1 ? '75%' : width, 
+              height 
             }}
           />
         ))}

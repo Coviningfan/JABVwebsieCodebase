@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import React, { useEffect, useRef, useState } from 'react';
+
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
 const services = [
   {
     id: 1,
@@ -44,10 +49,61 @@ const services = [
 ];
 
 export function ServicesSection() {
+<<<<<<< HEAD
+=======
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cardIndex = cardRefs.current.findIndex(ref => ref === entry.target);
+            if (cardIndex !== -1 && !visibleCards.includes(cardIndex)) {
+              setTimeout(() => {
+                setVisibleCards(prev => [...prev, cardIndex]);
+              }, cardIndex * 200);
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [visibleCards]);
+
+  const handleLearnMore = (serviceId: number) => {
+    switch(serviceId) {
+      case 1:
+        window.location.href = '/services/mobile-app-development';
+        break;
+      case 2:
+        window.location.href = '/services/interactive-websites';
+        break;
+      case 3:
+        window.location.href = '/services/website-redesigns';
+        break;
+      default:
+        alert('Service details coming soon! Contact us for more information.');
+    }
+  };
+
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
   return (
-    <section id="services" className="py-20 bg-black">
+    <section ref={sectionRef} id="services" className="py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+<<<<<<< HEAD
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Everything you need to establish a powerful digital presence — built by hand, not by bots.
@@ -87,10 +143,90 @@ export function ServicesSection() {
                 Learn More
                 <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
               </a>
+=======
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto">
+            Comprehensive digital solutions tailored to your business needs
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((service, index) => (
+            <div 
+              key={service.id}
+              ref={(el) => (cardRefs.current[index] = el)}
+              className={`bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl p-6 sm:p-8 rounded-3xl text-center hover:transform hover:scale-[1.05] hover:-translate-y-2 transition-all duration-700 cursor-pointer group border border-neutral-700/50 hover:border-red-500/50 shadow-2xl hover:shadow-red-500/30 hover:shadow-3xl min-h-[420px] sm:min-h-[480px] flex flex-col ${
+                visibleCards.includes(index) 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: visibleCards.includes(index) ? `${index * 200}ms` : '0ms'
+              }}
+            >
+              <div className="mb-8 relative">
+                <div className={`w-20 h-20 mx-auto bg-gradient-to-br from-red-600/20 to-red-700/20 rounded-2xl flex items-center justify-center group-hover:from-red-600/30 group-hover:to-red-700/30 transition-all duration-500 backdrop-blur-sm border border-red-500/20 ${
+                  visibleCards.includes(index) ? 'animate-bounce-once' : ''
+                }`}>
+                  <i className={`${service.icon} text-4xl text-red-500 group-hover:text-red-400 transition-all duration-300 group-hover:rotate-12`}></i>
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{service.title}</h3>
+              <p className="text-gray-400 mb-6 leading-relaxed flex-grow">{service.description}</p>
+              <ul className="text-left text-gray-300 mb-8 space-y-3">
+                {service.features.map((feature, featureIndex) => (
+                  <li 
+                    key={featureIndex} 
+                    className={`flex items-center transition-all duration-500 ${
+                      visibleCards.includes(index) 
+                        ? 'opacity-100 translate-x-0' 
+                        : 'opacity-0 -translate-x-4'
+                    }`}
+                    style={{
+                      transitionDelay: visibleCards.includes(index) ? `${(index * 200) + (featureIndex * 100) + 300}ms` : '0ms'
+                    }}
+                  >
+                    <div className="w-5 h-5 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center mr-3 flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
+                      <i className="fas fa-check text-white text-xs"></i>
+                    </div>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex justify-center mt-auto">
+                <button 
+                  onClick={() => handleLearnMore(service.id)}
+                  className="bg-transparent border-2 border-red-600/70 text-red-500 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-700 hover:text-white hover:border-red-500 px-8 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-red-500/25 w-full max-w-[200px] hover:scale-105 group-hover:animate-pulse"
+                >
+                  Learn More
+                </button>
+              </div>
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
             </div>
           ))}
         </div>
       </div>
+      
+      <style jsx>{`
+        @keyframes bounce-once {
+          0%, 20%, 53%, 80%, 100% {
+            transform: translate3d(0,0,0);
+          }
+          40%, 43% {
+            transform: translate3d(0,-8px,0);
+          }
+          70% {
+            transform: translate3d(0,-4px,0);
+          }
+          90% {
+            transform: translate3d(0,-2px,0);
+          }
+        }
+        
+        .animate-bounce-once {
+          animation: bounce-once 1s ease-out;
+        }
+      `}</style>
     </section>
   );
 }

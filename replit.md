@@ -127,6 +127,7 @@ Changelog:
   - Fixed hero section export/import issues for build compatibility
   - Added routing for all service pages with proper linking
   - Moved CSS animations to main stylesheet for better maintainability
+<<<<<<< HEAD
 - June 26, 2025. Implemented sophisticated loading animations and page transitions:
   - Added comprehensive loading screen with progress tracking and logo animation
   - Created smooth page transition overlay system with sliding effects
@@ -160,6 +161,19 @@ Changelog:
   - Added /api/elevenlabs-redirect and /api/health endpoints
   - Deleted unused files: typewriter-hero.tsx, loading-screen.tsx
   - Switched from @neondatabase/serverless to pg driver for Replit PostgreSQL
+=======
+- June 26, 2025. Enhanced animations and user experience:
+  - Accelerated loading screen from ~3.5s to ~2s duration
+  - Added dramatic fade-in animation for hero content after typewriter completion
+  - Implemented ElevenLabs conversational AI widget integration
+  - Styled Contact button in navigation with red gradient matching hero CTA
+  - Updated portfolio carousel subtitle to "Some of the services we offer"
+  - Fixed About section image with custom SVG illustration (Nevada mountains + tech elements)
+  - Enhanced services section with shiny hover effects and symmetric button alignment
+  - Added collapsible technology carousel section with dropdown toggle
+  - Improved infinite scroll behavior for portfolio carousel
+  - Fixed all text alignment issues across service pages
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
 ```
 
 ## User Preferences

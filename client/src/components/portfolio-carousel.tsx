@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 const portfolioItems = [
   {
     id: 1,
+<<<<<<< HEAD
     title: "FinTech Mobile App",
     description: "iOS & Android banking solution with biometric security and real-time transactions",
     icon: "fas fa-university",
@@ -80,6 +81,59 @@ const portfolioItems = [
     icon: "fas fa-plane",
     tags: ["AI", "Booking", "Offline"],
     gradient: "from-sky-600/30 to-blue-600/20"
+=======
+    title: "Local Restaurant Chain",
+    description: "Online ordering system with loyalty rewards",
+    icon: "fas fa-utensils",
+    color: "from-blue-500 to-blue-700",
+    stats: "45% More Orders",
+    tech: ["React", "Stripe", "SMS"]
+  },
+  {
+    id: 2,
+    title: "Real Estate Agency",
+    description: "Property showcase with virtual tours",
+    icon: "fas fa-home",
+    color: "from-green-500 to-green-700",
+    stats: "60% Faster Sales",
+    tech: ["Next.js", "Maps API", "CRM"]
+  },
+  {
+    id: 3,
+    title: "Medical Practice",
+    description: "Patient portal with appointment booking",
+    icon: "fas fa-stethoscope",
+    color: "from-red-500 to-red-700",
+    stats: "Less Phone Calls",
+    tech: ["Vue.js", "Calendar", "HIPAA"]
+  },
+  {
+    id: 4,
+    title: "Fitness Studio",
+    description: "Class booking and membership management",
+    icon: "fas fa-dumbbell",
+    color: "from-purple-500 to-purple-700",
+    stats: "80% Online Bookings",
+    tech: ["React", "Payments", "Mobile"]
+  },
+  {
+    id: 5,
+    title: "Professional Services",
+    description: "Client portal with project tracking",
+    icon: "fas fa-briefcase",
+    color: "from-orange-500 to-orange-700",
+    stats: "Better Client Relations",
+    tech: ["Dashboard", "Reports", "Invoicing"]
+  },
+  {
+    id: 6,
+    title: "Retail Store",
+    description: "E-commerce with inventory management",
+    icon: "fas fa-shopping-bag",
+    color: "from-yellow-500 to-yellow-700",
+    stats: "200% Online Sales",
+    tech: ["Shopify", "Analytics", "SEO"]
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
   }
 ];
 
@@ -87,15 +141,19 @@ export function PortfolioCarousel() {
   const [scrollAmount, setScrollAmount] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const scrollStep = 320;
+  const [userInteracted, setUserInteracted] = useState(false);
+  const scrollStep = 280;
 
   useEffect(() => {
-    if (isHovered) return;
+    if (isHovered || userInteracted) return;
 
     const interval = setInterval(() => {
       if (carouselRef.current) {
-        const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
+        const container = carouselRef.current;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        
         setScrollAmount(prev => {
+<<<<<<< HEAD
           const newAmount = prev >= maxScroll ? 0 : prev + scrollStep;
 
           if (newAmount === 0) {
@@ -108,28 +166,46 @@ export function PortfolioCarousel() {
           }
 
           return newAmount;
+=======
+          const newAmount = prev + scrollStep;
+          if (newAmount >= maxScroll) {
+            setTimeout(() => {
+              container.style.scrollBehavior = 'auto';
+              container.scrollTo({ left: 0 });
+              container.style.scrollBehavior = 'smooth';
+            }, 100);
+            return 0;
+          } else {
+            container.scrollTo({ left: newAmount, behavior: 'smooth' });
+            return newAmount;
+          }
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
         });
       }
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, userInteracted]);
 
   const handlePrevious = () => {
+    setUserInteracted(true);
     if (carouselRef.current) {
       const newAmount = Math.max(scrollAmount - scrollStep, 0);
       setScrollAmount(newAmount);
       carouselRef.current.scrollTo({ left: newAmount, behavior: 'smooth' });
     }
+    setTimeout(() => setUserInteracted(false), 10000);
   };
 
   const handleNext = () => {
+    setUserInteracted(true);
     if (carouselRef.current) {
       const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
       const newAmount = Math.min(scrollAmount + scrollStep, maxScroll);
       setScrollAmount(newAmount);
       carouselRef.current.scrollTo({ left: newAmount, behavior: 'smooth' });
     }
+    setTimeout(() => setUserInteracted(false), 10000);
   };
 
   return (
@@ -138,18 +214,19 @@ export function PortfolioCarousel() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Work</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Showcasing premium apps and websites we've crafted for our clients
+            Examples of what we can build for your business
           </p>
         </div>
 
         <div className="relative overflow-hidden">
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-6 scroll-smooth px-6 md:px-4"
+            className="flex overflow-x-auto scrollbar-hide space-x-6 sm:space-x-8 pb-8 pt-6 scroll-smooth px-4 sm:px-6 md:px-4"
             onScroll={(e) => setScrollAmount(e.currentTarget.scrollLeft)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
+<<<<<<< HEAD
             {portfolioItems.map((item) => (
               <div key={item.id} className="portfolio-item flex-none w-72 md:w-80 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500">
                 <div className={`relative overflow-hidden h-40 md:h-48 flex items-center justify-center bg-gradient-to-br ${item.gradient}`}>
@@ -162,6 +239,54 @@ export function PortfolioCarousel() {
                     {item.tags.map((tag, idx) => (
                       <span key={idx} className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10">
                         {tag}
+=======
+            {portfolioItems.map((item, index) => (
+              <div 
+                key={item.id} 
+                className={`portfolio-item flex-none w-72 sm:w-80 md:w-96 bg-gradient-to-br from-neutral-800/80 to-black/40 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-neutral-700/30 group relative min-h-[420px] sm:min-h-[480px] flex flex-col`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Icon section with dynamic colors */}
+                <div className={`relative overflow-hidden h-48 md:h-56 flex items-center justify-center bg-gradient-to-br ${item.color}/15 to-black/60`}>
+                  <div className={`w-24 h-24 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110`}>
+                    <i className={`${item.icon} text-4xl text-white`}></i>
+                  </div>
+                  
+                  {/* Subtle floating particles effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-500">
+                    <div className="absolute top-4 left-4 w-1.5 h-1.5 bg-white/30 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="absolute top-8 right-6 w-1 h-1 bg-white/20 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="absolute bottom-8 left-8 w-1 h-1 bg-white/25 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+                  </div>
+                </div>
+                
+                <div className="p-6 md:p-8 relative z-10 bg-black/20 backdrop-blur-sm flex-grow flex flex-col">
+                  {/* Title with better contrast */}
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-white">
+                    {item.title}
+                  </h3>
+                  
+                  {/* Description with high contrast */}
+                  <p className="text-gray-200 leading-relaxed mb-4 text-base md:text-lg flex-grow">
+                    {item.description}
+                  </p>
+                  
+                  {/* Stats badge with better readability */}
+                  <div className={`bg-black/40 border border-neutral-500/60 rounded-full px-4 py-2 mb-4 text-center backdrop-blur-sm`}>
+                    <span className={`text-sm font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
+                      {item.stats}
+                    </span>
+                  </div>
+                  
+                  {/* Tech stack with improved contrast */}
+                  <div className="flex flex-wrap gap-2 justify-center mt-auto">
+                    {item.tech.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex}
+                        className="bg-black/50 border border-neutral-500/50 rounded-lg px-3 py-1.5 text-xs text-gray-200 backdrop-blur-sm hover:bg-black/60 transition-colors duration-200"
+                      >
+                        {tech}
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
                       </span>
                     ))}
                   </div>
@@ -170,15 +295,50 @@ export function PortfolioCarousel() {
             ))}
           </div>
 
+<<<<<<< HEAD
           <button
+=======
+          {/* Progress Indicators */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(portfolioItems.length / 2) }).map((_, index) => {
+              const isActive = Math.floor(scrollAmount / (scrollStep * 2)) === index;
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setUserInteracted(true);
+                    const newAmount = index * scrollStep * 2;
+                    setScrollAmount(newAmount);
+                    if (carouselRef.current) {
+                      carouselRef.current.scrollTo({
+                        left: newAmount,
+                        behavior: 'smooth'
+                      });
+                    }
+                    setTimeout(() => setUserInteracted(false), 10000);
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-red-600 scale-125 shadow-lg shadow-red-500/50' 
+                      : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              );
+            })}
+          </div>
+
+          {/* Carousel Controls */}
+          <button 
+>>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
             onClick={handlePrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
           >
             <i className="fas fa-chevron-left"></i>
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
           >
             <i className="fas fa-chevron-right"></i>
           </button>
