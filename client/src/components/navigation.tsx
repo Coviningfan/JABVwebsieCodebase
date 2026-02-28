@@ -122,16 +122,9 @@ export function Navigation() {
             >
               About
             </button>
-<<<<<<< HEAD
             <button
               onClick={() => { setLocation('/contact'); setIsMenuOpen(false); }}
-              className="block px-4 py-2 text-base font-medium text-white rounded-lg transition-colors duration-200 w-full text-left"
-              style={{ backgroundColor: '#C82222' }}
-=======
-            <button 
-              onClick={() => setLocation('/contact')}
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 mx-3 my-1"
->>>>>>> 012843c7200ee2de4fc0bc1f576bcb17a48a5ddb
+              className="block px-4 py-2 text-base font-medium text-white rounded-lg transition-colors duration-200 w-full text-left bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800"
             >
               Contact
             </button>
