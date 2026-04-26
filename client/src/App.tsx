@@ -1,15 +1,12 @@
 import { useEffect } from "react";
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/home";
+import { Route, Switch } from "wouter";
+
 import Contact from "@/pages/contact";
-import MobileAppDevelopment from "@/pages/services/mobile-app-development";
-import InteractiveWebsites from "@/pages/services/interactive-websites";
-import WebsiteRedesigns from "@/pages/services/website-redesigns";
+import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import InteractiveWebsites from "@/pages/services/interactive-websites";
+import MobileAppDevelopment from "@/pages/services/mobile-app-development";
+import WebsiteRedesigns from "@/pages/services/website-redesigns";
 
 function Router() {
   return (
@@ -24,16 +21,16 @@ function Router() {
   );
 }
 
-function App() {
+export default function App() {
   useEffect(() => {
     const existing = document.querySelector("elevenlabs-convai");
     if (!existing) {
-      const widgetDiv = document.createElement("elevenlabs-convai");
-      widgetDiv.setAttribute("agent-id", "agent_01jynfyb8neqkby2q4esd71ybw");
-      document.body.appendChild(widgetDiv);
+      const widgetNode = document.createElement("elevenlabs-convai");
+      widgetNode.setAttribute("agent-id", "agent_01jynfyb8neqkby2q4esd71ybw");
+      document.body.appendChild(widgetNode);
     }
 
-    if (!document.querySelector('script[src*="elevenlabs"]')) {
+    if (!document.querySelector('script[src*="convai-widget-embed"]')) {
       const script = document.createElement("script");
       script.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
       script.async = true;
@@ -42,14 +39,5 @@ function App() {
     }
   }, []);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+  return <Router />;
 }
-
-export default App;
